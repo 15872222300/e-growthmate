@@ -1,0 +1,195 @@
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
+import { Card, Progress, Tag } from 'tdesign-react';
+import { ChevronRightIcon } from 'tdesign-icons-react';
+
+const features = [
+  { icon: '🔍', title: 'AI成长诊断', desc: '精准评估你的当前阶段，生成个性化成长画像与建议', to: '/diagnosis', color: '#0066ff' },
+  { icon: '🗺️', title: '职业探索地图', desc: '提前了解岗位与企业文化，打破信息差', to: '/career-map', color: '#7c3aed' },
+  { icon: '🤖', title: '专业AI能力定制', desc: '根据专业背景生成差异化的AI能力培养路径', to: '/ai-skill', color: '#10b981' },
+  { icon: '📚', title: '技能成长中心', desc: '每日任务卡驱动，覆盖职场全维度技能', to: '/skill-center', color: '#f59e0b' },
+  { icon: '🔧', title: '项目实践工坊', desc: '完成可写入简历的实战项目', to: '/project-workshop', color: '#ef4444' },
+  { icon: '💼', title: '求职准备中心', desc: '简历优化、模拟面试、岗位匹配', to: '/job-prep', color: '#ec4899' },
+];
+
+const growthPath = [
+  { step: '职业认知', icon: '👀', desc: '了解行业与岗位' },
+  { step: 'AI能力培养', icon: '🤖', desc: '专业AI技能训练' },
+  { step: '职场技能', icon: '📚', desc: '通用与专业能力' },
+  { step: '项目实践', icon: '🔧', desc: '产出真实作品' },
+  { step: '求职准备', icon: '💼', desc: '简历与面试' },
+  { step: '职场适应', icon: '🚀', desc: '持续成长陪伴' },
+];
+
+export default function Home() {
+  const navigate = useNavigate();
+
+  return (
+    <div className="page-container">
+      {/* Hero */}
+      <div style={{
+        textAlign: 'center',
+        padding: '60px 20px 40px',
+        position: 'relative',
+      }}>
+        <div style={{
+          width: 90, height: 90, borderRadius: 24,
+          background: 'var(--brand-color)',
+          display: 'flex', alignItems: 'center', justifyContent: 'center',
+          margin: '0 auto 28px',
+          fontSize: 44,
+          boxShadow: '0 8px 32px rgba(0,82,217,.3)',
+          animation: 'float 3s ease-in-out infinite',
+        }}>🐧</div>
+        <h1 style={{
+          fontSize: 48, fontWeight: 800, letterSpacing: -1,
+          marginBottom: 6, color: 'var(--brand-color)',
+        }}>
+          鹅伴 GrowthMate
+        </h1>
+        <p style={{
+          fontSize: 20, color: 'var(--text-secondary)',
+          marginBottom: 4, fontWeight: 600,
+        }}>
+          AI 求职成长陪伴平台
+        </p>
+        <p style={{
+          fontSize: 22, color: 'var(--text-secondary)',
+          marginBottom: 10, fontWeight: 500,
+        }}>
+          🐧 陪你从校园拿到心仪Offer
+        </p>
+        <p style={{
+          fontSize: 17, color: 'var(--text-muted)',
+          maxWidth: 620, margin: '0 auto 36px',
+          lineHeight: 1.9,
+        }}>
+          一只懂求职的 AI 企鹅 🐧，从大一到研究生，帮你诊断短板、定制技能、打磨简历、模拟面试，
+          陪你一步步拿到心仪 Offer，完成从校园到职场的平滑过渡。
+        </p>
+        <button
+          className="btn-primary"
+          onClick={() => navigate('/diagnosis')}
+          style={{ fontSize: 17, padding: '16px 40px' }}
+        >
+          开始我的成长诊断 <ChevronRightIcon />
+        </button>
+      </div>
+
+      {/* Growth Path */}
+      <div style={{ marginBottom: 52 }}>
+        <h2 className="section-title" style={{ textAlign: 'center' }}>🎯 陪伴成长路径</h2>
+        <p className="section-subtitle" style={{ textAlign: 'center' }}>
+          职业认知 → AI能力培养 → 职场技能 → 项目实践 → 求职准备 → 职场适应
+        </p>
+        <div style={{
+          display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: 20,
+          marginTop: 28,
+        }}>
+          {growthPath.map((item, i) => (
+            <div key={item.step} className="glass-card animate-fade-in-up" style={{
+              padding: '24px 28px',
+              textAlign: 'center',
+              minWidth: 160,
+              animationDelay: `${i * 0.1}s`,
+              flex: '1 1 160px',
+              maxWidth: 200,
+            }}>
+              <div style={{ fontSize: 36, marginBottom: 10 }}>{item.icon}</div>
+              <div style={{ fontWeight: 700, fontSize: 16, marginBottom: 6, color: 'var(--brand-color)' }}>
+                {i + 1}. {item.step}
+              </div>
+              <div style={{ fontSize: 14, color: 'var(--text-muted)' }}>{item.desc}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Features */}
+      <div style={{ marginBottom: 52 }}>
+        <h2 className="section-title" style={{ textAlign: 'center' }}>✨ 核心功能</h2>
+        <p className="section-subtitle" style={{ textAlign: 'center' }}>
+          六大功能模块，全方位陪伴你的成长之旅
+        </p>
+        <div className="card-grid-3">
+          {features.map((f, i) => (
+            <div
+              key={f.title}
+              className="glass-card animate-fade-in-up"
+              style={{
+                padding: '32px 28px',
+                cursor: 'pointer',
+                animationDelay: `${i * 0.1}s`,
+                borderTop: `4px solid ${f.color}`,
+              }}
+              onClick={() => navigate(f.to)}
+            >
+              <div style={{ fontSize: 40, marginBottom: 14 }}>{f.icon}</div>
+              <h3 style={{ fontSize: 20, fontWeight: 700, marginBottom: 10, color: f.color }}>{f.title}</h3>
+              <p style={{ fontSize: 16, color: 'var(--text-secondary)', lineHeight: 1.8, marginBottom: 14 }}>
+                {f.desc}
+              </p>
+              <span style={{ fontSize: 15, color: f.color, fontWeight: 600, cursor: 'pointer' }}>
+                立即体验 →
+              </span>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Why GrowthMate */}
+      <div style={{
+        background: '#f0f4ff',
+        borderRadius: 'var(--radius-xl)',
+        padding: '48px 40px',
+        textAlign: 'center',
+        marginBottom: 28,
+      }}>
+        <h2 className="section-title">💡 为什么选择e职伴？</h2>
+        <div className="card-grid-3" style={{ marginTop: 36 }}>
+          {[
+            { icon: '🎓', title: '分年级定制', desc: '大一到大四/研究生，每个阶段都有专属成长建议，不做一刀切' },
+            { icon: '🤖', title: 'AI能力差异化', desc: '计算机学编程AI、新闻学创作AI、金融学分析AI，让AI真正为你所用' },
+            { icon: '💝', title: '温暖陪伴式', desc: '不只提供信息，更提供陪伴感、进度感和成就感，像一位懂你的学长' },
+          ].map((item, i) => (
+            <div key={i} className="animate-fade-in-up" style={{ animationDelay: `${i * 0.15}s`, padding: 24 }}>
+              <div style={{ fontSize: 44, marginBottom: 14 }}>{item.icon}</div>
+              <h3 style={{ fontSize: 19, fontWeight: 700, marginBottom: 10 }}>{item.title}</h3>
+              <p style={{ fontSize: 16, color: 'var(--text-secondary)', lineHeight: 1.8 }}>{item.desc}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* CTA */}
+      <div style={{ textAlign: 'center', padding: '40px 0 20px' }}>
+        <p style={{ fontSize: 20, color: 'var(--text-secondary)', marginBottom: 24, fontWeight: 500 }}>
+          准备好开始你的成长之旅了吗？
+        </p>
+        <button className="btn-primary" onClick={() => navigate('/diagnosis')} style={{ fontSize: 17, padding: '16px 40px' }}>
+          🔍 开始成长诊断
+        </button>
+      </div>
+
+      {/* Demo 声明 */}
+      <div style={{
+        textAlign: 'center',
+        padding: '20px 24px',
+        marginTop: 8,
+        background: '#f8fafc',
+        borderRadius: 'var(--radius)',
+        border: '1px dashed var(--border)',
+        fontSize: 13,
+        color: 'var(--text-muted)',
+        lineHeight: 1.8,
+      }}>
+        <p>
+          🐧 <strong>本 Demo 为 AI 求职成长陪伴产品原型，数据为模拟展示。</strong>
+        </p>
+        <p style={{ marginTop: 4 }}>
+          鹅伴 GrowthMate 致力于为大学生提供从校园到职场的全周期成长陪伴服务。
+        </p>
+      </div>
+    </div>
+  );
+}
