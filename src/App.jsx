@@ -14,6 +14,7 @@ import EmotionComfort from './pages/EmotionComfort';
 import StudyPlan from './pages/StudyPlan';
 import Community from './pages/Community';
 import AiChat from './pages/AiChat';
+import ABTestLab from './pages/ABTestLab';
 
 export default function App() {
   const [userProfile, setUserProfile] = useState(null);
@@ -34,6 +35,7 @@ export default function App() {
           <Route path="/study-plan" element={<StudyPlan profile={userProfile} />} />
           <Route path="/community" element={<Community />} />
           <Route path="/ai-chat" element={<AiChat />} />
+          <Route path="/ab-test-lab" element={<ABTestLab />} />
         </Routes>
       </Layout>
     </AuthProvider>

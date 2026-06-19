@@ -10,6 +10,7 @@ const features = [
   { icon: '📚', title: '技能成长中心', desc: '每日任务卡驱动，覆盖职场全维度技能', to: '/skill-center', color: '#f59e0b' },
   { icon: '🔧', title: '项目实践工坊', desc: '完成可写入简历的实战项目', to: '/project-workshop', color: '#ef4444' },
   { icon: '💼', title: '求职准备中心', desc: '简历优化、模拟面试、岗位匹配', to: '/job-prep', color: '#ec4899' },
+  { icon: '🧪', title: 'A/B 测试实验室', desc: '数据驱动体验优化，模拟 A/B 测试验证产品迭代方向', to: '/ab-test-lab', color: '#FFB347' },
 ];
 
 const growthPath = [
