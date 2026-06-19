@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Card, Progress, Tag } from 'tdesign-react';
 import { ChevronRightIcon } from 'tdesign-icons-react';
@@ -24,6 +24,7 @@ const growthPath = [
 
 export default function Home() {
   const navigate = useNavigate();
+  const [activeVersion, setActiveVersion] = useState(null);
 
   return (
     <div className="page-container">
@@ -49,18 +50,6 @@ export default function Home() {
           鹅伴 GrowthMate
         </h1>
         <p style={{
-          fontSize: 20, color: 'var(--text-secondary)',
-          marginBottom: 4, fontWeight: 600,
-        }}>
-          AI 求职成长陪伴平台
-        </p>
-        <p style={{
-          fontSize: 22, color: 'var(--text-secondary)',
-          marginBottom: 10, fontWeight: 500,
-        }}>
-          🐧 陪你从校园拿到心仪Offer
-        </p>
-        <p style={{
           fontSize: 17, color: 'var(--text-muted)',
           maxWidth: 620, margin: '0 auto 36px',
           lineHeight: 1.9,
@@ -68,13 +57,77 @@ export default function Home() {
           一只懂求职的 AI 企鹅 🐧，从大一到研究生，帮你诊断短板、定制技能、打磨简历、模拟面试，
           陪你一步步拿到心仪 Offer，完成从校园到职场的平滑过渡。
         </p>
-        <button
-          className="btn-primary"
-          onClick={() => navigate('/diagnosis')}
-          style={{ fontSize: 17, padding: '16px 40px' }}
-        >
-          开始我的成长诊断 <ChevronRightIcon />
-        </button>
+
+        {/* A/B 版本选择区 */}
+        <div style={{ marginBottom: 8 }}>
+          <Tag theme="primary" variant="light" size="small" style={{ marginBottom: 16 }}>
+            🧪 A/B 测试进行中 — 选择你感兴趣的版本体验
+          </Tag>
+        </div>
+        <div style={{
+          display: 'flex', justifyContent: 'center', gap: 24, flexWrap: 'wrap',
+        }}>
+          {/* A 版本 */}
+          <div className="glass-card animate-fade-in-up" style={{
+            width: 340, padding: '28px 24px 24px', textAlign: 'center',
+            cursor: 'pointer', transition: 'all 0.3s',
+            border: activeVersion === 'a' ? '2px solid #7C8BFF' : '2px solid transparent',
+            transform: activeVersion === 'a' ? 'scale(1.03)' : 'scale(1)',
+            boxShadow: activeVersion === 'a' ? '0 8px 32px rgba(124,139,255,0.25)' : undefined,
+          }} onClick={() => setActiveVersion('a')}>
+            <div style={{
+              display: 'inline-block', padding: '4px 12px', borderRadius: 12,
+              background: 'rgba(124,139,255,0.12)', color: '#7C8BFF',
+              fontSize: 12, fontWeight: 600, marginBottom: 14,
+            }}>
+              A 版本
+            </div>
+            <div style={{ fontSize: 20, fontWeight: 700, color: '#7C8BFF', marginBottom: 4 }}>
+              AI 求职成长陪伴平台
+            </div>
+            <div style={{ fontSize: 14, color: 'var(--text-secondary)', marginBottom: 16 }}>
+              功能导向 · 理性表达
+            </div>
+            <button
+              className="btn-primary"
+              onClick={(e) => { e.stopPropagation(); navigate('/diagnosis'); }}
+              style={{ fontSize: 15, padding: '12px 32px', background: '#7C8BFF' }}
+            >
+              开始我的成长诊断 <ChevronRightIcon />
+            </button>
+          </div>
+
+          {/* B 版本 */}
+          <div className="glass-card animate-fade-in-up" style={{
+            width: 340, padding: '28px 24px 24px', textAlign: 'center',
+            cursor: 'pointer', transition: 'all 0.3s',
+            border: activeVersion === 'b' ? '2px solid #FFB347' : '2px solid transparent',
+            transform: activeVersion === 'b' ? 'scale(1.03)' : 'scale(1)',
+            boxShadow: activeVersion === 'b' ? '0 8px 32px rgba(255,179,71,0.25)' : undefined,
+            animationDelay: '0.1s',
+          }} onClick={() => setActiveVersion('b')}>
+            <div style={{
+              display: 'inline-block', padding: '4px 12px', borderRadius: 12,
+              background: 'rgba(255,179,71,0.12)', color: '#FFB347',
+              fontSize: 12, fontWeight: 600, marginBottom: 14,
+            }}>
+              B 版本
+            </div>
+            <div style={{ fontSize: 20, fontWeight: 700, color: '#FFB347', marginBottom: 4 }}>
+              陪你从校园走向职场
+            </div>
+            <div style={{ fontSize: 14, color: 'var(--text-secondary)', marginBottom: 16 }}>
+              情感导向 · 共鸣表达
+            </div>
+            <button
+              className="btn-primary"
+              onClick={(e) => { e.stopPropagation(); navigate('/diagnosis'); }}
+              style={{ fontSize: 15, padding: '12px 32px', background: '#FFB347' }}
+            >
+              立即开启求职陪伴 <ChevronRightIcon />
+            </button>
+          </div>
+        </div>
       </div>
 
       {/* Growth Path */}
