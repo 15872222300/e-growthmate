@@ -28,10 +28,26 @@ const navItems = [
       { path: '/project-workshop', label: '🔧 项目实践', icon: '🔧' },
     ],
   },
-  { path: '/job-prep', label: '💼 求职准备', icon: '💼' },
-  { path: '/interview-review', label: '💭 面试复盘', icon: '💭' },
-  { path: '/emotion-comfort', label: '💙 情绪陪伴室', icon: '💙' },
-  { path: '/ai-chat', label: '💬 AI 聊天', icon: '💬' },
+  {
+    id: 'job-prep',
+    path: null,
+    label: '💼 求职准备',
+    icon: '💼',
+    children: [
+      { path: '/job-prep', label: '💼 求职准备', icon: '💼' },
+      { path: '/interview-review', label: '💭 面试复盘', icon: '💭' },
+    ],
+  },
+  {
+    id: 'emotion',
+    path: null,
+    label: '💙 情绪关怀',
+    icon: '💙',
+    children: [
+      { path: '/emotion-comfort', label: '💙 情绪陪伴室', icon: '💙' },
+      { path: '/ai-chat', label: '💬 AI 聊天', icon: '💬' },
+    ],
+  },
   { path: '/community', label: '🌐 成长社区', icon: '🌐' },
 ];
 
@@ -56,10 +72,12 @@ export default function Layout({ children }) {
   const [openDropdown, setOpenDropdown] = useState(null);
   const discoverRef = useRef(null);
   const skillsRef = useRef(null);
+  const jobPrepRef = useRef(null);
+  const emotionRef = useRef(null);
   const navigate = useNavigate();
   const location = useLocation();
 
-  const refMap = { discover: discoverRef, skills: skillsRef };
+  const refMap = { discover: discoverRef, skills: skillsRef, 'job-prep': jobPrepRef, emotion: emotionRef };
 
   // 点击外部关闭下拉
   useEffect(() => {
