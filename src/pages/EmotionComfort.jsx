@@ -643,8 +643,9 @@ export default function EmotionComfort() {
             <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
               <div style={{
                 display: 'flex', alignItems: 'center', gap: 6,
-                padding: '6px 14px', background: 'var(--primary-light)',
-                borderRadius: 20, fontSize: 13, fontWeight: 600, color: 'var(--primary)',
+                padding: '6px 14px', background: 'rgba(255,209,73,0.08)',
+                borderRadius: 8, border: '1px solid #222222',
+                fontSize: 13, fontWeight: 600, color: '#333333',
               }}>
                 <span>🐧</span>
                 {user.username}
@@ -710,16 +711,16 @@ export default function EmotionComfort() {
 
       {/* ========== 情绪状态选择 ========== */}
       <Card bordered style={{
-        borderRadius: 'var(--radius-lg)',
+        borderRadius: 8,
         marginBottom: 16,
-        background: '#e8f0fe',
-        border: '1px solid #c7d2fe',
+        background: '#FAFAFA',
+        border: '1px solid #E0E0E0',
       }}>
         <div style={{ padding: 4 }}>
-          <h3 style={{ fontSize: 16, fontWeight: 700, marginBottom: 4, textAlign: 'center', color: '#6366f1' }}>
+          <h3 style={{ fontSize: 16, fontWeight: 700, marginBottom: 4, textAlign: 'center', color: '#333333' }}>
             我现在的状态是...
           </h3>
-          <p style={{ fontSize: 13, color: 'var(--text-muted)', textAlign: 'center', marginBottom: 16 }}>
+          <p style={{ fontSize: 13, color: '#777777', textAlign: 'center', marginBottom: 16 }}>
             点击选择你此刻最贴近的感受
           </p>
           <div style={{
@@ -732,26 +733,20 @@ export default function EmotionComfort() {
                 key={emotion.id}
                 onClick={() => handleEmotionSelect(emotion.id)}
                 style={{
-                  padding: '14px 12px', borderRadius: 14, cursor: 'pointer',
-                  transition: 'all 0.25s cubic-bezier(.4,0,.2,1)',
-                  background: selectedEmotion === emotion.id ? emotion.bg : '#fff',
-                  border: selectedEmotion === emotion.id ? `2px solid ${emotion.color}` : '2px solid transparent',
-                  boxShadow: selectedEmotion === emotion.id ? `0 4px 16px ${emotion.color}22` : '0 1px 3px rgba(0,0,0,.04)',
+                  padding: '14px 12px', borderRadius: 8, cursor: 'pointer',
+                  transition: 'all 0.2s',
+                  background: selectedEmotion === emotion.id ? '#FAFAFA' : '#FFFFFF',
+                  border: selectedEmotion === emotion.id ? '2px solid #222222' : '1px solid #E0E0E0',
                   textAlign: 'center',
-                  transform: selectedEmotion === emotion.id ? 'scale(1.03)' : 'scale(1)',
                 }}
                 onMouseEnter={e => {
                   if (selectedEmotion !== emotion.id) {
-                    e.currentTarget.style.borderColor = emotion.color + '66';
-                    e.currentTarget.style.transform = 'scale(1.02)';
-                    e.currentTarget.style.boxShadow = `0 4px 12px ${emotion.color}15`;
+                    e.currentTarget.style.borderColor = '#222222';
                   }
                 }}
                 onMouseLeave={e => {
                   if (selectedEmotion !== emotion.id) {
-                    e.currentTarget.style.borderColor = 'transparent';
-                    e.currentTarget.style.transform = 'scale(1)';
-                    e.currentTarget.style.boxShadow = '0 1px 3px rgba(0,0,0,.04)';
+                    e.currentTarget.style.borderColor = '#E0E0E0';
                   }
                 }}
               >
@@ -818,7 +813,7 @@ export default function EmotionComfort() {
                   onClick={() => handleQuickAsk(item.q)}
                   style={{
                     cursor: 'pointer', transition: 'all 0.2s',
-                    borderColor: '#c4b5fd', color: '#7c3aed', background: '#f5f3ff',
+                    borderColor: '#222222', color: '#333333', background: '#FAFAFA',
                   }}
                 >
                   {item.label}
@@ -832,36 +827,39 @@ export default function EmotionComfort() {
       {/* ========== 压力等级展示 ========== */}
       {stressLevel && (
         <Card bordered style={{
-          borderRadius: 'var(--radius-lg)',
+          borderRadius: 8,
           marginBottom: 16,
-          background: '#fff',
+          background: '#FFFFFF',
+          border: '1px solid #E0E0E0',
           animation: 'fadeIn 0.4s ease-out',
         }}>
           <div style={{ padding: 4 }}>
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 12 }}>
-              <h3 style={{ fontSize: 15, fontWeight: 700, color: 'var(--text)' }}>📊 当前压力感知</h3>
-              <Tag style={{
-                background: stressLevel.color + '18',
-                color: stressLevel.color,
-                border: `1px solid ${stressLevel.color}33`,
+              <h3 style={{ fontSize: 15, fontWeight: 700, color: '#333333' }}>📊 当前压力感知</h3>
+              <div style={{
+                background: '#FAFAFA',
+                color: '#333333',
+                border: '1px solid #222222',
                 fontWeight: 600, fontSize: 13,
+                padding: '3px 12px', borderRadius: 8,
               }}>
                 {stressLevel.label}
-              </Tag>
+              </div>
             </div>
             <Progress
               percentage={stressLevel.percent}
               strokeWidth={10}
               color={stressLevel.color}
-              trackColor="#f1f5f9"
+              trackColor="#F5F5F5"
               style={{ marginBottom: 10 }}
             />
-            <p style={{ fontSize: 13, color: 'var(--text-secondary)', lineHeight: 1.6 }}>
+            <p style={{ fontSize: 13, color: '#777777', lineHeight: 1.6 }}>
               💡 {stressLevel.advice}
             </p>
             <p style={{
-              fontSize: 11, color: 'var(--text-muted)', marginTop: 6,
-              padding: '6px 10px', background: '#f8fafc', borderRadius: 8,
+              fontSize: 11, color: '#777777', marginTop: 6,
+              padding: '6px 10px', background: '#FAFAFA', borderRadius: 8,
+              border: '1px solid #E0E0E0',
             }}>
               ⚠️ 本提示仅用于自我觉察参考，不构成任何医学诊断。如需专业心理支持，请咨询学校心理咨询中心或专业机构。
             </p>
@@ -923,20 +921,21 @@ export default function EmotionComfort() {
                   width: 34, height: 34, borderRadius: '50%',
                   display: 'flex', alignItems: 'center', justifyContent: 'center',
                   flexShrink: 0, fontSize: 16,
-                  background: msg.role === 'ai' ? '#7c3aed' : '#e2e8f0',
-                  color: msg.role === 'ai' ? '#fff' : 'var(--text)',
+                  background: msg.role === 'ai' ? '#4A86E8' : '#F5F5F5',
+                  border: '1px solid #222222',
+                  color: msg.role === 'ai' ? '#FFFFFF' : '#333333',
                 }}>
                   {msg.role === 'ai' ? '🐧' : '👤'}
                 </div>
                 <div style={{
                   padding: '12px 16px',
-                  borderRadius: msg.role === 'user' ? '16px 4px 16px 16px' : '4px 16px 16px 16px',
-                  background: msg.role === 'ai' ? '#f5f3ff' : '#7c3aed',
-                  color: msg.role === 'ai' ? 'var(--text)' : '#fff',
+                  borderRadius: msg.role === 'user' ? '12px 4px 12px 12px' : '4px 12px 12px 12px',
+                  background: msg.role === 'ai' ? '#FAFAFA' : '#4A86E8',
+                  color: '#333333',
                   fontSize: 14,
                   lineHeight: 1.8,
                   whiteSpace: 'pre-wrap',
-                  border: msg.role === 'ai' ? '1px solid #ede9fe' : 'none',
+                  border: msg.role === 'ai' ? '1px solid #E0E0E0' : '1px solid #222222',
                 }}>
                   {msg.content}
                 </div>
@@ -947,19 +946,20 @@ export default function EmotionComfort() {
             <div style={{ display: 'flex', gap: 10, alignItems: 'center' }}>
               <div style={{
                 width: 34, height: 34, borderRadius: '50%',
-                background: '#7c3aed',
+                background: '#4A86E8',
+                border: '1px solid #222222',
                 display: 'flex', alignItems: 'center', justifyContent: 'center',
-                fontSize: 16, color: '#fff',
+                fontSize: 16, color: '#FFFFFF',
               }}>🐧</div>
               <div style={{
-                padding: '12px 20px', borderRadius: '4px 16px 16px 16px',
-                background: '#f5f3ff', border: '1px solid #ede9fe',
+                padding: '12px 20px', borderRadius: '4px 12px 12px 12px',
+                background: '#FAFAFA', border: '1px solid #E0E0E0',
                 display: 'flex', gap: 4,
               }}>
                 {[0, 1, 2].map(j => (
                   <div key={j} style={{
                     width: 7, height: 7, borderRadius: '50%',
-                    background: '#a78bfa',
+                    background: '#CCCCCC',
                     animation: `pulse 1s ease-in-out ${j * 0.2}s infinite`,
                   }} />
                 ))}
@@ -972,22 +972,23 @@ export default function EmotionComfort() {
         {/* 快捷问题行 */}
         <div style={{
           padding: '10px 20px',
-          borderTop: '1px solid var(--border)',
+          borderTop: '1px solid #E0E0E0',
           display: 'flex', gap: 6, flexWrap: 'wrap',
         }}>
-          <span style={{ fontSize: 11, color: 'var(--text-muted)', marginRight: 4, alignSelf: 'center' }}>快捷：</span>
+          <span style={{ fontSize: 11, color: '#777777', marginRight: 4, alignSelf: 'center' }}>快捷：</span>
           {chatPresets.filter(p => p.grade === '通用').slice(0, 4).map((preset, i) => (
             <div
               key={i}
               onClick={() => handleQuickAsk(preset.user)}
               style={{
                 padding: '4px 10px', borderRadius: 16, fontSize: 11,
-                cursor: 'pointer', background: '#f5f3ff', color: '#7c3aed',
-                fontWeight: 500, transition: 'all var(--transition)',
+                cursor: 'pointer', background: '#FAFAFA', color: '#333333',
+                border: '1px solid #E0E0E0',
+                fontWeight: 500, transition: 'all 0.2s',
                 maxWidth: 200, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap',
               }}
-              onMouseEnter={e => { e.currentTarget.style.background = '#ede9fe'; }}
-              onMouseLeave={e => { e.currentTarget.style.background = '#f5f3ff'; }}
+              onMouseEnter={e => { e.currentTarget.style.background = '#F5F5F5'; }}
+              onMouseLeave={e => { e.currentTarget.style.background = '#FAFAFA'; }}
             >
               {preset.user.slice(0, 25)}...
             </div>
@@ -997,7 +998,7 @@ export default function EmotionComfort() {
         {/* 输入区 */}
         <div style={{
           padding: '12px 20px 16px',
-          borderTop: '1px solid #e9d5ff',
+          borderTop: '1px solid #E0E0E0',
           display: 'flex', gap: 10,
         }}>
           <Input
@@ -1017,22 +1018,23 @@ export default function EmotionComfort() {
             onClick={handleSend}
             disabled={!userInput.trim()}
             shape="circle"
-            style={{ background: '#7c3aed', borderColor: '#7c3aed' }}
+            style={{ background: '#FFD149', borderColor: '#222222', color: '#333333' }}
           />
         </div>
       </Card>
 
       {/* ========== 求职压力小工具 ========== */}
       <Card bordered style={{
-        borderRadius: 'var(--radius-lg)',
+        borderRadius: 8,
         marginBottom: 16,
-        background: '#fff',
+        background: '#FFFFFF',
+        border: '1px solid #E0E0E0',
       }}>
         <div style={{ padding: 4 }}>
-          <h3 style={{ fontSize: 16, fontWeight: 700, marginBottom: 4, textAlign: 'center' }}>
+          <h3 style={{ fontSize: 16, fontWeight: 700, marginBottom: 4, textAlign: 'center', color: '#333333' }}>
             🛠️ 求职压力小工具
           </h3>
-          <p style={{ fontSize: 13, color: 'var(--text-muted)', textAlign: 'center', marginBottom: 16 }}>
+          <p style={{ fontSize: 13, color: '#777777', textAlign: 'center', marginBottom: 16 }}>
             选一个小工具，花几分钟关照一下自己
           </p>
           <div className="card-grid-4">
@@ -1040,17 +1042,30 @@ export default function EmotionComfort() {
               <div
                 key={tool.id}
                 onClick={() => handleToolClick(tool.id)}
-                className="glass-card"
                 style={{
                   padding: '20px 16px', textAlign: 'center', cursor: 'pointer',
-                  borderTop: `3px solid ${tool.color}`,
+                  borderTop: '3px solid #222222',
+                  background: '#FFFFFF',
+                  border: '1px solid #E0E0E0',
+                  borderRadius: 8,
+                  borderTopColor: '#222222',
+                  transition: 'all 0.2s',
+                }}
+                onMouseEnter={e => {
+                  e.currentTarget.style.borderColor = '#222222';
+                  e.currentTarget.style.background = '#FAFAFA';
+                }}
+                onMouseLeave={e => {
+                  e.currentTarget.style.borderColor = '#E0E0E0';
+                  e.currentTarget.style.borderTopColor = '#222222';
+                  e.currentTarget.style.background = '#FFFFFF';
                 }}
               >
                 <div style={{ fontSize: 36, marginBottom: 8 }}>{tool.icon}</div>
-                <h4 style={{ fontSize: 14, fontWeight: 700, marginBottom: 6, color: tool.color }}>
+                <h4 style={{ fontSize: 14, fontWeight: 700, marginBottom: 6, color: '#333333' }}>
                   {tool.title}
                 </h4>
-                <p style={{ fontSize: 12, color: 'var(--text-muted)', lineHeight: 1.6 }}>
+                <p style={{ fontSize: 12, color: '#777777', lineHeight: 1.6 }}>
                   {tool.desc}
                 </p>
               </div>
@@ -1066,7 +1081,7 @@ export default function EmotionComfort() {
         header={currentTool?.title || '小工具'}
         width={560}
         footer={null}
-        style={{ borderRadius: 'var(--radius-lg)' }}
+        style={{ borderRadius: 8 }}
       >
         {!toolResult ? (
           <div style={{ padding: '8px 0' }}>
@@ -1076,7 +1091,7 @@ export default function EmotionComfort() {
                   <div key={i}>
                     <label style={{
                       display: 'block', fontSize: 14, fontWeight: 600,
-                      color: 'var(--text)', marginBottom: 6,
+                      color: '#333333', marginBottom: 6,
                     }}>
                       {step.label}
                     </label>
@@ -1085,9 +1100,9 @@ export default function EmotionComfort() {
                       onChange={v => setToolInputs(prev => ({ ...prev, [`step${i}`]: v }))}
                       placeholder={step.placeholder}
                       autosize={{ minRows: 2, maxRows: 3 }}
-                      style={{ borderRadius: 10 }}
+                      style={{ borderRadius: 8 }}
                     />
-                    <p style={{ fontSize: 11, color: 'var(--text-muted)', marginTop: 4 }}>
+                    <p style={{ fontSize: 11, color: '#777777', marginTop: 4 }}>
                       {step.hint}
                     </p>
                   </div>
@@ -1096,7 +1111,7 @@ export default function EmotionComfort() {
                   theme="primary"
                   block
                   onClick={handleToolSubmit}
-                  style={{ height: 40, fontSize: 14, fontWeight: 600, borderRadius: 10, marginTop: 8 }}
+                  style={{ height: 40, fontSize: 14, fontWeight: 600, borderRadius: 8, marginTop: 8 }}
                 >
                   ✅ 完成整理
                 </Button>
@@ -1108,7 +1123,7 @@ export default function EmotionComfort() {
                   theme="primary"
                   size="large"
                   onClick={handleToolSubmit}
-                  style={{ borderRadius: 10, fontWeight: 600 }}
+                  style={{ borderRadius: 8, fontWeight: 600 }}
                 >
                   生成{currentTool?.title?.slice(0, 6)}...
                 </Button>
@@ -1120,8 +1135,9 @@ export default function EmotionComfort() {
             {toolResult.content ? (
               <div style={{
                 whiteSpace: 'pre-wrap', fontSize: 14, lineHeight: 1.9,
-                color: 'var(--text)', padding: '16px',
-                background: '#f0f4ff', borderRadius: 12,
+                color: '#333333', padding: '16px',
+                background: '#FAFAFA', borderRadius: 8,
+                border: '1px solid #E0E0E0',
               }}>
                 {toolResult.content}
               </div>
@@ -1129,8 +1145,9 @@ export default function EmotionComfort() {
               <div>
                 <div style={{
                   whiteSpace: 'pre-wrap', fontSize: 14, lineHeight: 1.9,
-                  color: 'var(--text)', padding: '16px',
-                  background: '#f0f4ff', borderRadius: 12, marginBottom: 12,
+                  color: '#333333', padding: '16px',
+                  background: '#FAFAFA', borderRadius: 8, marginBottom: 12,
+                  border: '1px solid #E0E0E0',
                 }}>
                   {toolResult.closing}
                 </div>
@@ -1140,7 +1157,7 @@ export default function EmotionComfort() {
               variant="outline"
               block
               onClick={() => { setToolResult(null); setToolInputs({}); }}
-              style={{ marginTop: 12, borderRadius: 10 }}
+              style={{ marginTop: 12, borderRadius: 8 }}
             >
               🔄 再来一次
             </Button>
@@ -1162,7 +1179,7 @@ export default function EmotionComfort() {
         }
         width={560}
         footer={null}
-        style={{ borderRadius: 'var(--radius-lg)' }}
+        style={{ borderRadius: 8 }}
       >
         {!questionnaireResult ? (
           <div style={{ padding: '8px 0' }}>
@@ -1173,18 +1190,18 @@ export default function EmotionComfort() {
                   <div style={{
                     display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8,
                   }}>
-                    <span style={{ fontSize: 12, color: 'var(--text-muted)' }}>
+                    <span style={{ fontSize: 12, color: '#777777' }}>
                       {EMOTION_QUESTIONNAIRES[questionnaireEmotion].desc}
                     </span>
-                    <span style={{ fontSize: 12, fontWeight: 600, color: 'var(--primary)' }}>
+                    <span style={{ fontSize: 12, fontWeight: 600, color: '#4A86E8' }}>
                       {questionnaireStep + 1} / {EMOTION_QUESTIONNAIRES[questionnaireEmotion].questions.length}
                     </span>
                   </div>
                   <Progress
                     percentage={Math.round(((questionnaireStep + 1) / EMOTION_QUESTIONNAIRES[questionnaireEmotion].questions.length) * 100)}
                     strokeWidth={6}
-                    color="#7c3aed"
-                    trackColor="#f1f5f9"
+                    color="#4A86E8"
+                    trackColor="#F5F5F5"
                   />
                 </div>
 
@@ -1201,18 +1218,18 @@ export default function EmotionComfort() {
                   return (
                     <div style={{
                       padding: '20px',
-                      background: '#f8fafc',
-                      borderRadius: 14,
-                      border: '1px solid #e2e8f0',
+                      background: '#FAFAFA',
+                      borderRadius: 8,
+                      border: '1px solid #E0E0E0',
                     }}>
                       <h4 style={{
-                        fontSize: 15, fontWeight: 700, color: 'var(--text)',
+                        fontSize: 15, fontWeight: 700, color: '#333333',
                         marginBottom: 16, lineHeight: 1.6,
                       }}>
                         {q.text}
                       </h4>
                       {isMulti && (
-                        <p style={{ fontSize: 11, color: 'var(--text-muted)', marginBottom: 12 }}>
+                        <p style={{ fontSize: 11, color: '#777777', marginBottom: 12 }}>
                           （可多选）
                         </p>
                       )}
@@ -1227,36 +1244,36 @@ export default function EmotionComfort() {
                               onClick={() => handleQAnswer(q.id, opt, isMulti)}
                               style={{
                                 padding: '12px 16px',
-                                borderRadius: 10,
+                                borderRadius: 8,
                                 cursor: 'pointer',
                                 transition: 'all 0.2s',
-                                background: isSelected ? '#f0ebff' : '#fff',
-                                border: isSelected ? '2px solid #7c3aed' : '1px solid #e2e8f0',
-                                color: isSelected ? '#5b21b6' : 'var(--text)',
+                                background: isSelected ? 'rgba(255,209,73,0.1)' : '#FFFFFF',
+                                border: isSelected ? '2px solid #222222' : '1px solid #E0E0E0',
+                                color: isSelected ? '#333333' : '#333333',
                                 fontWeight: isSelected ? 600 : 400,
                                 display: 'flex', alignItems: 'center', gap: 10,
                                 fontSize: 14,
                               }}
                               onMouseEnter={e => {
                                 if (!isSelected) {
-                                  e.currentTarget.style.background = '#faf5ff';
-                                  e.currentTarget.style.borderColor = '#c4b5fd';
+                                  e.currentTarget.style.background = '#FAFAFA';
+                                  e.currentTarget.style.borderColor = '#222222';
                                 }
                               }}
                               onMouseLeave={e => {
                                 if (!isSelected) {
-                                  e.currentTarget.style.background = '#fff';
-                                  e.currentTarget.style.borderColor = '#e2e8f0';
+                                  e.currentTarget.style.background = '#FFFFFF';
+                                  e.currentTarget.style.borderColor = '#E0E0E0';
                                 }
                               }}
                             >
                               <span style={{
                                 width: 20, height: 20, borderRadius: isMulti ? 6 : '50%',
-                                border: isSelected ? '2px solid #7c3aed' : '2px solid #d1d5db',
+                                border: isSelected ? '2px solid #222222' : '2px solid #E0E0E0',
                                 display: 'flex', alignItems: 'center', justifyContent: 'center',
                                 fontSize: 11, flexShrink: 0,
-                                background: isSelected ? '#7c3aed' : '#fff',
-                                color: isSelected ? '#fff' : 'transparent',
+                                background: isSelected ? '#FFD149' : '#FFFFFF',
+                                color: isSelected ? '#333333' : 'transparent',
                                 transition: 'all 0.2s',
                               }}>
                                 {isSelected ? '✓' : ''}
@@ -1283,7 +1300,7 @@ export default function EmotionComfort() {
                           theme="primary"
                           onClick={handleQNext}
                           disabled={!hasAnswer}
-                          style={{ borderRadius: 8, background: '#7c3aed', borderColor: '#7c3aed' }}
+                          style={{ borderRadius: 8 }}
                         >
                           {questionnaireStep < EMOTION_QUESTIONNAIRES[questionnaireEmotion].questions.length - 1
                             ? '下一题 →'
@@ -1301,21 +1318,21 @@ export default function EmotionComfort() {
           <div style={{ padding: '8px 0', animation: 'fadeIn 0.4s ease-out' }}>
             <div style={{ textAlign: 'center', marginBottom: 20 }}>
               <div style={{ fontSize: 48, marginBottom: 8 }}>📊</div>
-              <h3 style={{ fontSize: 17, fontWeight: 700, color: '#7c3aed', marginBottom: 4 }}>
+              <h3 style={{ fontSize: 17, fontWeight: 700, color: '#333333', marginBottom: 4 }}>
                 分析结果
               </h3>
-              <p style={{ fontSize: 13, color: 'var(--text-muted)' }}>
+              <p style={{ fontSize: 13, color: '#777777' }}>
                 根据你的回答，以下是针对性建议
               </p>
             </div>
             <div style={{
               padding: '20px',
-              background: 'linear-gradient(135deg, #f0f4ff 0%, #f5f0ff 100%)',
-              borderRadius: 14,
-              border: '1px solid #e0e7ff',
+              background: '#FAFAFA',
+              borderRadius: 8,
+              border: '1px solid #E0E0E0',
               fontSize: 14,
               lineHeight: 1.9,
-              color: 'var(--text)',
+              color: '#333333',
               whiteSpace: 'pre-wrap',
               marginBottom: 16,
             }}>
@@ -1330,7 +1347,7 @@ export default function EmotionComfort() {
                   setQuestionnaireAnswers({});
                   setQuestionnaireStep(0);
                 }}
-                style={{ borderRadius: 10 }}
+                style={{ borderRadius: 8 }}
               >
                 🔄 重新作答
               </Button>
@@ -1338,7 +1355,7 @@ export default function EmotionComfort() {
                 theme="primary"
                 block
                 onClick={handleCloseQuestionnaire}
-                style={{ borderRadius: 10, background: '#7c3aed', borderColor: '#7c3aed' }}
+                style={{ borderRadius: 8 }}
               >
                 👍 知道了，谢谢
               </Button>
@@ -1349,33 +1366,33 @@ export default function EmotionComfort() {
 
       {/* ========== 底部引导 ========== */}
       <Card bordered style={{
-        borderRadius: 'var(--radius-lg)',
-        background: '#e3edff',
-        border: '1px solid #c7d2fe',
+        borderRadius: 8,
+        background: '#FAFAFA',
+        border: '1px solid #E0E0E0',
       }}>
         <div style={{ padding: 8, textAlign: 'center' }}>
-          <p style={{ fontSize: 14, color: 'var(--text-secondary)', marginBottom: 12 }}>
+          <p style={{ fontSize: 14, color: '#777777', marginBottom: 12 }}>
             需要更深入的求职帮助？试试这些功能 👇
           </p>
           <div style={{ display: 'flex', gap: 10, justifyContent: 'center', flexWrap: 'wrap' }}>
             <Button
               variant="outline"
               onClick={() => navigate('/diagnosis')}
-              style={{ borderRadius: 20, borderColor: '#7c3aed', color: '#7c3aed', fontWeight: 600 }}
+              style={{ borderRadius: 8, borderColor: '#222222', color: '#333333', fontWeight: 600 }}
             >
               🔍 成长诊断
             </Button>
             <Button
               variant="outline"
               onClick={() => navigate('/job-prep')}
-              style={{ borderRadius: 20, borderColor: '#10b981', color: '#10b981', fontWeight: 600 }}
+              style={{ borderRadius: 8, borderColor: '#222222', color: '#333333', fontWeight: 600 }}
             >
               💼 求职准备
             </Button>
             <Button
               variant="outline"
               onClick={() => navigate('/career-map')}
-              style={{ borderRadius: 20, borderColor: '#0066ff', color: '#0066ff', fontWeight: 600 }}
+              style={{ borderRadius: 8, borderColor: '#222222', color: '#333333', fontWeight: 600 }}
             >
               🗺️ 职业探索
             </Button>
@@ -1387,12 +1404,12 @@ export default function EmotionComfort() {
       <div style={{
         marginTop: 16,
         padding: '12px 16px',
-        background: '#f8fafc',
+        background: '#FAFAFA',
         borderRadius: 8,
         fontSize: 11,
-        color: 'var(--text-muted)',
+        color: '#777777',
         textAlign: 'center',
-        border: '1px dashed var(--border)',
+        border: '1px dashed #E0E0E0',
       }}>
         💙 情绪陪伴室提供情绪陪伴和压力缓解支持，不构成任何医学诊断或心理治疗。
         如持续感到严重焦虑或情绪低落，请及时联系学校心理咨询中心或拨打心理援助热线。

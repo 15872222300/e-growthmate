@@ -4,6 +4,7 @@ import { Card, Form, Select, Textarea, Radio, Button, Progress, Tag, MessagePlug
 import { CheckCircleIcon, ChevronRightIcon, UserIcon } from 'tdesign-icons-react';
 import { useAuth } from '../context/AuthContext';
 import AuthPage from './AuthPage';
+import CharacterAvatar from '../components/CharacterAvatar';
 
 const { FormItem } = Form;
 
@@ -332,6 +333,9 @@ function generateProfile(values) {
     recommendedDir: values.direction === 'unknown' ? ['产品经理', '数据分析'] : [dirLabel],
     emotionStatus: currentEmotion,
     todayTask,
+    grade: values.grade,
+    major: values.major,
+    gender: values.gender || 'male',
   };
 }
 
@@ -340,6 +344,7 @@ export default function Diagnosis({ onComplete, profile }) {
   const [form] = Form.useForm();
   const [result, setResult] = useState(profile || null);
   const [authDialogOpen, setAuthDialogOpen] = useState(false);
+  const [characterDialogOpen, setCharacterDialogOpen] = useState(false);
   const navigate = useNavigate();
 
   const handleSubmit = (e) => {
@@ -358,6 +363,8 @@ export default function Diagnosis({ onComplete, profile }) {
     }
 
     MessagePlugin.success('成长画像生成成功！');
+    // 弹出人物形象
+    setTimeout(() => setCharacterDialogOpen(true), 400);
   };
 
   return (
@@ -372,9 +379,9 @@ export default function Diagnosis({ onComplete, profile }) {
           gap: 12,
           marginBottom: 24,
           padding: user ? '12px 20px' : '0',
-          background: user ? 'linear-gradient(135deg, #e3edff 0%, #ede9fe 100%)' : 'transparent',
-          borderRadius: 16,
-          border: user ? '1px solid #c7d2fe' : 'none',
+          background: user ? 'var(--bg-subtle)' : 'transparent',
+          borderRadius: 8,
+          border: user ? '2px solid var(--border-color)' : 'none',
         }}>
           <div>
             <h1 className="section-title" style={{ marginBottom: 4 }}>🔍 AI 成长诊断</h1>
@@ -386,11 +393,12 @@ export default function Diagnosis({ onComplete, profile }) {
               <div style={{
                 textAlign: 'right',
               }}>
-                <div style={{ fontSize: 15, fontWeight: 700, color: 'var(--text)', display: 'flex', alignItems: 'center', gap: 6 }}>
+                <div style={{ fontSize: 15, fontWeight: 700, color: 'var(--text-primary)', display: 'flex', alignItems: 'center', gap: 6 }}>
                   <span style={{
                     width: 32, height: 32,
                     borderRadius: '50%',
-                    background: 'linear-gradient(135deg, #0052d9, #8b5cf6)',
+                    background: 'var(--brand-yellow)',
+                    border: '2px solid var(--border-color)',
                     display: 'inline-flex',
                     alignItems: 'center',
                     justifyContent: 'center',
@@ -426,7 +434,7 @@ export default function Diagnosis({ onComplete, profile }) {
                 height: 44,
                 fontSize: 15,
                 fontWeight: 600,
-                borderRadius: 12,
+                borderRadius: 8,
                 display: 'flex',
                 alignItems: 'center',
                 gap: 8,
@@ -464,13 +472,19 @@ export default function Diagnosis({ onComplete, profile }) {
         {/* Form */}
         <Card bordered style={{ borderRadius: 'var(--radius-lg)' }}>
           <div style={{ padding: 8 }}>
-            <h3 style={{ fontSize: 16, fontWeight: 700, marginBottom: 20 }}>📝 基本信息</h3>
+            <h3 style={{ fontSize: 16, fontWeight: 700, marginBottom: 20, color: 'var(--text-primary)' }}>📝 基本信息</h3>
             <Form form={form} layout="vertical" onSubmit={handleSubmit} labelAlign="top">
               <FormItem label="年级" name="grade" rules={[{ required: true, message: '请选择年级' }]}>
                 <Select options={gradeOptions} placeholder="选择你的年级" />
               </FormItem>
               <FormItem label="学历经历" name="educationHistory">
                 <Select options={educationHistoryOptions} placeholder="选择你当前所处的学历阶段（选填）" />
+              </FormItem>
+              <FormItem label="性别" name="gender">
+                <Radio.Group>
+                  <Radio value="male">🙋 男生</Radio>
+                  <Radio value="female">🙋‍♀️ 女生</Radio>
+                </Radio.Group>
               </FormItem>
               <FormItem label="专业" name="major" rules={[{ required: true, message: '请选择专业' }]}>
                 <Select options={majorOptions} placeholder="选择你的专业" />
@@ -519,12 +533,11 @@ export default function Diagnosis({ onComplete, profile }) {
           <div style={{ display: 'flex', flexDirection: 'column', gap: 16, animation: 'fadeIn 0.5s ease-out' }}>
             <Card bordered style={{
               borderRadius: 'var(--radius-lg)',
-              background: '#e3edff',
-              border: '1px solid #c7d2fe',
+              background: 'var(--bg-subtle)',
             }}>
               <div style={{ textAlign: 'center', padding: 8 }}>
                 <div style={{ fontSize: 40, marginBottom: 8 }}>🎯</div>
-                <h2 style={{ fontSize: 22, fontWeight: 700, marginBottom: 4 }}>{result.stage}</h2>
+                <h2 style={{ fontSize: 22, fontWeight: 700, marginBottom: 4, color: 'var(--text-primary)' }}>{result.stage}</h2>
                 <p style={{ fontSize: 14, color: 'var(--text-secondary)', lineHeight: 1.7 }}>{result.stageDesc}</p>
                 <div style={{ display: 'flex', gap: 8, justifyContent: 'center', marginTop: 12, flexWrap: 'wrap' }}>
                   <Tag theme="primary" variant="light">{result.gradeLabel}</Tag>
@@ -538,28 +551,27 @@ export default function Diagnosis({ onComplete, profile }) {
             {(result.mbtiProfile || result.zodiac !== 'unknown') && (
               <Card bordered style={{
                 borderRadius: 'var(--radius-lg)',
-                background: '#fdf4ff',
-                border: '1px solid #e9d5ff',
               }}>
-                <h3 style={{ fontSize: 15, fontWeight: 700, color: '#a21caf', marginBottom: 12 }}>🔮 性格画像</h3>
+                <h3 style={{ fontSize: 15, fontWeight: 700, color: 'var(--text-primary)', marginBottom: 12 }}>🔮 性格画像</h3>
                 {result.mbtiProfile && (
                   <div style={{
                     marginBottom: result.zodiac !== 'unknown' ? 12 : 0,
                     padding: '12px 14px',
-                    background: '#fff',
-                    borderRadius: 10,
-                    border: '1px solid #f0abfc',
+                    background: 'var(--bg-subtle)',
+                    borderRadius: 'var(--radius)',
+                    border: '2px solid var(--border-light)',
                   }}>
                     <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 6 }}>
                       <span style={{
                         padding: '4px 10px',
-                        borderRadius: 6,
-                        background: result.mbtiProfile.color + '15',
-                        color: result.mbtiProfile.color,
+                        borderRadius: '50px',
+                        background: 'var(--brand-yellow-light)',
+                        color: 'var(--text-primary)',
+                        border: '2px solid var(--border-color)',
                         fontSize: 13,
                         fontWeight: 700,
                       }}>{result.mbti}</span>
-                      <span style={{ fontSize: 14, fontWeight: 600, color: 'var(--text)' }}>{result.mbtiProfile.trait}</span>
+                      <span style={{ fontSize: 14, fontWeight: 600, color: 'var(--text-primary)' }}>{result.mbtiProfile.trait}</span>
                     </div>
                     <p style={{ fontSize: 13, color: 'var(--text-secondary)', lineHeight: 1.6 }}>
                       {result.mbtiProfile.desc}
@@ -569,14 +581,14 @@ export default function Diagnosis({ onComplete, profile }) {
                 {result.zodiac !== 'unknown' && (
                   <div style={{
                     padding: '12px 14px',
-                    background: '#fff',
-                    borderRadius: 10,
-                    border: '1px solid #f0abfc',
+                    background: 'var(--bg-subtle)',
+                    borderRadius: 'var(--radius)',
+                    border: '2px solid var(--border-light)',
                   }}>
-                    <span style={{ fontSize: 14, fontWeight: 600, color: 'var(--text)' }}>
+                    <span style={{ fontSize: 14, fontWeight: 600, color: 'var(--text-primary)' }}>
                       {result.zodiacLabel}
                     </span>
-                    <span style={{ fontSize: 13, color: 'var(--text-muted)', marginLeft: 8 }}>
+                    <span style={{ fontSize: 13, color: 'var(--text-secondary)', marginLeft: 8 }}>
                       — 星座特质也会影响你的职场风格哦
                     </span>
                   </div>
@@ -585,20 +597,20 @@ export default function Diagnosis({ onComplete, profile }) {
             )}
 
             <Card bordered style={{ borderRadius: 'var(--radius-lg)' }}>
-              <h3 style={{ fontSize: 15, fontWeight: 700, color: '#10b981', marginBottom: 12 }}>✅ 优势分析</h3>
+              <h3 style={{ fontSize: 15, fontWeight: 700, color: 'var(--text-primary)', marginBottom: 12 }}>✅ 优势分析</h3>
               {result.advantages.map((a, i) => (
-                <div key={i} style={{ display: 'flex', alignItems: 'flex-start', gap: 8, marginBottom: 8, fontSize: 14 }}>
-                  <span style={{ color: '#10b981', flexShrink: 0 }}>✓</span>
+                <div key={i} style={{ display: 'flex', alignItems: 'flex-start', gap: 8, marginBottom: 8, fontSize: 14, color: 'var(--text-primary)' }}>
+                  <span style={{ color: 'var(--brand-mint)', flexShrink: 0, fontWeight: 700 }}>✓</span>
                   <span>{a}</span>
                 </div>
               ))}
             </Card>
 
             <Card bordered style={{ borderRadius: 'var(--radius-lg)' }}>
-              <h3 style={{ fontSize: 15, fontWeight: 700, color: '#f59e0b', marginBottom: 12 }}>⚠️ 短板分析</h3>
+              <h3 style={{ fontSize: 15, fontWeight: 700, color: 'var(--text-primary)', marginBottom: 12 }}>⚠️ 短板分析</h3>
               {result.weaknesses.map((w, i) => (
-                <div key={i} style={{ display: 'flex', alignItems: 'flex-start', gap: 8, marginBottom: 8, fontSize: 14 }}>
-                  <span style={{ color: '#f59e0b', flexShrink: 0 }}>!</span>
+                <div key={i} style={{ display: 'flex', alignItems: 'flex-start', gap: 8, marginBottom: 8, fontSize: 14, color: 'var(--text-primary)' }}>
+                  <span style={{ color: 'var(--brand-coral)', flexShrink: 0, fontWeight: 700 }}>!</span>
                   <span>{w}</span>
                 </div>
               ))}
@@ -607,18 +619,18 @@ export default function Diagnosis({ onComplete, profile }) {
             {/* 情绪状态卡片 */}
             <Card bordered style={{
               borderRadius: 'var(--radius-lg)',
-              background: '#ede9fe',
-              border: '1px solid #c4b5fd',
+              background: 'var(--bg-subtle)',
             }}>
-              <h3 style={{ fontSize: 15, fontWeight: 700, color: '#7c3aed', marginBottom: 8 }}>💙 当前情绪状态</h3>
+              <h3 style={{ fontSize: 15, fontWeight: 700, color: 'var(--text-primary)', marginBottom: 8 }}>💙 当前情绪状态</h3>
               <div style={{
                 fontSize: 14,
                 fontWeight: 600,
-                color: '#7c3aed',
+                color: 'var(--text-primary)',
                 marginBottom: 6,
                 padding: '6px 12px',
-                background: '#f3e8ff',
-                borderRadius: 8,
+                background: 'var(--brand-yellow-light)',
+                borderRadius: '50px',
+                border: '2px solid var(--border-color)',
                 display: 'inline-block',
               }}>
                 {result.emotionStatus.label}
@@ -629,11 +641,11 @@ export default function Diagnosis({ onComplete, profile }) {
               <div style={{
                 marginTop: 10,
                 padding: '10px 14px',
-                background: '#fff',
-                borderRadius: 10,
-                border: '1px solid #e9d5ff',
+                background: 'var(--bg-card)',
+                borderRadius: 'var(--radius)',
+                border: '2px solid var(--border-light)',
               }}>
-                <p style={{ fontSize: 12, fontWeight: 600, color: '#7c3aed', marginBottom: 4 }}>🌿 压力缓解建议</p>
+                <p style={{ fontSize: 12, fontWeight: 600, color: 'var(--text-primary)', marginBottom: 4 }}>🌿 压力缓解建议</p>
                 <p style={{ fontSize: 13, color: 'var(--text-secondary)', lineHeight: 1.7 }}>
                   {result.emotionStatus.reliefAdvice}
                 </p>
@@ -643,11 +655,10 @@ export default function Diagnosis({ onComplete, profile }) {
             {/* 今日最小行动任务 */}
             <Card bordered style={{
               borderRadius: 'var(--radius-lg)',
-              background: '#d1fae5',
-              border: '1px solid #a7f3d0',
+              background: 'var(--bg-subtle)',
             }}>
-              <h3 style={{ fontSize: 15, fontWeight: 700, color: '#059669', marginBottom: 8 }}>🌱 今日最小行动任务</h3>
-              <p style={{ fontSize: 14, color: 'var(--text)', lineHeight: 1.7, padding: '10px 14px', background: '#fff', borderRadius: 10 }}>
+              <h3 style={{ fontSize: 15, fontWeight: 700, color: 'var(--text-primary)', marginBottom: 8 }}>🌱 今日最小行动任务</h3>
+              <p style={{ fontSize: 14, color: 'var(--text-primary)', lineHeight: 1.7, padding: '10px 14px', background: 'var(--bg-card)', borderRadius: 'var(--radius)', border: '2px solid var(--border-light)' }}>
                 {result.todayTask}
               </p>
               <p style={{ fontSize: 11, color: 'var(--text-muted)', marginTop: 6 }}>
@@ -656,10 +667,10 @@ export default function Diagnosis({ onComplete, profile }) {
             </Card>
 
             <Card bordered style={{ borderRadius: 'var(--radius-lg)' }}>
-              <h3 style={{ fontSize: 15, fontWeight: 700, color: 'var(--primary)', marginBottom: 12 }}>💡 成长建议</h3>
+              <h3 style={{ fontSize: 15, fontWeight: 700, color: 'var(--text-primary)', marginBottom: 12 }}>💡 成长建议</h3>
               {result.suggestions.map((s, i) => (
-                <div key={i} style={{ display: 'flex', alignItems: 'flex-start', gap: 8, marginBottom: 10, fontSize: 14, padding: '8px 12px', background: 'var(--bg)', borderRadius: 8 }}>
-                  <span style={{ color: 'var(--primary)', fontWeight: 700, flexShrink: 0 }}>{i + 1}.</span>
+                <div key={i} style={{ display: 'flex', alignItems: 'flex-start', gap: 8, marginBottom: 10, fontSize: 14, padding: '8px 12px', background: 'var(--bg-subtle)', borderRadius: 'var(--radius)', border: '2px solid var(--border-light)', color: 'var(--text-primary)' }}>
+                  <span style={{ color: 'var(--brand-brown)', fontWeight: 700, flexShrink: 0 }}>{i + 1}.</span>
                   <span>{s}</span>
                 </div>
               ))}
@@ -668,10 +679,9 @@ export default function Diagnosis({ onComplete, profile }) {
             {/* 跳转选择 */}
             <Card bordered style={{
               borderRadius: 'var(--radius-lg)',
-              background: '#fef3c7',
-              border: '1px solid #fcd34d',
+              background: 'var(--bg-subtle)',
             }}>
-              <h3 style={{ fontSize: 16, fontWeight: 700, color: '#d97706', marginBottom: 8, textAlign: 'center' }}>
+              <h3 style={{ fontSize: 16, fontWeight: 700, color: 'var(--text-primary)', marginBottom: 8, textAlign: 'center' }}>
                 🚀 根据画像，推荐你优先体验
               </h3>
               <div style={{ display: 'flex', flexDirection: 'column', gap: 10, marginTop: 16 }}>
@@ -682,9 +692,8 @@ export default function Diagnosis({ onComplete, profile }) {
                   onClick={() => navigate('/career-map')}
                   style={{
                     height: 48, fontSize: 15, fontWeight: 600,
-                    borderColor: '#7c3aed', color: '#7c3aed',
                     justifyContent: 'flex-start', paddingLeft: 20,
-                    background: result.directionLabel === '待探索' ? '#f3e8ff' : 'transparent',
+                    background: result.directionLabel === '待探索' ? 'var(--brand-yellow-light)' : 'transparent',
                   }}
                   icon={<span style={{ fontSize: 20, marginRight: 4 }}>🗺️</span>}
                 >
@@ -700,7 +709,6 @@ export default function Diagnosis({ onComplete, profile }) {
                     onClick={() => navigate('/project-workshop')}
                     style={{
                       height: 48, fontSize: 15, fontWeight: 600,
-                      borderColor: '#ef4444', color: '#ef4444',
                       justifyContent: 'flex-start', paddingLeft: 20,
                     }}
                     icon={<span style={{ fontSize: 20, marginRight: 4 }}>🔧</span>}
@@ -714,7 +722,6 @@ export default function Diagnosis({ onComplete, profile }) {
                   onClick={() => navigate('/skill-center')}
                   style={{
                     height: 48, fontSize: 15, fontWeight: 600,
-                    borderColor: '#f59e0b', color: '#f59e0b',
                     justifyContent: 'flex-start', paddingLeft: 20,
                   }}
                   icon={<span style={{ fontSize: 20, marginRight: 4 }}>📚</span>}
@@ -728,7 +735,6 @@ export default function Diagnosis({ onComplete, profile }) {
                     onClick={() => navigate('/ai-skill')}
                     style={{
                       height: 48, fontSize: 15, fontWeight: 600,
-                      borderColor: '#10b981', color: '#10b981',
                       justifyContent: 'flex-start', paddingLeft: 20,
                     }}
                     icon={<span style={{ fontSize: 20, marginRight: 4 }}>🤖</span>}
@@ -745,7 +751,6 @@ export default function Diagnosis({ onComplete, profile }) {
                   onClick={() => navigate('/emotion-comfort')}
                   style={{
                     height: 48, fontSize: 15, fontWeight: 600,
-                    borderColor: '#7c3aed', color: '#7c3aed',
                     justifyContent: 'flex-start', paddingLeft: 20,
                   }}
                   icon={<span style={{ fontSize: 20, marginRight: 4 }}>💙</span>}
@@ -758,7 +763,6 @@ export default function Diagnosis({ onComplete, profile }) {
                   onClick={() => navigate('/ai-chat')}
                   style={{
                     height: 48, fontSize: 15, fontWeight: 600,
-                    borderColor: '#0066ff', color: '#0066ff',
                     justifyContent: 'flex-start', paddingLeft: 20,
                   }}
                   icon={<span style={{ fontSize: 20, marginRight: 4 }}>💬</span>}
@@ -769,6 +773,93 @@ export default function Diagnosis({ onComplete, profile }) {
             </Card>
           </div>
         )}
+
+        {/* ========== 人物形象弹窗 ========== */}
+        <Dialog
+          visible={characterDialogOpen}
+          onClose={() => setCharacterDialogOpen(false)}
+          header={null}
+          footer={null}
+          width={420}
+          destroyOnClose
+          style={{ textAlign: 'center' }}
+        >
+          <div style={{ padding: '24px 16px 8px' }}>
+            {/* 装饰元素 */}
+            <div style={{ fontSize: 32, marginBottom: 8, animation: 'float 3s ease-in-out infinite' }}>✨</div>
+            <h2 style={{
+              fontSize: 24,
+              fontWeight: 800,
+              color: 'var(--text-primary)',
+              marginBottom: 8,
+            }}>
+              🎉 你的专属形象已生成！
+            </h2>
+            <p style={{
+              fontSize: 14,
+              color: 'var(--text-secondary)',
+              marginBottom: 24,
+              lineHeight: 1.7,
+            }}>
+              根据你的专业、年级和个性，<br/>这是你在 e职伴 中的专属人物形象
+            </p>
+            
+            {/* 人物形象 */}
+            <div style={{ display: 'flex', justifyContent: 'center', marginBottom: 20 }}>
+              <CharacterAvatar 
+                profile={{
+                  ...result,
+                  name: user?.username || '小鹅同学',
+                }}
+                size={200}
+                showName={true}
+              />
+            </div>
+
+            {/* 信息标签 */}
+            <div style={{
+              display: 'flex',
+              gap: 8,
+              justifyContent: 'center',
+              flexWrap: 'wrap',
+              marginBottom: 24,
+            }}>
+              <Tag theme="primary" variant="light" style={{ fontSize: 13, borderRadius: '50px', padding: '4px 14px' }}>
+                {result?.majorLabel || '未知专业'}
+              </Tag>
+              <Tag theme="warning" variant="light" style={{ fontSize: 13, borderRadius: '50px', padding: '4px 14px' }}>
+                {result?.gradeLabel || '未知年级'}
+              </Tag>
+              <Tag theme="success" variant="light" style={{ fontSize: 13, borderRadius: '50px', padding: '4px 14px' }}>
+                {result?.gender === 'female' ? '🙋‍♀️ 女生' : '🙋 男生'}
+              </Tag>
+            </div>
+
+            <p style={{
+              fontSize: 13,
+              color: 'var(--text-muted)',
+              marginBottom: 20,
+              fontStyle: 'italic',
+            }}>
+              💡 这个形象会陪伴你在 e职伴 的整个成长旅程中哦~
+            </p>
+
+            <Button
+              theme="primary"
+              size="large"
+              onClick={() => setCharacterDialogOpen(false)}
+              style={{
+                fontWeight: 700,
+                fontSize: 16,
+                height: 48,
+                padding: '0 40px',
+                borderRadius: '50px',
+              }}
+            >
+              🚀 开始我的成长之旅
+            </Button>
+          </div>
+        </Dialog>
       </div>
     </div>
   );

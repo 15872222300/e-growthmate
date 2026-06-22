@@ -1,0 +1,859 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>鹅职伴 GrowthMate</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+      background: linear-gradient(135deg, #f0f4ff 0%, #f5f3ff 50%, #fdf2f8 100%);
+      min-height: 100vh;
+      color: #1e293b;
+    }
+    .header {
+      background: rgba(255,255,255,0.85);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid #e2e8f0;
+      padding: 16px 32px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .logo { font-size: 32px; animation: float 3s ease-in-out infinite; }
+    @keyframes float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
+    .brand {
+      font-size: 20px;
+      font-weight: 800;
+      background: linear-gradient(135deg, #0066ff, #7c3aed, #06b6d4);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .nav { display: flex; gap: 8px; flex-wrap: wrap; margin-left: 32px; }
+    .nav a {
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 600;
+      text-decoration: none;
+      color: #64748b;
+      transition: all 0.2s;
+    }
+    .nav a:hover, .nav a.active {
+      background: linear-gradient(135deg, #0066ff, #7c3aed);
+      color: white;
+    }
+    .main { max-width: 1200px; margin: 0 auto; padding: 40px 24px; }
+
+    /* Hero */
+    .hero {
+      text-align: center;
+      padding: 60px 20px 50px;
+      background: linear-gradient(135deg, #eff6ff 0%, #f5f3ff 50%, #fce7f3 100%);
+      border-radius: 24px;
+      margin-bottom: 40px;
+      border: 1px solid #e0e7ff;
+    }
+    .hero .penguin { font-size: 72px; animation: float 3s ease-in-out infinite; }
+    .hero h1 {
+      font-size: 42px;
+      font-weight: 900;
+      background: linear-gradient(135deg, #0066ff, #7c3aed, #06b6d4);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin: 12px 0;
+    }
+    .hero p { font-size: 17px; color: #64748b; max-width: 560px; margin: 0 auto 8px; line-height: 1.7; }
+    .hero .slogan { font-size: 20px; color: #7c3aed; font-weight: 700; margin-bottom: 20px; }
+    .cta-btn {
+      display: inline-block;
+      padding: 14px 40px;
+      background: linear-gradient(135deg, #0066ff, #7c3aed);
+      color: white;
+      border: none;
+      border-radius: 50px;
+      font-size: 16px;
+      font-weight: 700;
+      cursor: pointer;
+      text-decoration: none;
+      box-shadow: 0 4px 20px rgba(0,102,255,0.35);
+      transition: all 0.3s;
+    }
+    .cta-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(0,102,255,0.45); }
+
+    /* Cards */
+    .section-title {
+      font-size: 26px;
+      font-weight: 800;
+      margin-bottom: 8px;
+      background: linear-gradient(135deg, #1e293b, #7c3aed);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .section-subtitle { color: #64748b; font-size: 15px; margin-bottom: 24px; }
+    .card-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 20px; margin-bottom: 48px; }
+    .card-grid-3 { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 20px; margin-bottom: 48px; }
+    .card {
+      background: white;
+      border-radius: 16px;
+      padding: 28px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+      border: 1px solid #e2e8f0;
+      transition: all 0.3s;
+      cursor: pointer;
+    }
+    .card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(0,0,0,0.1); border-color: #c4b5fd; }
+    .card-icon { font-size: 36px; margin-bottom: 12px; }
+    .card h3 { font-size: 18px; font-weight: 700; margin-bottom: 8px; color: #1e293b; }
+    .card p { font-size: 14px; color: #64748b; line-height: 1.6; }
+
+    /* Path Steps */
+    .path-steps {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+      gap: 16px;
+      margin-bottom: 48px;
+    }
+    .path-step {
+      background: white;
+      border-radius: 16px;
+      padding: 24px 16px;
+      text-align: center;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+      border: 1px solid #e2e8f0;
+      transition: all 0.3s;
+    }
+    .path-step:hover { transform: translateY(-3px); box-shadow: 0 8px 30px rgba(0,0,0,0.08); }
+    .path-step .num {
+      width: 36px; height: 36px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #0066ff, #7c3aed);
+      color: white;
+      font-weight: 800;
+      font-size: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 12px;
+    }
+    .path-step h4 { font-size: 15px; font-weight: 700; color: #1e293b; }
+
+    /* Why cards */
+    .why-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 20px; margin-bottom: 48px; }
+    .why-card {
+      background: white;
+      border-radius: 16px;
+      padding: 32px;
+      text-align: center;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+      border: 1px solid #e2e8f0;
+      transition: all 0.3s;
+    }
+    .why-card:hover { transform: translateY(-3px); box-shadow: 0 8px 30px rgba(0,0,0,0.08); }
+    .why-card .icon { font-size: 42px; margin-bottom: 12px; }
+    .why-card h3 { font-size: 18px; font-weight: 700; margin-bottom: 8px; }
+
+    .footer {
+      text-align: center;
+      padding: 40px 20px;
+      color: #94a3b8;
+      font-size: 14px;
+      border-top: 1px solid #e2e8f0;
+      margin-top: 20px;
+    }
+
+    /* Emotion comfort preview */
+    .emotion-tags { display: flex; gap: 10px; flex-wrap: wrap; margin: 16px 0; }
+    .emotion-tag {
+      padding: 10px 20px;
+      border-radius: 50px;
+      border: 2px solid #e0e7ff;
+      background: white;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 600;
+      color: #7c3aed;
+      transition: all 0.2s;
+    }
+    .emotion-tag:hover { background: #f5f3ff; border-color: #c4b5fd; transform: scale(1.05); }
+    .emotion-tag.selected {
+      background: linear-gradient(135deg, #8b5cf6, #6366f1);
+      color: white;
+      border-color: #7c3aed;
+      box-shadow: 0 4px 15px rgba(124,58,237,0.35);
+    }
+
+    /* Chat mode */
+    .mode-switch { display: flex; gap: 12px; margin-bottom: 24px; }
+    .mode-card {
+      flex: 1;
+      padding: 20px;
+      border-radius: 16px;
+      border: 2px solid #e2e8f0;
+      cursor: pointer;
+      text-align: center;
+      transition: all 0.3s;
+      background: white;
+    }
+    .mode-card:hover { border-color: #c4b5fd; }
+    .mode-card.active { border-color: #7c3aed; background: linear-gradient(135deg, #f5f3ff, #ede9fe); }
+    .mode-card h3 { font-size: 16px; font-weight: 700; margin-bottom: 4px; }
+    .mode-card p { font-size: 13px; color: #64748b; }
+
+    .tab-content { display: none; }
+    .tab-content.active { display: block; }
+
+    @media (max-width: 768px) {
+      .hero h1 { font-size: 30px; }
+      .card-grid, .card-grid-3 { grid-template-columns: 1fr; }
+      .path-steps { grid-template-columns: repeat(3, 1fr); }
+      .nav { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <span class="logo">🐧</span>
+    <span class="brand">企鹅求职伴</span>
+    <nav class="nav">
+      <a href="#" class="active" onclick="showTab('home')">🏠 首页</a>
+      <a href="#" onclick="showTab('diagnosis')">🔬 成长诊断</a>
+      <a href="#" onclick="showTab('career')">🗺️ 职业探索</a>
+      <a href="#" onclick="showTab('aiskill')">🤖 AI能力</a>
+      <a href="#" onclick="showTab('skill')">📚 技能中心</a>
+      <a href="#" onclick="showTab('project')">🛠️ 项目工坊</a>
+      <a href="#" onclick="showTab('jobprep')">💼 求职准备</a>
+      <a href="#" onclick="showTab('emotion')">💙 情绪陪伴</a>
+      <a href="#" onclick="showTab('chat')">💬 AI聊天</a>
+    </nav>
+  </div>
+
+  <div class="main">
+    <!-- HOME -->
+    <div id="home" class="tab-content active">
+      <div class="hero">
+        <div class="penguin">🐧</div>
+        <h1>企鹅求职伴</h1>
+        <p class="slogan">GrowthMate — 陪你从校园拿到心仪Offer</p>
+        <p>一份贴心、温暖、懂你的AI求职陪伴工具<br>不制造焦虑，只提供温暖的行动指南</p>
+        <br>
+        <a href="#" class="cta-btn" onclick="showTab('diagnosis')">🚀 开始我的成长诊断</a>
+      </div>
+
+      <h2 class="section-title">📋 陪伴成长路径</h2>
+      <p class="section-subtitle">从认知到拿到Offer，企鹅求职伴陪你走好每一步</p>
+      <div class="path-steps">
+        <div class="path-step"><div class="num">1</div><h4>职业认知</h4></div>
+        <div class="path-step"><div class="num">2</div><h4>AI能力培养</h4></div>
+        <div class="path-step"><div class="num">3</div><h4>职场技能</h4></div>
+        <div class="path-step"><div class="num">4</div><h4>项目实践</h4></div>
+        <div class="path-step"><div class="num">5</div><h4>求职准备</h4></div>
+        <div class="path-step"><div class="num">6</div><h4>职场适应</h4></div>
+      </div>
+
+      <h2 class="section-title">🎯 核心功能</h2>
+      <p class="section-subtitle">8大功能模块，覆盖求职全流程</p>
+      <div class="card-grid">
+        <div class="card" onclick="showTab('diagnosis')" style="border-top:4px solid #0066ff">
+          <div class="card-icon">🔬</div><h3>AI成长诊断</h3><p>填写基本信息，AI为你生成专属成长画像，分析优势短板，给出可执行的行动建议。</p>
+        </div>
+        <div class="card" onclick="showTab('career')" style="border-top:4px solid #7c3aed">
+          <div class="card-icon">🗺️</div><h3>职业探索地图</h3><p>6大热门岗位详细介绍、能力要求、大学准备建议，帮你找到方向。</p>
+        </div>
+        <div class="card" onclick="showTab('aiskill')" style="border-top:4px solid #06b6d4">
+          <div class="card-icon">🤖</div><h3>专业AI能力定制</h3><p>按专业定制AI工具学习路径，让AI成为你的求职加速器。</p>
+        </div>
+        <div class="card" onclick="showTab('skill')" style="border-top:4px solid #10b981">
+          <div class="card-icon">📚</div><h3>技能成长中心</h3><p>5大技能模块，系统化提升职场硬实力，完成任务积累成长等级。</p>
+        </div>
+        <div class="card" onclick="showTab('project')" style="border-top:4px solid #f59e0b">
+          <div class="card-icon">🛠️</div><h3>项目实践工坊</h3><p>5个可落地的项目模板，产出可直接写入简历的作品。</p>
+        </div>
+        <div class="card" onclick="showTab('jobprep')" style="border-top:4px solid #ef4444">
+          <div class="card-icon">💼</div><h3>求职准备中心</h3><p>AI简历优化 + 模拟面试训练，从简历到面试一站式准备。</p>
+        </div>
+        <div class="card" onclick="showTab('emotion')" style="border-top:4px solid #8b5cf6">
+          <div class="card-icon">💙</div><h3>情绪陪伴室</h3><p>倾诉求职焦虑，AI温暖回应，压力缓解小工具，给你最需要的支持。</p>
+        </div>
+        <div class="card" onclick="showTab('chat')" style="border-top:4px solid #ec4899">
+          <div class="card-icon">💬</div><h3>AI陪伴聊天</h3><p>双模式AI对话——规划成长或聊聊压力，随时在线陪你。</p>
+        </div>
+      </div>
+
+      <h2 class="section-title">🌟 为什么选择企鹅求职伴？</h2>
+      <div class="why-grid">
+        <div class="why-card"><div class="icon">📊</div><h3>分年级定制</h3><p>大一到大四、研一到研三，每个阶段都有专属的成长建议和行动方案。</p></div>
+        <div class="why-card"><div class="icon">🤖</div><h3>AI能力差异化</h3><p>不只是求职技巧，更教你用AI工具武装自己，在求职中建立独特优势。</p></div>
+        <div class="why-card"><div class="icon">💙</div><h3>温暖陪伴式</h3><p>不贩卖焦虑，只提供温暖的行动指南。企鹅求职伴懂求职，更懂你。</p></div>
+      </div>
+
+      <div style="text-align:center; padding: 40px 0;">
+        <a href="#" class="cta-btn" onclick="showTab('diagnosis')">🐧 开始我的成长诊断</a>
+      </div>
+    </div>
+
+    <!-- DIAGNOSIS -->
+    <div id="diagnosis" class="tab-content">
+      <div style="background:white; border-radius:16px; padding:32px; box-shadow:0 1px 3px rgba(0,0,0,0.06); border:1px solid #e2e8f0;">
+        <h2 style="font-size:24px; font-weight:800; margin-bottom:8px;">🔬 AI成长诊断</h2>
+        <p style="color:#64748b; margin-bottom:24px;">填写基本信息，AI为你生成专属成长画像</p>
+        
+        <div style="margin-bottom:20px;">
+          <label style="font-weight:700; display:block; margin-bottom:8px;">年级</label>
+          <div id="gradeBtns" style="display:flex; gap:8px; flex-wrap:wrap;"></div>
+        </div>
+        <div style="margin-bottom:20px;">
+          <label style="font-weight:700; display:block; margin-bottom:8px;">专业方向</label>
+          <select id="majorSelect" style="width:100%; padding:10px 16px; border-radius:10px; border:1px solid #e2e8f0; font-size:15px;">
+            <option value="">请选择专业方向</option>
+            <option>计算机/软件工程</option><option>新闻传播/中文</option><option>市场营销/工商管理</option>
+            <option>设计类</option><option>金融/经济</option><option>医学/生物</option><option>法学</option><option>城市规划/建筑</option><option>其他专业</option>
+          </select>
+        </div>
+        <div style="margin-bottom:20px;">
+          <label style="font-weight:700; display:block; margin-bottom:8px;">目标岗位方向</label>
+          <select id="careerSelect" style="width:100%; padding:10px 16px; border-radius:10px; border:1px solid #e2e8f0; font-size:15px;">
+            <option value="">请选择目标岗位</option>
+            <option>技术研发</option><option>产品经理</option><option>数据分析</option><option>内容运营</option><option>游戏策划</option><option>设计体验</option><option>还不确定</option>
+          </select>
+        </div>
+        <div style="margin-bottom:20px;">
+          <label style="font-weight:700; display:block; margin-bottom:8px;">当前最大困惑</label>
+          <textarea id="confusionInput" rows="3" placeholder="说说你现在的困惑..." style="width:100%; padding:12px 16px; border-radius:10px; border:1px solid #e2e8f0; font-size:15px; resize:vertical; font-family:inherit;"></textarea>
+        </div>
+        <div style="margin-bottom:20px;">
+          <label style="font-weight:700; display:block; margin-bottom:8px;">是否有项目/实习经历？</label>
+          <div style="display:flex; gap:12px;">
+            <label style="cursor:pointer;"><input type="radio" name="exp" value="yes"> 有</label>
+            <label style="cursor:pointer;"><input type="radio" name="exp" value="no"> 没有</label>
+          </div>
+        </div>
+        <div style="margin-bottom:20px;">
+          <label style="font-weight:700; display:block; margin-bottom:8px;">是否有AI工具使用基础？</label>
+          <div style="display:flex; gap:12px;">
+            <label style="cursor:pointer;"><input type="radio" name="ai" value="yes"> 有</label>
+            <label style="cursor:pointer;"><input type="radio" name="ai" value="no"> 没有</label>
+          </div>
+        </div>
+        <div style="margin-bottom:20px;">
+          <label style="font-weight:700; display:block; margin-bottom:8px;">最近求职/成长状态</label>
+          <div style="display:flex; gap:8px; flex-wrap:wrap;">
+            <label class="emotion-tag" style="cursor:pointer;"><input type="radio" name="emotion" value="anxious" style="display:none;">😰 焦虑不安</label>
+            <label class="emotion-tag" style="cursor:pointer;"><input type="radio" name="emotion" value="lost" style="display:none;">😵 迷茫困惑</label>
+            <label class="emotion-tag" style="cursor:pointer;"><input type="radio" name="emotion" value="confident" style="display:none;">😊 充满信心</label>
+            <label class="emotion-tag" style="cursor:pointer;"><input type="radio" name="emotion" value="tired" style="display:none;">😩 疲惫不堪</label>
+            <label class="emotion-tag" style="cursor:pointer;"><input type="radio" name="emotion" value="calm" style="display:none;">😌 心态平稳</label>
+          </div>
+        </div>
+        <button class="cta-btn" onclick="generateProfile()" style="width:100%;">🔮 生成我的成长画像</button>
+        <div id="profileResult" style="margin-top:24px;"></div>
+      </div>
+    </div>
+
+    <!-- CAREER MAP -->
+    <div id="career" class="tab-content">
+      <h2 class="section-title">🗺️ 职业探索地图</h2>
+      <p class="section-subtitle">了解不同岗位，找到属于你的方向</p>
+      <div class="card-grid">
+        <div class="card"><div class="card-icon">💻</div><h3>技术研发</h3><p>前端/后端/移动端/算法，用代码构建数字世界。</p><p style="margin-top:8px;"><span class="emotion-tag" style="font-size:12px; padding:4px 12px;">编程能力</span> <span class="emotion-tag" style="font-size:12px; padding:4px 12px;">算法思维</span> <span class="emotion-tag" style="font-size:12px; padding:4px 12px;">系统设计</span></p></div>
+        <div class="card"><div class="card-icon">📱</div><h3>产品经理</h3><p>定义产品方向、设计功能、驱动团队协作，是产品的"CEO"。</p><p style="margin-top:8px;"><span class="emotion-tag" style="font-size:12px; padding:4px 12px;">用户洞察</span> <span class="emotion-tag" style="font-size:12px; padding:4px 12px;">数据分析</span> <span class="emotion-tag" style="font-size:12px; padding:4px 12px;">沟通协作</span></p></div>
+        <div class="card"><div class="card-icon">📊</div><h3>数据分析</h3><p>从数据中发现洞察，用数据驱动业务决策。</p><p style="margin-top:8px;"><span class="emotion-tag" style="font-size:12px; padding:4px 12px;">SQL</span> <span class="emotion-tag" style="font-size:12px; padding:4px 12px;">Python</span> <span class="emotion-tag" style="font-size:12px; padding:4px 12px;">商业思维</span></p></div>
+        <div class="card"><div class="card-icon">✍️</div><h3>内容运营</h3><p>用文字和创意连接用户，打造有影响力的内容。</p><p style="margin-top:8px;"><span class="emotion-tag" style="font-size:12px; padding:4px 12px;">文案能力</span> <span class="emotion-tag" style="font-size:12px; padding:4px 12px;">热点敏感</span> <span class="emotion-tag" style="font-size:12px; padding:4px 12px;">用户心理</span></p></div>
+        <div class="card"><div class="card-icon">🎮</div><h3>游戏策划</h3><p>设计游戏机制、关卡、数值体系，创造令人沉浸的体验。</p><p style="margin-top:8px;"><span class="emotion-tag" style="font-size:12px; padding:4px 12px;">系统设计</span> <span class="emotion-tag" style="font-size:12px; padding:4px 12px;">数值平衡</span> <span class="emotion-tag" style="font-size:12px; padding:4px 12px;">用户体验</span></p></div>
+        <div class="card"><div class="card-icon">🎨</div><h3>设计体验</h3><p>UI/UX设计、交互体验、视觉传达，让产品更美好。</p><p style="margin-top:8px;"><span class="emotion-tag" style="font-size:12px; padding:4px 12px;">视觉设计</span> <span class="emotion-tag" style="font-size:12px; padding:4px 12px;">交互思维</span> <span class="emotion-tag" style="font-size:12px; padding:4px 12px;">用户研究</span></p></div>
+      </div>
+    </div>
+
+    <!-- AI SKILL -->
+    <div id="aiskill" class="tab-content">
+      <h2 class="section-title">🤖 专业AI能力定制</h2>
+      <p class="section-subtitle">按你的专业定制AI学习路径，让AI成为求职加速器</p>
+      <div class="card-grid-3">
+        <div class="card"><div class="card-icon">💻</div><h3>计算机/软件工程</h3><p>AI辅助编程、模型调用与微调</p><p style="margin-top:8px;color:#0066ff;font-size:13px;">🔧 GitHub Copilot · Cursor · LangChain</p></div>
+        <div class="card"><div class="card-icon">📝</div><h3>新闻传播/中文</h3><p>AI文案创作、舆情与数据洞察</p><p style="margin-top:8px;color:#0066ff;font-size:13px;">🔧 ChatGPT · Claude · Notion AI</p></div>
+        <div class="card"><div class="card-icon">📈</div><h3>市场营销/工商管理</h3><p>AI营销策略、用户分析与自动化</p><p style="margin-top:8px;color:#0066ff;font-size:13px;">🔧 Jasper AI · HubSpot AI · Tableau</p></div>
+        <div class="card"><div class="card-icon">🎨</div><h3>设计类</h3><p>AI创意设计、图像生成与编辑</p><p style="margin-top:8px;color:#0066ff;font-size:13px;">🔧 Midjourney · DALL-E · Figma AI</p></div>
+        <div class="card"><div class="card-icon">💰</div><h3>金融/经济</h3><p>AI金融分析、量化与风险管理</p><p style="margin-top:8px;color:#0066ff;font-size:13px;">🔧 Python · Bloomberg GPT · Wind</p></div>
+        <div class="card"><div class="card-icon">🔬</div><h3>医学/生物</h3><p>AI科研辅助、文献分析与实验设计</p><p style="margin-top:8px;color:#0066ff;font-size:13px;">🔧 Elicit · Scite · BioPython</p></div>
+        <div class="card"><div class="card-icon">⚖️</div><h3>法学</h3><p>AI法律研究、案例检索与文书生成</p><p style="margin-top:8px;color:#0066ff;font-size:13px;">🔧 Casetext · Harvey AI · ChatGPT</p></div>
+        <div class="card"><div class="card-icon">🏗️</div><h3>城市规划/建筑</h3><p>AI空间设计、参数化建模与分析</p><p style="margin-top:8px;color:#0066ff;font-size:13px;">🔧 Grasshopper · Spacemaker · Stable Diffusion</p></div>
+      </div>
+    </div>
+
+    <!-- SKILL CENTER -->
+    <div id="skill" class="tab-content">
+      <h2 class="section-title">📚 技能成长中心</h2>
+      <p class="section-subtitle">系统化提升职场硬实力，每完成一个任务离Offer更近一步</p>
+      <div style="background:white; border-radius:16px; padding:24px; margin-bottom:24px; box-shadow:0 1px 3px rgba(0,0,0,0.06);">
+        <div style="display:flex; justify-content:space-between; margin-bottom:8px;"><span style="font-weight:700;">总成长进度</span><span style="color:#7c3aed; font-weight:700;">0/10 任务完成</span></div>
+        <div style="height:10px; background:#e2e8f0; border-radius:10px; overflow:hidden;"><div style="height:100%; width:0%; background:linear-gradient(90deg,#0066ff,#7c3aed); border-radius:10px; transition:width 0.5s;"></div></div>
+        <div style="margin-top:8px; color:#7c3aed; font-weight:700;">成长等级：Lv.1 🐣</div>
+      </div>
+      <div class="card-grid-3">
+        <div class="card" style="border-top:4px solid #0066ff"><div class="card-icon">💼</div><h3>通用职场能力</h3><p>结构化表达 · 时间管理 · 复盘总结</p></div>
+        <div class="card" style="border-top:4px solid #7c3aed"><div class="card-icon">🛠️</div><h3>办公工具能力</h3><p>Excel高级功能 · PPT演示设计 · 飞书/钉钉协作</p></div>
+        <div class="card" style="border-top:4px solid #10b981"><div class="card-icon">🤖</div><h3>AI工具能力</h3><p>Prompt工程 · AI辅助写作 · AI数据分析</p></div>
+        <div class="card" style="border-top:4px solid #f59e0b"><div class="card-icon">🎯</div><h3>岗位专业能力</h3><p>行业分析 · 竞品研究 · 用户调研</p></div>
+        <div class="card" style="border-top:4px solid #ef4444"><div class="card-icon">🗣️</div><h3>求职表达能力</h3><p>自我介绍 · STAR法则 · 群面模拟</p></div>
+      </div>
+    </div>
+
+    <!-- PROJECT WORKSHOP -->
+    <div id="project" class="tab-content">
+      <h2 class="section-title">🛠️ 项目实践工坊</h2>
+      <p class="section-subtitle">5个可落地的项目模板，产出可直接写入简历的作品</p>
+      <div class="card-grid-3">
+        <div class="card"><div class="card-icon">📱</div><h3>App产品分析报告</h3><p>选一款App，从产品定位、用户画像、功能分析、竞品对比四个维度产出分析报告。</p><p style="margin-top:8px; color:#10b981; font-size:13px;">📄 产出：产品分析报告 PDF</p></div>
+        <div class="card"><div class="card-icon">📋</div><h3>校园活动运营方案</h3><p>设计一个校园活动，包含目标设定、玩法设计、推广渠道、数据指标、预算规划。</p><p style="margin-top:8px; color:#10b981; font-size:13px;">📄 产出：运营方案文档</p></div>
+        <div class="card"><div class="card-icon">🤖</div><h3>校园智能问答Bot</h3><p>用AI工具搭建一个校园FAQ问答机器人，接入常见问题知识库。</p><p style="margin-top:8px; color:#10b981; font-size:13px;">📄 产出：可演示的Bot</p></div>
+        <div class="card"><div class="card-icon">📊</div><h3>用户数据分析报告</h3><p>获取公开数据集，用Python/SQL进行清洗、分析和可视化，输出洞察报告。</p><p style="margin-top:8px; color:#10b981; font-size:13px;">📄 产出：数据分析报告 + 可视化</p></div>
+        <div class="card"><div class="card-icon">🎨</div><h3>App Redesign设计</h3><p>选一个App进行UI/UX重设计，包含用户研究、交互优化、视觉升级。</p><p style="margin-top:8px; color:#10b981; font-size:13px;">📄 产出：设计稿 + 设计说明</p></div>
+      </div>
+    </div>
+
+    <!-- JOB PREP -->
+    <div id="jobprep" class="tab-content">
+      <h2 class="section-title">💼 求职准备中心</h2>
+      <p class="section-subtitle">AI简历优化 + 模拟面试训练</p>
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:24px;">
+        <div style="background:white; border-radius:16px; padding:28px; box-shadow:0 1px 3px rgba(0,0,0,0.06); border:1px solid #e2e8f0;">
+          <h3 style="font-weight:700; margin-bottom:16px;">📝 AI简历项目经历优化</h3>
+          <textarea rows="4" placeholder="输入你的原始经历描述..." style="width:100%; padding:12px; border-radius:10px; border:1px solid #e2e8f0; resize:vertical; font-family:inherit; margin-bottom:12px;"></textarea>
+          <button class="cta-btn" style="width:100%;">✨ AI优化简历表达</button>
+          <div style="margin-top:16px; padding:16px; background:#f0fdf4; border-radius:10px; border:1px solid #bbf7d0;">
+            <p style="font-size:13px; color:#64748b;">💡 优化示例：</p>
+            <p style="font-size:13px; color:#ef4444; text-decoration:line-through; margin:8px 0;">❌ "在学生会负责过活动组织"</p>
+            <p style="font-size:13px; color:#10b981;">✅ "主导策划3场校园活动，协调5个部门、30+志愿者，活动参与人数500+，获校级优秀活动奖"</p>
+          </div>
+        </div>
+        <div style="background:white; border-radius:16px; padding:28px; box-shadow:0 1px 3px rgba(0,0,0,0.06); border:1px solid #e2e8f0;">
+          <h3 style="font-weight:700; margin-bottom:16px;">🎤 模拟面试训练</h3>
+          <div class="card" style="margin-bottom:12px; padding:16px;"><strong>Q1: 请做一个自我介绍</strong><p style="font-size:13px;color:#64748b;margin-top:4px;">💡 用STAR法则，突出与岗位的匹配度</p></div>
+          <div class="card" style="margin-bottom:12px; padding:16px;"><strong>Q2: 你最大的缺点是什么？</strong><p style="font-size:13px;color:#64748b;margin-top:4px;">💡 诚实但展现成长，说明你在如何改进</p></div>
+          <div class="card" style="margin-bottom:12px; padding:16px;"><strong>Q3: 为什么选择我们公司？</strong><p style="font-size:13px;color:#64748b;margin-top:4px;">💡 展现对公司和岗位的深入了解</p></div>
+          <div class="card" style="padding:16px;"><strong>Q4: 描述一次你解决困难的经历</strong><p style="font-size:13px;color:#64748b;margin-top:4px;">💡 STAR法则：情境-任务-行动-结果</p></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- EMOTION COMFORT -->
+    <div id="emotion" class="tab-content">
+      <h2 class="section-title">💙 情绪陪伴室</h2>
+      <p class="section-subtitle">这里没有评判，只有理解。把焦虑说出来，企鹅求职伴认真听。</p>
+      
+      <div style="background:linear-gradient(135deg,#f5f3ff,#ede9fe,#fce7f3); border-radius:20px; padding:32px; margin-bottom:24px; border:2px solid #e0e7ff;">
+        <h3 style="font-weight:700; margin-bottom:16px;">你今天的心情是……？</h3>
+        <div class="emotion-tags" id="emotionTagContainer">
+          <span class="emotion-tag" onclick="selectEmotion(this)">😰 焦虑不安</span>
+          <span class="emotion-tag" onclick="selectEmotion(this)">😵 迷茫困惑</span>
+          <span class="emotion-tag" onclick="selectEmotion(this)">😨 害怕面试</span>
+          <span class="emotion-tag" onclick="selectEmotion(this)">💔 投递失败</span>
+          <span class="emotion-tag" onclick="selectEmotion(this)">😞 被比较了</span>
+          <span class="emotion-tag" onclick="selectEmotion(this)">🤷 不确定方向</span>
+          <span class="emotion-tag" onclick="selectEmotion(this)">😔 能力不够</span>
+          <span class="emotion-tag" onclick="selectEmotion(this)">😩 多重压力</span>
+          <span class="emotion-tag" onclick="selectEmotion(this)">💬 想找人聊聊</span>
+        </div>
+        <div id="stressLevel" style="margin-top:20px; display:none;"></div>
+      </div>
+
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:24px; margin-bottom:24px;">
+        <div style="background:white; border-radius:16px; padding:24px; box-shadow:0 1px 3px rgba(0,0,0,0.06);">
+          <h3 style="font-weight:700; margin-bottom:12px;">💭 倾诉你的感受</h3>
+          <textarea id="emotionInput" rows="4" placeholder="把你想说的都写下来，我在听..." style="width:100%; padding:12px; border-radius:10px; border:1px solid #e2e8f0; resize:vertical; font-family:inherit;"></textarea>
+          <button class="cta-btn" onclick="comfortReply()" style="width:100%; margin-top:12px; background:linear-gradient(135deg,#8b5cf6,#6366f1);">🐧 和企鹅求职伴聊聊</button>
+        </div>
+        <div id="comfortChat" style="background:white; border-radius:16px; padding:24px; box-shadow:0 1px 3px rgba(0,0,0,0.06); min-height:200px;">
+          <p style="color:#94a3b8; text-align:center; padding-top:60px;">🐧 我在这里，等你来说说话</p>
+        </div>
+      </div>
+
+      <h3 style="font-weight:700; margin-bottom:16px;">🛠️ 求职压力小工具</h3>
+      <div class="card-grid" style="grid-template-columns:repeat(2,1fr);">
+        <div class="card"><div class="card-icon">🧘</div><h3>3分钟情绪整理</h3><p>快速整理思绪，把焦虑转化为行动。</p><textarea id="sortInput" rows="2" placeholder="我现在最担心的是..." style="width:100%; padding:10px; border-radius:8px; border:1px solid #e2e8f0; margin:8px 0; font-family:inherit;"></textarea><button class="cta-btn" style="width:100%; font-size:13px; padding:10px;" onclick="emotionSort()">开始整理</button><div id="sortResult" style="margin-top:12px;"></div></div>
+        <div class="card"><div class="card-icon">📋</div><h3>投递失败复盘卡</h3><p>科学复盘，找到优化方向。</p><button class="cta-btn" style="width:100%; font-size:13px; padding:10px; margin-top:8px;" onclick="reviewCard()">生成复盘卡片</button><div id="reviewResult" style="margin-top:12px;"></div></div>
+        <div class="card"><div class="card-icon">💪</div><h3>面试前鼓励卡</h3><p>给你一点温暖的力量。</p><button class="cta-btn" style="width:100%; font-size:13px; padding:10px; margin-top:8px;" onclick="encourageCard()">获取鼓励</button><div id="encourageResult" style="margin-top:12px;"></div></div>
+        <div class="card"><div class="card-icon">🌿</div><h3>今日低压力任务</h3><p>一个小任务，找回掌控感。</p><button class="cta-btn" style="width:100%; font-size:13px; padding:10px; margin-top:8px;" onclick="lowStressTask()">生成任务</button><div id="taskResult" style="margin-top:12px;"></div></div>
+      </div>
+    </div>
+
+    <!-- AI CHAT -->
+    <div id="chat" class="tab-content">
+      <h2 class="section-title">💬 AI陪伴聊天</h2>
+      <p class="section-subtitle">双模式AI对话——规划成长或聊聊压力，随时在线陪你</p>
+      
+      <div class="mode-switch">
+        <div class="mode-card active" onclick="switchChatMode('growth', this)" id="growthMode">
+          <h3>🚀 我要规划成长</h3><p>岗位探索、技能学习、项目实践、简历优化</p>
+        </div>
+        <div class="mode-card" onclick="switchChatMode('emotion', this)" id="emotionMode">
+          <h3>💙 我想聊聊压力</h3><p>情绪倾诉、压力缓解、获得鼓励、把焦虑变成行动</p>
+        </div>
+      </div>
+
+      <div style="margin-bottom:16px;">
+        <p style="font-weight:700; margin-bottom:8px;">选择你的年级，看同龄人都在问什么：</p>
+        <div style="display:flex; gap:8px; flex-wrap:wrap;" id="chatGradeBtns">
+          <span class="emotion-tag" onclick="selectChatGrade(this)" data-grade="大一">大一</span>
+          <span class="emotion-tag" onclick="selectChatGrade(this)" data-grade="大二">大二</span>
+          <span class="emotion-tag" onclick="selectChatGrade(this)" data-grade="大三">大三</span>
+          <span class="emotion-tag" onclick="selectChatGrade(this)" data-grade="大四">大四</span>
+          <span class="emotion-tag" onclick="selectChatGrade(this)" data-grade="研一">研一</span>
+          <span class="emotion-tag" onclick="selectChatGrade(this)" data-grade="研二">研二</span>
+          <span class="emotion-tag" onclick="selectChatGrade(this)" data-grade="研三">研三</span>
+        </div>
+        <div id="gradeQuestions" style="margin-top:12px;"></div>
+      </div>
+
+      <div style="background:white; border-radius:16px; padding:20px; box-shadow:0 1px 3px rgba(0,0,0,0.06); border:1px solid #e2e8f0; min-height:300px; margin-bottom:16px;">
+        <div id="chatMessages" style="max-height:400px; overflow-y:auto; margin-bottom:16px;">
+          <div style="margin-bottom:16px; padding:16px; background:#f8fafc; border-radius:12px; max-width:85%;">
+            <p style="font-size:14px; line-height:1.8; white-space:pre-line;">同学你好！我是企鹅求职伴 🐧，一只懂求职、更懂你的 AI 企鹅。
+
+不管你是大一还是研三，无论你在焦虑、迷茫还是自我怀疑——我都会在这里陪着你，帮你找到属于自己的职业方向。
+
+💡 你可以：
+• 选择你的年级，看看同龄人都在问什么求职问题
+• 点击情绪标签，找到和你感同身受的回答
+• 直接输入你想说的话，我会认真听
+
+记住，求职路上你不需要一个人扛着所有压力。来吧，和我聊聊 💙</p>
+          </div>
+        </div>
+        <div style="display:flex; gap:8px;">
+          <input id="chatInput" type="text" placeholder="输入你想说的话..." style="flex:1; padding:12px 16px; border-radius:50px; border:2px solid #e2e8f0; font-size:15px;" onkeydown="if(event.key==='Enter') sendChatMsg()">
+          <button class="cta-btn" onclick="sendChatMsg()" style="padding:12px 24px; font-size:14px;">发送</button>
+        </div>
+        <div style="display:flex; gap:8px; margin-top:12px; flex-wrap:wrap;">
+          <span class="emotion-tag" style="font-size:12px; padding:4px 14px; cursor:pointer;" onclick="quickAsk('大一，感觉很迷茫，不知道大学四年该做什么')">🌱 大一好迷茫</span>
+          <span class="emotion-tag" style="font-size:12px; padding:4px 14px; cursor:pointer;" onclick="quickAsk('大二了，身边同学都在卷实习，我好焦虑')">🏃 大家都在卷</span>
+          <span class="emotion-tag" style="font-size:12px; padding:4px 14px; cursor:pointer;" onclick="quickAsk('大三，感觉自己什么都不会，是不是来不及了？')">😞 觉得自己不行</span>
+          <span class="emotion-tag" style="font-size:12px; padding:4px 14px; cursor:pointer;" onclick="quickAsk('压力好大，快撑不住了')">😔 压力好大</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">
+    🐧 企鹅求职伴 GrowthMate — 陪你从校园拿到心仪Offer<br>
+    <span style="font-size:12px; color:#cbd5e1;">不制造焦虑，只提供温暖的行动指南</span>
+  </div>
+
+  <script>
+    function showTab(tabId) {
+      document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+      document.getElementById(tabId).classList.add('active');
+      document.querySelectorAll('.nav a').forEach(a => a.classList.remove('active'));
+      window.scrollTo({top:0, behavior:'smooth'});
+    }
+
+    // Grade buttons for Diagnosis
+    const grades = ['大一','大二','大三','大四','研一','研二','研三'];
+    let selectedGrade = null;
+    grades.forEach(g => {
+      const btn = document.createElement('span');
+      btn.className = 'emotion-tag'; btn.textContent = g;
+      btn.style.cursor = 'pointer';
+      btn.onclick = function() {
+        document.querySelectorAll('#gradeBtns .emotion-tag').forEach(b => b.classList.remove('selected'));
+        btn.classList.add('selected');
+        selectedGrade = g;
+      };
+      document.getElementById('gradeBtns').appendChild(btn);
+    });
+
+    function generateProfile() {
+      const major = document.getElementById('majorSelect').value;
+      const career = document.getElementById('careerSelect').value;
+      const confusion = document.getElementById('confusionInput').value;
+      const hasExp = document.querySelector('input[name="exp"]:checked')?.value;
+      const hasAI = document.querySelector('input[name="ai"]:checked')?.value;
+      const emotion = document.querySelector('input[name="emotion"]:checked')?.value;
+      
+      if (!selectedGrade) { alert('请选择年级'); return; }
+      if (!major) { alert('请选择专业方向'); return; }
+
+      const stageMap = { '大一':'探索期','大二':'探索期','大三':'冲刺期','大四':'冲刺期','研一':'冲刺期','研二':'冲刺期','研三':'冲刺期' };
+      const stage = stageMap[selectedGrade] || '探索期';
+      const emotionMap = { anxious:'焦虑不安', lost:'迷茫困惑', confident:'充满信心', tired:'疲惫不堪', calm:'心态平稳' };
+      const emotionLabel = emotionMap[emotion] || '未选择';
+
+      let html = `<div style="background:#f0fdf4; border-radius:16px; padding:24px; border:2px solid #bbf7d0; margin-top:20px;">
+        <h3 style="font-weight:800; margin-bottom:16px;">📊 你的成长画像</h3>
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:16px;">
+          <div style="background:white; padding:16px; border-radius:12px;">
+            <p style="color:#64748b; font-size:13px;">成长阶段</p>
+            <p style="font-size:24px; font-weight:800; color:#0066ff;">${stage}</p>
+            <span class="emotion-tag" style="font-size:12px; padding:4px 12px;">${selectedGrade} · ${major}</span>
+          </div>
+          <div style="background:white; padding:16px; border-radius:12px;">
+            <p style="color:#64748b; font-size:13px;">当前情绪状态</p>
+            <p style="font-size:20px; font-weight:800; color:#7c3aed;">${emotionLabel}</p>
+            <p style="font-size:12px; color:#64748b;">${emotion === 'anxious' || emotion === 'tired' ? '压力等级：中等偏高' : emotion === 'confident' ? '压力等级：较低' : '压力等级：中等'}</p>
+          </div>
+        </div>
+        <h4 style="color:#10b981; margin-bottom:8px;">✅ 优势分析</h4>
+        <ul style="margin-bottom:12px; padding-left:20px;">
+          <li>${selectedGrade}是${stage === '探索期' ? '探索职业方向的最佳时期，试错成本低' : '冲刺拿Offer的关键阶段，目标明确'}</li>
+          <li>专业方向明确（${major}），可以聚焦相关岗位</li>
+          ${hasExp === 'yes' ? '<li>有项目/实习经历，简历竞争力+1</li>' : '<li>仍有时间积累项目经历</li>'}
+          ${hasAI === 'yes' ? '<li>有AI工具基础，在求职中可以形成差异化优势</li>' : '<li>现在开始学习AI工具也不晚</li>'}
+        </ul>
+        <h4 style="color:#f59e0b; margin-bottom:8px;">⚠️ 短板分析</h4>
+        <ul style="margin-bottom:12px; padding-left:20px;">
+          ${hasExp !== 'yes' ? '<li>缺少实战经历，建议去项目工坊做一个项目</li>' : ''}
+          ${hasAI !== 'yes' ? '<li>AI工具能力待提升，建议去AI能力定制页面学习</li>' : ''}
+          ${career === '还不确定' || !career ? '<li>目标岗位不够明确，建议探索职业地图</li>' : '<li>可进一步深入了解目标岗位的核心要求</li>'}
+        </ul>
+        <h4 style="color:#7c3aed; margin-bottom:8px;">💙 压力缓解建议</h4>
+        <p style="margin-bottom:12px; color:#64748b;">${emotion === 'anxious' ? '焦虑是求职路上的正常情绪。试试把大的目标拆成每天一个小任务，完成一个就给自己肯定。去情绪陪伴室聊聊，企鹅求职伴一直在。' : emotion === 'lost' ? '迷茫说明你在认真思考。不妨先去职业探索地图看看不同岗位的介绍，也许会有灵感。' : emotion === 'tired' ? '累了就允许自己休息。今天只做一件小事就好，你已经很了不起了。' : '保持这份状态，但也要注意劳逸结合。每一步都算数。'}</p>
+        <h4 style="color:#0066ff; margin-bottom:8px;">🌱 今日最小行动任务</h4>
+        <div style="background:#eff6ff; padding:16px; border-radius:12px; border:1px solid #bfdbfe; margin-bottom:12px;">
+          <p style="font-weight:700; color:#0066ff;">${stage === '探索期' ? '去职业探索地图，随机看3个岗位的详细介绍' : '打开求职准备中心，练习一道面试题的自我介绍'}</p>
+        </div>
+        <h4 style="color:#1e293b; margin-bottom:8px;">📋 成长建议</h4>
+        <ol style="padding-left:20px; line-height:2;">
+          <li>去<strong>职业探索地图</strong>深入了解目标岗位</li>
+          <li>在<strong>AI能力定制</strong>页面学习与你专业相关的AI工具</li>
+          <li>去<strong>项目工坊</strong>完成一个可写入简历的项目</li>
+          ${stage === '冲刺期' ? '<li>去<strong>求职准备中心</strong>优化简历并练习面试</li>' : '<li>持续积累，为未来的求职打好基础</li>'}
+        </ol>
+      </div>`;
+      document.getElementById('profileResult').innerHTML = html;
+      document.getElementById('profileResult').scrollIntoView({behavior:'smooth'});
+    }
+
+    function selectEmotion(el) {
+      document.querySelectorAll('#emotionTagContainer .emotion-tag').forEach(t => t.classList.remove('selected'));
+      el.classList.add('selected');
+      const stressDiv = document.getElementById('stressLevel');
+      stressDiv.style.display = 'block';
+      const stressLevels = {
+        '😰 焦虑不安': {level:'中高', width:'65%', color:'#f59e0b', tip:'焦虑是正常的，试着把它写下来，让模糊的担忧变得具体。'},
+        '😵 迷茫困惑': {level:'中等', width:'50%', color:'#8b5cf6', tip:'迷茫是因为你在认真思考。去探索，答案在路上。'},
+        '😨 害怕面试': {level:'中高', width:'60%', color:'#ef4444', tip:'面试紧张人人都有，多练几次就会好很多。'},
+        '💔 投递失败': {level:'中高', width:'70%', color:'#ef4444', tip:'被拒≠你不行。每一次拒绝都在帮你筛选最适合的机会。'},
+        '😞 被比较了': {level:'中等', width:'55%', color:'#f59e0b', tip:'你看到的是别人的精选集，却拿自己的完整版在对比。'},
+        '🤷 不确定方向': {level:'中等', width:'45%', color:'#8b5cf6', tip:'方向不是想出来的，是走出来的。先迈一小步。'},
+        '😔 能力不够': {level:'中高', width:'65%', color:'#7c3aed', tip:'你拥有的，比你认为的多得多。试试列出你已掌握的3个技能。'},
+        '😩 多重压力': {level:'高', width:'80%', color:'#ef4444', tip:'先做深呼吸。只圈出本周必须完成的一件事，其他的先放一放。'},
+        '💬 想找人聊聊': {level:'因人而异', width:'40%', color:'#8b5cf6', tip:'说出来本身就是一种疗愈。我在这里，认真听你说。'},
+      };
+      const s = stressLevels[el.textContent] || {level:'中等', width:'50%', color:'#8b5cf6', tip:''};
+      stressDiv.innerHTML = `
+        <div style="display:flex; justify-content:space-between; margin-bottom:8px;">
+          <span style="font-weight:700;">压力等级</span>
+          <span style="color:${s.color}; font-weight:700;">${s.level}</span>
+        </div>
+        <div style="height:8px; background:#e2e8f0; border-radius:10px; overflow:hidden;">
+          <div style="height:100%; width:${s.width}; background:${s.color}; border-radius:10px; transition:width 0.5s;"></div>
+        </div>
+        <p style="font-size:13px; color:#64748b; margin-top:8px;">${s.tip}</p>
+        <p style="font-size:11px; color:#cbd5e1; margin-top:8px;">⚠️ 本工具不构成医学诊断，若情绪持续影响生活，请寻求专业帮助</p>`;
+    }
+
+    function comfortReply() {
+      const input = document.getElementById('emotionInput').value.trim();
+      if (!input) return;
+      const chat = document.getElementById('comfortChat');
+      chat.innerHTML = `
+        <div style="margin-bottom:12px; text-align:right;">
+          <span style="display:inline-block; padding:12px 18px; background:linear-gradient(135deg,#8b5cf6,#6366f1); color:white; border-radius:16px 16px 4px 16px; max-width:80%; font-size:14px;">${input}</span>
+        </div>
+        <div style="margin-bottom:8px;">
+          <span style="display:inline-block; padding:12px 18px; background:#f1f5f9; border-radius:16px 16px 16px 4px; max-width:85%; font-size:14px; line-height:1.8; white-space:pre-line;">我听到了你的感受 💙
+
+先停下来，做三次深呼吸。你所经历的这些情绪——焦虑、迷茫、自我怀疑——不是你的错，是求职这条路本身就充满挑战。
+
+🌿 <strong>接住你的情绪</strong>：
+你愿意说出来，这本身就很有勇气。很多人把情绪压在心里，而你选择了面对它。
+
+🔍 <strong>拆解一下问题</strong>：
+很多时候我们觉得压力大，是因为把所有问题混在一起看了。试着把它们分开：简历优化是一件事，投递是一件事，面试准备是一件事。一次只关注一件事。
+
+🌱 <strong>今天只做一件小事</strong>：
+不需要解决所有问题。今天只需要做一件很小的事——修改一行简历、收藏一个岗位、或者给自己泡杯热茶。
+
+🐧 企鹅求职伴一直在这里。任何时候你想聊聊，我都认真听。</span>
+        </div>`;
+      document.getElementById('emotionInput').value = '';
+    }
+
+    function emotionSort() {
+      const input = document.getElementById('sortInput').value.trim();
+      if (!input) { alert('请先填写你的担忧'); return; }
+      document.getElementById('sortResult').innerHTML = `
+        <div style="padding:16px; background:#f5f3ff; border-radius:12px; border:1px solid #e0e7ff;">
+          <p style="font-weight:700; margin-bottom:8px;">🧘 情绪整理结果</p>
+          <p style="font-size:13px; color:#64748b;">😟 <strong>你担忧的</strong>：${input}</p>
+          <p style="font-size:13px; color:#10b981;">✅ <strong>你能控制的</strong>：你的准备程度、你的投递数量、你的心态</p>
+          <p style="font-size:13px; color:#f59e0b;">⚠️ <strong>你不能控制的</strong>：HR的回复速度、竞争者的数量、面试官的心情</p>
+          <p style="font-size:13px; color:#0066ff; margin-top:8px;">💡 <strong>现在可做</strong>：把精力放在你能控制的事情上，把不能控制的交给时间。</p>
+        </div>`;
+    }
+
+    function reviewCard() {
+      document.getElementById('reviewResult').innerHTML = `
+        <div style="padding:16px; background:#fef2f2; border-radius:12px; border:1px solid #fecaca;">
+          <p style="font-weight:700; margin-bottom:8px;">📋 投递复盘卡</p>
+          <p style="font-size:13px; color:#64748b;">请给以下维度打分（1-5）：</p>
+          <p style="font-size:13px;">📝 简历匹配度：是否针对JD修改了简历？</p>
+          <p style="font-size:13px;">🎯 岗位匹配度：你的能力是否符合岗位要求？</p>
+          <p style="font-size:13px;">⏰ 投递时机：是否在招聘季/岗位刚发布时投递？</p>
+          <p style="font-size:13px;">📊 投递数量：是否投递了足够多的岗位？</p>
+          <p style="font-size:13px; color:#7c3aed; margin-top:8px;">💡 建议：如果某个维度低于3分，优先优化这个方向。</p>
+        </div>`;
+    }
+
+    function encourageCard() {
+      document.getElementById('encourageResult').innerHTML = `
+        <div style="padding:16px; background:linear-gradient(135deg,#f0fdf4,#ecfdf5); border-radius:12px; border:1px solid #bbf7d0;">
+          <p style="font-weight:700; margin-bottom:8px;">💪 面试前鼓励卡</p>
+          <p style="font-size:14px; line-height:1.8; white-space:pre-line;">亲爱的同学，
+
+我知道你现在可能有点紧张。但你知道吗？你已经准备得很好了。
+
+🐧 <strong>企鹅求职伴想对你说</strong>：
+• 面试官也是人，他们也紧张过
+• 面试不是考试，而是一次对话——你在了解他们，他们也在了解你
+• 你不会的问题可以诚实说"我目前还不太了解，但我愿意学"
+• 真诚比完美更重要
+
+🌟 <strong>记住三件事</strong>：
+1. 你已经比昨天的自己更强了
+2. 这次面试不管结果如何，都是一次宝贵的经验
+3. 最坏的结果也不过是"暂时不合适"，而不是"你不够好"
+
+深呼吸，你可以的！🐧💙</p>
+        </div>`;
+    }
+
+    function lowStressTask() {
+      const tasks = [
+        '打开一个招聘网站，只收藏3个你感兴趣的岗位（不用投递）',
+        '修改简历中的一行描述，让它更具体',
+        '给自己泡杯热茶，看一集喜欢的剧',
+        '在校园里走一圈，不用想任何求职的事',
+        '写下今天完成的一件小事（不管多小都算）',
+        '打开职业探索地图，随便看一个岗位的介绍',
+        '给一个朋友发条消息，聊聊最近的生活',
+        '整理一下电脑桌面，让心情也清爽一点',
+      ];
+      const task = tasks[Math.floor(Math.random() * tasks.length)];
+      document.getElementById('taskResult').innerHTML = `
+        <div style="padding:16px; background:#eff6ff; border-radius:12px; border:1px solid #bfdbfe;">
+          <p style="font-weight:700; margin-bottom:4px;">🌿 今日低压力任务</p>
+          <p style="font-size:14px; color:#1e293b;">${task}</p>
+          <p style="font-size:12px; color:#94a3b8; margin-top:8px;">⏱ 预计5-10分钟 · 没有压力，做完就好</p>
+        </div>`;
+    }
+
+    // Chat functions
+    let chatMode = 'growth';
+    function switchChatMode(mode, el) {
+      chatMode = mode;
+      document.querySelectorAll('.mode-card').forEach(c => c.classList.remove('active'));
+      el.classList.add('active');
+      const msgs = document.getElementById('chatMessages');
+      if (mode === 'growth') {
+        msgs.innerHTML = `<div style="margin-bottom:16px; padding:16px; background:#f8fafc; border-radius:12px; max-width:85%;">
+          <p style="font-size:14px; line-height:1.8; white-space:pre-line;">🚀 <strong>成长规划模式已开启！</strong>
+
+在这个模式下，我会帮你解决：
+• 🗺️ 岗位探索与方向选择
+• 📚 技能学习路径规划
+• 🔧 项目实践经验积累
+• 📝 简历优化与面试准备
+
+💡 选择你的年级，或直接问我求职相关的问题吧！</p></div>`;
+      } else {
+        msgs.innerHTML = `<div style="margin-bottom:16px; padding:16px; background:#f8fafc; border-radius:12px; max-width:85%;">
+          <p style="font-size:14px; line-height:1.8; white-space:pre-line;">💙 <strong>情绪陪伴模式已开启！</strong>
+
+在这个模式下，我是你的倾听者和陪伴者：
+• 🫂 你可以尽情表达焦虑、迷茫和压力
+• 🌿 我会先接住你的情绪，再陪你一起想办法
+• 🎯 把模糊的压力拆成具体的小行动
+
+这里没有评判，只有理解。想说什么，我都认真听。
+
+🐧 你今天心情怎么样？</p></div>`;
+      }
+    }
+
+    function selectChatGrade(el) {
+      document.querySelectorAll('#chatGradeBtns .emotion-tag').forEach(t => t.classList.remove('selected'));
+      el.classList.add('selected');
+      const gradeQs = {
+        '大一': [{q:'大一，感觉很迷茫，不知道大学四年该做什么',label:'🌱 大一好迷茫'},{q:'大一，选的专业不喜欢，要不要转专业？',label:'🔄 想转专业'}],
+        '大二': [{q:'大二了，身边同学都在卷实习，我好焦虑',label:'🏃 大家都在卷'},{q:'我是大二计算机专业，不知道适合开发还是产品怎么办？',label:'🤔 方向纠结'}],
+        '大三': [{q:'我大三了还没有实习经历，秋招还来得及吗？',label:'😰 没实习经历'},{q:'大三，感觉自己什么都不会，是不是来不及了？',label:'😞 觉得自己不行'},{q:'大三，秋招和考研怎么选？好纠结',label:'⚖️ 考研vs求职'}],
+        '大四': [{q:'大四秋招零offer，是不是没希望了？',label:'💔 秋招零offer'},{q:'大四，拿了几个offer不知道怎么选',label:'🎉 offer怎么选'}],
+        '研一': [{q:'研一，感觉研究生生活和想象中不一样，很失落',label:'😞 研究生落差'},{q:'研一，导师很忙没空管我，感觉很迷茫',label:'🕊️ 导师放养'}],
+        '研二': [{q:'研二，论文发不出来，毕业都成问题',label:'📝 论文发不出'},{q:'研二，应该去实习还是专心做科研？',label:'🤔 实习vs科研'}],
+        '研三': [{q:'研三，论文和秋招同时进行，快崩溃了',label:'💥 论文+秋招'},{q:'研三，硕士找工作还不如本科生，读研的意义在哪？',label:'🤷 读研有意义吗'}],
+      };
+      const qs = gradeQs[el.dataset.grade] || [];
+      document.getElementById('gradeQuestions').innerHTML = qs.map(q => 
+        `<span class="emotion-tag" style="font-size:12px; padding:4px 14px; cursor:pointer; margin-right:8px;" onclick="quickAsk('${q.q}')">${q.label}</span>`
+      ).join('');
+    }
+
+    function sendChatMsg() {
+      const input = document.getElementById('chatInput');
+      const text = input.value.trim();
+      if (!text) return;
+      
+      const msgs = document.getElementById('chatMessages');
+      msgs.innerHTML += `<div style="margin-bottom:12px; text-align:right;">
+        <span style="display:inline-block; padding:12px 18px; background:linear-gradient(135deg,#0066ff,#7c3aed); color:white; border-radius:16px 16px 4px 16px; max-width:80%; font-size:14px;">${text}</span>
+      </div>`;
+      input.value = '';
+      
+      setTimeout(() => {
+        const reply = getChatReply(text);
+        msgs.innerHTML += `<div style="margin-bottom:16px;">
+          <span style="display:inline-block; padding:12px 18px; background:#f1f5f9; border-radius:16px 16px 16px 4px; max-width:85%; font-size:14px; line-height:1.8; white-space:pre-line;">${reply}</span>
+        </div>`;
+        msgs.scrollTop = msgs.scrollHeight;
+      }, 800);
+    }
+
+    function quickAsk(q) {
+      document.getElementById('chatInput').value = q;
+      sendChatMsg();
+    }
+
+    function getChatReply(msg) {
+      const lower = msg.toLowerCase();
+      if (chatMode === 'emotion') {
+        if (lower.includes('压力') || lower.includes('崩溃') || lower.includes('撑不住')) {
+          return '我听到了你的累 💙\n\n多重压力同时压过来的时候，最消耗人的不是事情本身，而是"我必须同时搞定所有事"的念头。\n\n🌿 先做一个深呼吸，然后试试这个：把所有压力写在一张纸上，然后只圈出"本周必须完成的一件事"。其他的，允许自己先放一放。\n\n🌱 今天只做一件事：给自己30分钟"什么都不想"的时间。\n\n🐧 能扛到现在，你已经非常了不起了。';
+        }
+        if (lower.includes('放弃') || lower.includes('不行') || lower.includes('没希望')) {
+          return '亲爱的同学，我理解这种感觉 💙\n\n但你知道吗？大多数人在拿到心仪Offer之前，都经历过"想放弃"的时刻。这不是软弱，这是人之常情。\n\n🌱 今天不需要振作，不需要努力。只需要允许自己休息一下。\n\n🐧 求职这条路很长，不需要一直冲刺。有时候停下来喘口气，是为了走更远的路。';
+        }
+        if (lower.includes('别人') || lower.includes('比较') || lower.includes('他们') || lower.includes('厉害')) {
+          return '比较的压力我太懂了 💙\n\n但你知道吗？你看到的是别人的"精选集"，却拿自己的"完整版"在对比。\n\n🌱 今天只做一件事：写下你自己最近做成的3件事——不管多小。\n\n🐧 人生不是百米冲刺，是各自在不同跑道的马拉松。你的节奏，就是最好的节奏。';
+        }
+        return '我在这里，认真听你说 💙\n\n不管是什么感受，它都是真实的、值得被认真对待的。求职路上的焦虑、迷茫、自我怀疑——这些情绪不是你的错，是这条路本身就充满挑战。\n\n🌱 今天只做一件事：不需要解决所有问题，只需要做一件很小的事。\n\n🐧 企鹅求职伴一直在这里。任何时候你想聊聊，我都认真听。';
+      }
+      
+      if (lower.includes('迷茫') || lower.includes('不知道')) {
+        return '迷茫说明你在认真思考 💙\n\n那些从不迷茫的人，要么是还没开始想，要么是被安排好了不需要想。而你愿意面对"不确定"，这本身就很有勇气。\n\n🔍 迷茫通常不是"选项太少"，而是"试得太少"。\n\n🌱 建议你先去"职业探索地图"随机看3个岗位的详细介绍。不用做决定，只是看看。\n\n🐧 方向不是想出来的，是走出来的。';
+      }
+      if (lower.includes('简历') || lower.includes('投递')) {
+        return '关于简历和投递，我有一些建议 🌟\n\n📝 简历优化：\n• 用STAR法则描述经历（情境-任务-行动-结果）\n• 量化成果（"参与活动"→"策划300人参与的活动"）\n• 根据JD关键词调整简历\n\n📬 投递策略：\n• 不要海投！精选20-30个匹配度高的岗位\n• 每个岗位微调简历\n• 记录投递进度\n\n💡 需要更详细的帮助？去"求职准备中心"试试AI简历优化功能吧！';
+      }
+      return '谢谢你的分享！🌟\n\n我理解你的困惑。大学阶段的迷茫其实很正常，关键在于行动起来。\n\n建议你先去"成长诊断"页面做个评估，了解自己的优势短板，然后根据建议一步步推进。\n\n需要我帮你具体分析一下吗？';
+    }
+  </script>
+</body>
+</html>

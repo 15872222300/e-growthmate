@@ -286,11 +286,12 @@ export default function AiChat() {
                 alignItems: 'center',
                 gap: 6,
                 padding: '6px 14px',
-                background: 'var(--primary-light)',
-                borderRadius: 20,
+                background: 'rgba(255,209,73,0.08)',
+                borderRadius: 8,
+                border: '1px solid #222222',
                 fontSize: 13,
                 fontWeight: 600,
-                color: 'var(--primary)',
+                color: '#333333',
               }}>
                 <span>🐧</span>
                 {user.username}
@@ -300,7 +301,7 @@ export default function AiChat() {
                 size="small"
                 variant="outline"
                 onClick={() => setHistoryOpen(!historyOpen)}
-                style={{ fontSize: 12, borderRadius: 20 }}
+                style={{ fontSize: 12, borderRadius: 6 }}
               >
                 📋 历史 ({user.chatHistory?.length || 0})
               </Button>
@@ -309,14 +310,14 @@ export default function AiChat() {
           {!user && (
             <div style={{
               padding: '8px 16px',
-              background: '#fef3c7',
-              borderRadius: 10,
+              background: '#FAFAFA',
+              borderRadius: 8,
               fontSize: 12,
-              color: '#92400e',
+              color: '#777777',
               display: 'flex',
               alignItems: 'center',
               gap: 8,
-              border: '1px solid #fcd34d',
+              border: '1px solid #E0E0E0',
             }}>
               💡 登录后可保存聊天记录，随时回顾成长历程
             </div>
@@ -328,15 +329,15 @@ export default function AiChat() {
           <div style={{
             marginTop: 12,
             padding: '16px',
-            background: '#fff',
-            borderRadius: 14,
-            border: '1px solid var(--border)',
+            background: '#FFFFFF',
+            borderRadius: 8,
+            border: '1px solid #222222',
             maxHeight: 220,
             overflow: 'auto',
           }}>
-            <p style={{ fontSize: 13, fontWeight: 700, marginBottom: 10 }}>📋 历史对话记录</p>
+            <p style={{ fontSize: 13, fontWeight: 700, marginBottom: 10, color: '#333333' }}>📋 历史对话记录</p>
             {(user.chatHistory || []).length === 0 ? (
-              <p style={{ fontSize: 13, color: 'var(--text-muted)' }}>暂无历史记录，开始聊天吧！</p>
+              <p style={{ fontSize: 13, color: '#777777' }}>暂无历史记录，开始聊天吧！</p>
             ) : (
               <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
                 {(user.chatHistory || []).map((session, i) => (
@@ -345,31 +346,31 @@ export default function AiChat() {
                     onClick={() => loadSession(session)}
                     style={{
                       padding: '10px 14px',
-                      borderRadius: 10,
+                      borderRadius: 6,
                       cursor: 'pointer',
-                      background: session.sessionId === sessionIdRef.current ? '#e3edff' : '#f8fafc',
-                      border: session.sessionId === sessionIdRef.current ? '1px solid #93c5fd' : '1px solid transparent',
+                      background: session.sessionId === sessionIdRef.current ? 'rgba(255,209,73,0.08)' : '#FAFAFA',
+                      border: session.sessionId === sessionIdRef.current ? '1px solid #FFD149' : '1px solid transparent',
                       transition: 'all 0.2s',
                       display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'space-between',
                     }}
-                    onMouseEnter={e => { if (session.sessionId !== sessionIdRef.current) e.currentTarget.style.background = '#f0f7ff'; }}
-                    onMouseLeave={e => { if (session.sessionId !== sessionIdRef.current) e.currentTarget.style.background = '#f8fafc'; }}
+                    onMouseEnter={e => { if (session.sessionId !== sessionIdRef.current) e.currentTarget.style.background = '#F5F5F5'; }}
+                    onMouseLeave={e => { if (session.sessionId !== sessionIdRef.current) e.currentTarget.style.background = '#FAFAFA'; }}
                   >
                     <div>
-                      <div style={{ fontSize: 13, fontWeight: 600, display: 'flex', alignItems: 'center', gap: 6 }}>
+                      <div style={{ fontSize: 13, fontWeight: 600, display: 'flex', alignItems: 'center', gap: 6, color: '#333333' }}>
                         {session.mode === 'emotion' ? '💙' : '🚀'}
                         {session.mode === 'emotion' ? '情绪陪伴' : '成长规划'}
                         {session.sessionId === sessionIdRef.current && (
                           <Tag theme="primary" size="small" variant="light">当前</Tag>
                         )}
                       </div>
-                      <div style={{ fontSize: 11, color: 'var(--text-muted)', marginTop: 2 }}>
+                      <div style={{ fontSize: 11, color: '#777777', marginTop: 2 }}>
                         {session.messages?.length || 0} 条消息 · {new Date(session.timestamp).toLocaleString('zh-CN')}
                       </div>
                     </div>
-                    <div style={{ fontSize: 18, color: 'var(--text-muted)' }}>→</div>
+                    <div style={{ fontSize: 18, color: '#AAAAAA' }}>→</div>
                   </div>
                 ))}
               </div>
@@ -380,10 +381,10 @@ export default function AiChat() {
 
       {/* ========== 模式切换 ========== */}
       <Card bordered style={{
-        borderRadius: 'var(--radius-lg)',
+        borderRadius: 8,
         marginBottom: 16,
-        background: '#e3edff',
-        border: '1px solid #c7d2fe',
+        background: '#FAFAFA',
+        border: '1px solid #222222',
         padding: '8px',
       }}>
         <div style={{ display: 'flex', gap: 12, justifyContent: 'center' }}>
@@ -395,30 +396,26 @@ export default function AiChat() {
                 flex: 1,
                 maxWidth: 260,
                 padding: '14px 16px',
-                borderRadius: 14,
+                borderRadius: 8,
                 cursor: 'pointer',
-                transition: 'all 0.25s cubic-bezier(.4,0,.2,1)',
+                transition: 'all 0.2s cubic-bezier(.4,0,.2,1)',
                 textAlign: 'center',
                 background: chatMode === mode.id
-                  ? (mode.id === 'growth' ? '#0052d9' : '#8b5cf6')
-                  : '#fff',
-                color: chatMode === mode.id ? '#fff' : 'var(--text)',
-                border: chatMode === mode.id ? 'none' : '2px solid var(--border)',
-                boxShadow: chatMode === mode.id
-                  ? '0 4px 16px rgba(0,0,0,.15)'
-                  : '0 1px 3px rgba(0,0,0,.04)',
-                transform: chatMode === mode.id ? 'scale(1.03)' : 'scale(1)',
+                  ? (mode.id === 'growth' ? '#FFD149' : '#4A86E8')
+                  : '#FFFFFF',
+                color: chatMode === mode.id ? '#333333' : '#333333',
+                border: chatMode === mode.id
+                  ? '1px solid #222222'
+                  : '1px solid #E0E0E0',
               }}
               onMouseEnter={e => {
                 if (chatMode !== mode.id) {
-                  e.currentTarget.style.borderColor = mode.id === 'growth' ? '#0052d9' : '#8b5cf6';
-                  e.currentTarget.style.transform = 'scale(1.02)';
+                  e.currentTarget.style.borderColor = '#222222';
                 }
               }}
               onMouseLeave={e => {
                 if (chatMode !== mode.id) {
-                  e.currentTarget.style.borderColor = 'var(--border)';
-                  e.currentTarget.style.transform = 'scale(1)';
+                  e.currentTarget.style.borderColor = '#E0E0E0';
                 }
               }}
             >
@@ -433,8 +430,9 @@ export default function AiChat() {
                   marginTop: 6,
                   display: 'inline-block',
                   padding: '2px 10px',
-                  borderRadius: 20,
-                  background: 'rgba(255,255,255,.25)',
+                  borderRadius: 6,
+                  background: 'rgba(255,255,255,.6)',
+                  border: '1px solid rgba(0,0,0,.15)',
                   fontSize: 11,
                   fontWeight: 600,
                 }}>
@@ -522,23 +520,19 @@ export default function AiChat() {
 
       {/* Emotion Quick Panel - 情绪陪伴模式专用 */}
       <Card bordered style={{
-        borderRadius: 'var(--radius-lg)',
+        borderRadius: 8,
         marginBottom: 16,
         padding: '14px 20px',
-        background: chatMode === 'emotion'
-          ? '#ede9fe'
-          : '#fff',
-        border: chatMode === 'emotion' ? '1px solid #c4b5fd' : '1px solid var(--border)',
+        background: '#FAFAFA',
+        border: '1px solid #E0E0E0',
       }}>
         <p style={{
           fontSize: 12,
-          color: chatMode === 'emotion' ? '#7c3aed' : 'var(--text-muted)',
+          color: '#777777',
           marginBottom: 8,
-          fontWeight: chatMode === 'emotion' ? 600 : 400,
+          fontWeight: 600,
         }}>
-          {chatMode === 'emotion'
-            ? '💙 情绪陪伴模式 · 点击标签和e职伴聊聊心里话：'
-            : '💙 情绪陪伴 · 点击标签和e职伴聊聊心里话：'}
+          💙 情绪陪伴 · 点击标签和e职伴聊聊心里话：
         </p>
         <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
           {EMOTION_QUICK_ASKS.map((item, i) => (
@@ -551,9 +545,8 @@ export default function AiChat() {
               style={{
                 cursor: 'pointer',
                 transition: 'all 0.2s',
-                borderColor: '#c4b5fd',
-                color: '#7c3aed',
-                background: '#f5f3ff',
+                borderColor: '#4A86E8',
+                color: '#4A86E8',
               }}
             >
               {item.label}
@@ -564,13 +557,13 @@ export default function AiChat() {
 
       {/* Chat Container */}
       <Card bordered style={{
-        borderRadius: 'var(--radius-lg)',
+        borderRadius: 8,
         display: 'flex',
         flexDirection: 'column',
         height: 'calc(100vh - 560px)',
         minHeight: 420,
         overflow: 'hidden',
-        border: chatMode === 'emotion' ? '1px solid #e9d5ff' : '1px solid var(--border)',
+        border: '1px solid #222222',
       }}>
         {/* Messages */}
         <div style={{
@@ -601,25 +594,26 @@ export default function AiChat() {
                   display: 'flex', alignItems: 'center', justifyContent: 'center',
                   flexShrink: 0, fontSize: 18,
                   background: msg.role === 'ai'
-                    ? (chatMode === 'emotion' ? '#8b5cf6' : '#0052d9')
-                    : (chatMode === 'emotion' ? '#ede9fe' : '#e2e8f0'),
-                  color: msg.role === 'ai' ? '#fff' : 'var(--text)',
+                    ? (chatMode === 'emotion' ? '#4A86E8' : '#FFD149')
+                    : '#F5F5F5',
+                  border: '1px solid #222222',
+                  color: msg.role === 'ai' ? '#FFFFFF' : '#333333',
                 }}>
                   {msg.role === 'ai' ? '🐧' : '👤'}
                 </div>
                 <div style={{
                   padding: '12px 16px',
-                  borderRadius: msg.role === 'user' ? '16px 4px 16px 16px' : '4px 16px 16px 16px',
+                  borderRadius: msg.role === 'user' ? '12px 4px 12px 12px' : '4px 12px 12px 12px',
                   background: msg.role === 'ai'
-                    ? (chatMode === 'emotion' ? '#ede9fe' : '#f8fafc')
-                    : (chatMode === 'emotion' ? '#8b5cf6' : '#0052d9'),
-                  color: msg.role === 'ai' ? 'var(--text)' : '#fff',
+                    ? (chatMode === 'emotion' ? '#FAFAFA' : '#FAFAFA')
+                    : (chatMode === 'emotion' ? '#4A86E8' : '#FFD149'),
+                  color: msg.role === 'ai' ? '#333333' : '#333333',
                   fontSize: 15,
                   lineHeight: 1.8,
                   whiteSpace: 'pre-wrap',
                   border: msg.role === 'ai'
-                    ? (chatMode === 'emotion' ? '1px solid #c4b5fd' : '1px solid var(--border)')
-                    : 'none',
+                    ? '1px solid #E0E0E0'
+                    : '1px solid #222222',
                 }}>
                   {msg.content}
                 </div>
@@ -632,23 +626,22 @@ export default function AiChat() {
             <div style={{ display: 'flex', gap: 10, alignItems: 'center' }}>
               <div style={{
                 width: 36, height: 36, borderRadius: '50%',
-                background: chatMode === 'emotion'
-                  ? '#8b5cf6'
-                  : '#0052d9',
+                background: chatMode === 'emotion' ? '#4A86E8' : '#FFD149',
+                border: '1px solid #222222',
                 display: 'flex', alignItems: 'center', justifyContent: 'center',
-                fontSize: 18, color: '#fff',
+                fontSize: 18, color: '#FFFFFF',
               }}>🐧</div>
               <div style={{
                 padding: '12px 20px',
-                borderRadius: '4px 16px 16px 16px',
-                background: chatMode === 'emotion' ? '#ede9fe' : '#f8fafc',
-                border: chatMode === 'emotion' ? '1px solid #c4b5fd' : '1px solid var(--border)',
+                borderRadius: '4px 12px 12px 12px',
+                background: '#FAFAFA',
+                border: '1px solid #E0E0E0',
                 display: 'flex', gap: 4,
               }}>
                 {[0, 1, 2].map(i => (
                   <div key={i} style={{
                     width: 8, height: 8, borderRadius: '50%',
-                    background: chatMode === 'emotion' ? '#a78bfa' : '#94a3b8',
+                    background: '#CCCCCC',
                     animation: `pulse 1s ease-in-out ${i * 0.2}s infinite`,
                   }} />
                 ))}
@@ -661,21 +654,22 @@ export default function AiChat() {
         {/* Quick Questions Row */}
         <div style={{
           padding: '10px 20px',
-          borderTop: '1px solid var(--border)',
+          borderTop: '1px solid #E0E0E0',
           display: 'flex', gap: 6, flexWrap: 'wrap',
         }}>
-          <span style={{ fontSize: 11, color: 'var(--text-muted)', marginRight: 4, alignSelf: 'center' }}>快捷：</span>
+          <span style={{ fontSize: 11, color: '#777777', marginRight: 4, alignSelf: 'center' }}>快捷：</span>
           {chatPresets.filter(p => p.grade === '通用').slice(0, 4).map((preset, i) => (
             <div
               key={i}
               onClick={() => handleQuickAsk(preset.user)}
               style={{
                 padding: '4px 10px',
-                borderRadius: 16,
+                borderRadius: 6,
                 fontSize: 11,
                 cursor: 'pointer',
-                background: 'var(--primary-light)',
-                color: 'var(--primary)',
+                background: '#FAFAFA',
+                border: '1px solid #E0E0E0',
+                color: '#333333',
                 fontWeight: 500,
                 transition: 'all var(--transition)',
                 maxWidth: 200,
@@ -683,8 +677,8 @@ export default function AiChat() {
                 textOverflow: 'ellipsis',
                 whiteSpace: 'nowrap',
               }}
-              onMouseEnter={e => { e.currentTarget.style.background = '#dbeafe'; }}
-              onMouseLeave={e => { e.currentTarget.style.background = 'var(--primary-light)'; }}
+              onMouseEnter={e => { e.currentTarget.style.background = '#F5F5F5'; e.currentTarget.style.borderColor = '#222222'; }}
+              onMouseLeave={e => { e.currentTarget.style.background = '#FAFAFA'; e.currentTarget.style.borderColor = '#E0E0E0'; }}
             >
               {preset.user.slice(0, 25)}...
             </div>
@@ -694,7 +688,7 @@ export default function AiChat() {
         {/* Input */}
         <div style={{
           padding: '12px 20px 16px',
-          borderTop: chatMode === 'emotion' ? '1px solid #e9d5ff' : '1px solid var(--border)',
+          borderTop: '1px solid #E0E0E0',
           display: 'flex', gap: 10,
         }}>
           <Input
@@ -714,9 +708,6 @@ export default function AiChat() {
             onClick={handleSend}
             disabled={!input.trim()}
             shape="circle"
-            style={chatMode === 'emotion' ? {
-              background: '#8b5cf6 !important',
-            } : {}}
           />
         </div>
       </Card>
@@ -725,14 +716,14 @@ export default function AiChat() {
       <div style={{
         marginTop: 16,
         padding: '12px 16px',
-        background: '#f8fafc',
-        borderRadius: 8,
+        background: '#FAFAFA',
+        borderRadius: 6,
         fontSize: 12,
-        color: 'var(--text-muted)',
+        color: '#777777',
         textAlign: 'center',
-        border: '1px dashed var(--border)',
+        border: '1px dashed #E0E0E0',
       }}>
-        💡 当前为模拟对话模式。如需接入真实AI API，请在 <code style={{ background: '#e2e8f0', padding: '1px 4px', borderRadius: 3 }}>AiChat.jsx</code> 的 <code style={{ background: '#e2e8f0', padding: '1px 4px', borderRadius: 3 }}>handleSend</code> 函数中替换为API调用。
+        💡 当前为模拟对话模式。如需接入真实AI API，请在 <code style={{ background: '#F5F5F5', padding: '1px 4px', borderRadius: 3, border: '1px solid #E0E0E0' }}>AiChat.jsx</code> 的 <code style={{ background: '#F5F5F5', padding: '1px 4px', borderRadius: 3, border: '1px solid #E0E0E0' }}>handleSend</code> 函数中替换为API调用。
       </div>
     </div>
   );

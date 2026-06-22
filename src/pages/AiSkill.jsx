@@ -6,49 +6,49 @@ const MAJOR_DATA = {
   'cs': {
     name: '计算机/软件工程',
     icon: '💻',
-    color: '#0052d9',
+    color: '#A8C8E8',
     desc: '掌握AI辅助编程与模型开发能力',
   },
   'media': {
     name: '新闻传播/中文',
     icon: '✍️',
-    color: '#f59e0b',
+    color: '#D4C08A',
     desc: '用AI赋能内容创作与舆情分析',
   },
   'marketing': {
     name: '市场营销/工商管理',
     icon: '📈',
-    color: '#10b981',
+    color: '#B8A9C9',
     desc: 'AI驱动营销策略与数据洞察',
   },
   'design': {
     name: '设计类',
     icon: '🎨',
-    color: '#ec4899',
+    color: '#E8927C',
     desc: 'AI创意设计与视觉生成',
   },
   'finance': {
     name: '金融/经济',
     icon: '💰',
-    color: '#8b5cf6',
+    color: '#8CB89F',
     desc: 'AI金融分析与智能投研',
   },
   'medical': {
     name: '医学/生物',
     icon: '🔬',
-    color: '#06b6d4',
+    color: '#A8C8E8',
     desc: 'AI科研辅助与数据分析',
   },
   'law': {
     name: '法学',
     icon: '⚖️',
-    color: '#6366f1',
+    color: '#D4C08A',
     desc: 'AI法律研究与文书处理',
   },
   'architecture': {
     name: '城市规划/建筑',
     icon: '🏗️',
-    color: '#f97316',
+    color: '#E8C46A',
     desc: 'AI空间设计与方案表达',
   },
 };
@@ -169,11 +169,11 @@ function MapNode({ node, isSelected, isHovered, onSelect, onHover, color, scale 
   const actualSize = size * scale;
 
   const typeStyles = {
-    start: { bg: '#e3edff', border: color, shadow: `0 0 20px ${color}30` },
-    skill: { bg: '#fff', border: color + '60' },
-    core: { bg: '#fff', border: color, shadow: `0 0 14px ${color}20` },
-    advanced: { bg: '#fff', border: color, shadow: `0 0 18px ${color}30` },
-    end: { bg: color, border: color, shadow: `0 0 28px ${color}50` },
+    start: { bg: '#FFFDF7', border: color, shadow: `3px 3px 0 ${color}30` },
+    skill: { bg: '#FFFDF7', border: color + '60' },
+    core: { bg: '#FFFDF7', border: color, shadow: `3px 3px 0 ${color}20` },
+    advanced: { bg: '#FFFDF7', border: color, shadow: `3px 3px 0 ${color}30` },
+    end: { bg: color, border: color, shadow: `4px 4px 0 ${color}50` },
   };
 
   const s = typeStyles[node.type] || typeStyles.skill;
@@ -190,10 +190,10 @@ function MapNode({ node, isSelected, isHovered, onSelect, onHover, color, scale 
         transform: `translate(-50%, -50%) scale(${isSelected ? 1.15 : isHovered ? 1.08 : 1})`,
         width: actualSize,
         height: actualSize,
-        borderRadius: node.type === 'end' ? '50%' : node.type === 'start' ? '50%' : '14px',
+        borderRadius: node.type === 'end' ? '50%' : node.type === 'start' ? '50%' : '16px',
         background: node.type === 'end' ? s.bg : s.bg,
         border: `2.5px solid ${s.border}`,
-        boxShadow: isSelected ? `0 0 24px ${color}60` : s.shadow || '0 2px 8px rgba(0,0,0,0.06)',
+        boxShadow: isSelected ? `4px 4px 0 ${color}40` : s.shadow || '2px 2px 0 rgba(139,105,20,0.08)',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
@@ -201,7 +201,7 @@ function MapNode({ node, isSelected, isHovered, onSelect, onHover, color, scale 
         zIndex: node.type === 'end' ? 10 : node.type === 'start' ? 9 : isSelected ? 8 : 5,
         transition: 'all 0.3s cubic-bezier(.4,0,.2,1)',
         fontSize: Math.max(14, actualSize * 0.36),
-        color: node.type === 'end' ? '#fff' : color,
+        color: node.type === 'end' ? '#5C4A1E' : '#5C4A1E',
         fontWeight: 700,
         userSelect: 'none',
       }}
@@ -435,7 +435,7 @@ export default function AiSkill({ profile }) {
             marginBottom: 20,
             overflow: 'hidden',
             position: 'relative',
-            background: 'linear-gradient(180deg, #fafcff 0%, #f8fafc 50%, #f0f4ff 100%)',
+            background: 'linear-gradient(180deg, #FFFDF7 0%, #FDF8EC 50%, #F5ECD7 100%)',
           }}>
             <div style={{
               position: 'relative',
@@ -450,7 +450,7 @@ export default function AiSkill({ profile }) {
               }}>
                 <defs>
                   <pattern id="grid" width="8%" height="25%" patternUnits="userSpaceOnUse">
-                    <path d="M 100 0 L 0 0 0 100" fill="none" stroke="#e2e8f0" strokeWidth="0.5" opacity="0.5" />
+                    <path d="M 100 0 L 0 0 0 100" fill="none" stroke="#D4C08A" strokeWidth="0.5" opacity="0.4" />
                   </pattern>
                 </defs>
                 <rect width="100%" height="100%" fill="url(#grid)" />
@@ -494,8 +494,8 @@ export default function AiSkill({ profile }) {
                     left: `${node.x + 6}%`,
                     top: `${node.y - 10}%`,
                     transform: 'translateY(-100%)',
-                    background: '#1e293b',
-                    color: '#fff',
+                    background: '#5C4A1E',
+                    color: '#FFFDF7',
                     padding: '10px 14px',
                     borderRadius: 10,
                     fontSize: 13,
@@ -511,7 +511,7 @@ export default function AiSkill({ profile }) {
                       width: 0, height: 0,
                       borderLeft: '6px solid transparent',
                       borderRight: '6px solid transparent',
-                      borderTop: '6px solid #1e293b',
+                      borderTop: '6px solid #5C4A1E',
                     }} />
                   </div>
                 );
@@ -551,7 +551,7 @@ export default function AiSkill({ profile }) {
                   {nodeDetail.tools && nodeDetail.tools.length > 0 && (
                     <div style={{
                       padding: '16px 20px',
-                      background: '#f8fafc',
+                      background: '#FDF8EC',
                       borderRadius: 12,
                       minWidth: 180,
                     }}>

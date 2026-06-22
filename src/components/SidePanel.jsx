@@ -90,7 +90,7 @@ export default function SidePanel() {
           percentage={overallProgress}
           strokeWidth={8}
           theme="plump"
-          color={{ from: '#0052d9', to: '#8b5cf6' }}
+          color={{ from: '#F5E6C8', to: '#8CB89F' }}
         />
         <div className="side-panel-progress-text">
           已完成 {totalTasks} 项任务
@@ -121,8 +121,8 @@ export default function SidePanel() {
                   percentage={pct}
                   strokeWidth={4}
                   theme="line"
-                  color={pct >= 100 ? '#10b981' : pct >= 50 ? '#0052d9' : '#94a3b8'}
-                  trackColor="#f1f5f9"
+                  color={pct >= 100 ? '#8B6914' : pct >= 50 ? '#C4A55A' : '#D4C08A'}
+                  trackColor="#F5ECD7"
                 />
               </div>
             );

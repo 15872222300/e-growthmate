@@ -83,19 +83,19 @@ export default function SkillCenter() {
       </div>
 
       {/* Progress */}
-      <Card bordered style={{ borderRadius: 'var(--radius-lg)', marginBottom: 24 }}>
+      <Card bordered style={{ borderRadius: 8, marginBottom: 24, border: '1px solid #E0E0E0' }}>
         <div style={{ padding: 8, display: 'flex', alignItems: 'center', gap: 20, flexWrap: 'wrap' }}>
           <div style={{ flex: 1, minWidth: 200 }}>
-            <div style={{ fontSize: 14, fontWeight: 600, marginBottom: 8 }}>📊 成长进度</div>
+            <div style={{ fontSize: 14, fontWeight: 600, marginBottom: 8, color: '#333333' }}>📊 成长进度</div>
             <Progress percentage={progressPercent} strokeWidth={10} />
           </div>
           <div style={{ textAlign: 'center', minWidth: 80 }}>
-            <div style={{ fontSize: 28, fontWeight: 800, color: 'var(--primary)' }}>{doneCount}</div>
-            <div style={{ fontSize: 12, color: 'var(--text-muted)' }}>已完成/{totalTasks}任务</div>
+            <div style={{ fontSize: 28, fontWeight: 800, color: '#333333' }}>{doneCount}</div>
+            <div style={{ fontSize: 12, color: '#777777' }}>已完成/{totalTasks}任务</div>
           </div>
           <div style={{ textAlign: 'center', minWidth: 80 }}>
-            <div style={{ fontSize: 28, fontWeight: 800, color: '#7c3aed' }}>Lv.{Math.floor(doneCount / 3) + 1}</div>
-            <div style={{ fontSize: 12, color: 'var(--text-muted)' }}>成长等级</div>
+            <div style={{ fontSize: 28, fontWeight: 800, color: '#333333' }}>Lv.{Math.floor(doneCount / 3) + 1}</div>
+            <div style={{ fontSize: 12, color: '#777777' }}>成长等级</div>
           </div>
         </div>
       </Card>
@@ -104,25 +104,28 @@ export default function SkillCenter() {
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))', gap: 20 }}>
         {skillModules.map((mod, i) => (
           <Card key={mod.id} bordered style={{
-            borderRadius: 'var(--radius-lg)',
-            borderTop: `3px solid ${mod.color}`,
+            borderRadius: 8,
+            border: '1px solid #E0E0E0',
+            borderTop: '3px solid #222222',
             animation: `fadeInUp 0.4s ease-out ${i * 0.08}s both`,
           }}>
             <div style={{ padding: 8 }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 12 }}>
                 <div style={{
-                  width: 42, height: 42, borderRadius: 12,
-                  background: mod.color + '15',
+                  width: 42, height: 42, borderRadius: 8,
+                  background: 'rgba(255,209,73,0.1)',
+                  border: '1px solid #222222',
                   display: 'flex', alignItems: 'center', justifyContent: 'center',
                   fontSize: 20,
                 }}>{mod.icon}</div>
-                <h3 style={{ fontSize: 16, fontWeight: 700 }}>{mod.title}</h3>
+                <h3 style={{ fontSize: 16, fontWeight: 700, color: '#333333' }}>{mod.title}</h3>
               </div>
               <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6, marginBottom: 14 }}>
                 {mod.skills.map(s => (
                   <span key={s} style={{
-                    fontSize: 12, padding: '3px 10px', borderRadius: 20,
-                    background: '#f1f5f9', color: 'var(--text-secondary)', fontWeight: 500,
+                    fontSize: 12, padding: '3px 10px', borderRadius: 8,
+                    background: '#FAFAFA', color: '#777777', fontWeight: 500,
+                    border: '1px solid #E0E0E0',
                   }}>{s}</span>
                 ))}
               </div>
@@ -136,22 +139,22 @@ export default function SkillCenter() {
                       onClick={() => { setActiveModule(mod); handleStartTask(task); }}
                       style={{
                         padding: '12px 14px',
-                        borderRadius: 10,
-                        background: done ? '#f0fdf4' : submitted ? '#fff7ed' : '#f8fafc',
-                        border: `1px solid ${done ? '#bbf7d0' : submitted ? '#fed7aa' : 'var(--border)'}`,
+                        borderRadius: 8,
+                        background: done ? '#FAFAFA' : submitted ? '#FAFAFA' : '#FFFFFF',
+                        border: `1px solid ${done ? '#222222' : submitted ? '#E0E0E0' : '#E0E0E0'}`,
                         cursor: 'pointer',
-                        transition: 'all var(--transition)',
+                        transition: 'all 0.2s',
                         display: 'flex', alignItems: 'center', gap: 10,
                       }}
-                      onMouseEnter={e => { if (!done) e.currentTarget.style.borderColor = mod.color; }}
-                      onMouseLeave={e => { if (!done) e.currentTarget.style.borderColor = submitted ? '#fed7aa' : 'var(--border)'; }}
+                      onMouseEnter={e => { if (!done) { e.currentTarget.style.borderColor = '#222222'; e.currentTarget.style.background = '#FAFAFA'; } }}
+                      onMouseLeave={e => { if (!done) { e.currentTarget.style.borderColor = submitted ? '#E0E0E0' : '#E0E0E0'; e.currentTarget.style.background = submitted ? '#FAFAFA' : '#FFFFFF'; } }}
                     >
                       <div style={{
                         width: 24, height: 24, borderRadius: '50%',
-                        border: `2px solid ${done ? '#10b981' : submitted ? '#f59e0b' : '#cbd5e1'}`,
+                        border: `1px solid ${done ? '#222222' : submitted ? '#E0E0E0' : '#E0E0E0'}`,
                         display: 'flex', alignItems: 'center', justifyContent: 'center',
-                        flexShrink: 0, fontSize: 12, color: done ? '#10b981' : 'transparent',
-                        background: done ? '#d1fae5' : submitted ? '#fef3c7' : 'transparent',
+                        flexShrink: 0, fontSize: 12, color: done ? '#333333' : 'transparent',
+                        background: done ? '#FFD149' : submitted ? '#FAFAFA' : 'transparent',
                       }}>
                         {done ? '✓' : submitted ? '📝' : ''}
                       </div>
@@ -159,7 +162,7 @@ export default function SkillCenter() {
                         <div style={{
                           fontSize: 13, fontWeight: 600,
                           textDecoration: done ? 'line-through' : 'none',
-                          color: done ? 'var(--text-muted)' : 'var(--text)',
+                          color: done ? '#777777' : '#333333',
                           display: 'flex', alignItems: 'center', gap: 6,
                         }}>
                           {task.title}
@@ -169,7 +172,7 @@ export default function SkillCenter() {
                             </Tag>
                           )}
                         </div>
-                        <div style={{ fontSize: 12, color: 'var(--text-muted)', marginTop: 2 }}>{task.desc.slice(0, 40)}...</div>
+                        <div style={{ fontSize: 12, color: '#777777', marginTop: 2 }}>{task.desc.slice(0, 40)}...</div>
                       </div>
                       <span style={{ fontSize: 18 }}>{done ? '✅' : submitted ? '📤' : '▶️'}</span>
                     </div>
@@ -201,13 +204,13 @@ export default function SkillCenter() {
             <h3 style={{ fontSize: 18, fontWeight: 700, marginBottom: 8 }}>{activeTask.title}</h3>
             <div style={{
               padding: '16px',
-              background: '#f8fafc',
-              borderRadius: 10,
+              background: '#FAFAFA',
+              borderRadius: 8,
               marginBottom: 16,
-              border: '1px solid var(--border)',
+              border: '1px solid #E0E0E0',
             }}>
-              <div style={{ fontSize: 13, fontWeight: 600, color: 'var(--text-muted)', marginBottom: 6 }}>📝 任务描述</div>
-              <p style={{ fontSize: 14, lineHeight: 1.7, color: 'var(--text)' }}>{activeTask.desc}</p>
+              <div style={{ fontSize: 13, fontWeight: 600, color: '#777777', marginBottom: 6 }}>📝 任务描述</div>
+              <p style={{ fontSize: 14, lineHeight: 1.7, color: '#333333' }}>{activeTask.desc}</p>
             </div>
 
             {/* ===== 提交作业区域 ===== */}
@@ -218,23 +221,23 @@ export default function SkillCenter() {
                   style={{
                     display: 'flex', alignItems: 'center', justifyContent: 'space-between',
                     padding: '12px 16px',
-                    background: showHomeworkSection ? '#f0fdf4' : '#f8fafc',
-                    borderRadius: 10,
-                    border: `1px solid ${showHomeworkSection ? '#bbf7d0' : 'var(--border)'}`,
+                    background: showHomeworkSection ? 'rgba(255,209,73,0.08)' : '#FAFAFA',
+                    borderRadius: 8,
+                    border: `1px solid ${showHomeworkSection ? '#222222' : '#E0E0E0'}`,
                     cursor: 'pointer',
                     transition: 'all 0.2s',
                   }}
                 >
                   <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
                     <span style={{ fontSize: 20 }}>📎</span>
-                    <span style={{ fontSize: 14, fontWeight: 600, color: showHomeworkSection ? '#10b981' : 'var(--text)' }}>
+                    <span style={{ fontSize: 14, fontWeight: 600, color: showHomeworkSection ? '#333333' : '#333333' }}>
                       提交作业
                     </span>
                     <Tag size="small" theme={showHomeworkSection ? 'success' : 'default'} variant="light">
                       {showHomeworkSection ? '展开中' : '可选'}
                     </Tag>
                   </div>
-                  <span style={{ fontSize: 12, color: 'var(--text-muted)' }}>
+                  <span style={{ fontSize: 12, color: '#777777' }}>
                     {showHomeworkSection ? '收起 ▲' : '展开 ▼'}
                   </span>
                 </div>
@@ -243,9 +246,9 @@ export default function SkillCenter() {
                   <div style={{
                     marginTop: 12,
                     padding: '16px',
-                    background: '#fff',
-                    borderRadius: 10,
-                    border: '1px solid #bbf7d0',
+                    background: '#FFFFFF',
+                    borderRadius: 8,
+                    border: '1px solid #E0E0E0',
                     animation: 'fadeIn 0.3s ease-out',
                   }}>
                     {/* 文字提交 */}
@@ -288,27 +291,27 @@ export default function SkillCenter() {
               <div style={{
                 marginBottom: 16,
                 padding: '14px 16px',
-                background: '#fffbeb',
-                borderRadius: 10,
-                border: '1px solid #fde68a',
+                background: '#FAFAFA',
+                borderRadius: 8,
+                border: '1px solid #E0E0E0',
               }}>
-                <div style={{ fontSize: 13, fontWeight: 600, color: '#d97706', marginBottom: 8 }}>
+                <div style={{ fontSize: 13, fontWeight: 600, color: '#333333', marginBottom: 8 }}>
                   📋 历史提交记录 ({submissionHistory[activeTask.title].length}次)
                 </div>
                 {submissionHistory[activeTask.title].slice(0, 3).map((sub, idx) => (
                   <div key={sub.id} style={{
                     padding: '10px 12px',
-                    background: '#fff',
+                    background: '#FFFFFF',
                     borderRadius: 8,
                     marginBottom: 6,
-                    border: '1px solid #fde68a',
+                    border: '1px solid #E0E0E0',
                     fontSize: 12,
                   }}>
-                    <div style={{ color: 'var(--text-muted)', marginBottom: 4 }}>
+                    <div style={{ color: '#777777', marginBottom: 4 }}>
                       📅 {new Date(sub.timestamp).toLocaleString('zh-CN')}
                     </div>
                     {sub.homeworkText && (
-                      <div style={{ color: 'var(--text-secondary)', lineHeight: 1.5, marginBottom: 4 }}>
+                      <div style={{ color: '#777777', lineHeight: 1.5, marginBottom: 4 }}>
                         {sub.homeworkText.slice(0, 100)}{sub.homeworkText.length > 100 ? '...' : ''}
                       </div>
                     )}
@@ -327,22 +330,22 @@ export default function SkillCenter() {
             {showFeedback && (
               <div style={{
                 padding: '16px',
-                background: '#eff6ff',
-                borderRadius: 10,
-                border: '1px solid #bfdbfe',
+                background: '#FAFAFA',
+                borderRadius: 8,
+                border: '1px solid #E0E0E0',
                 animation: 'fadeIn 0.4s ease-out',
               }}>
-                <div style={{ fontSize: 13, fontWeight: 600, color: 'var(--primary)', marginBottom: 6 }}>🤖 AI 反馈</div>
-                <p style={{ fontSize: 14, lineHeight: 1.7, color: 'var(--text)' }}>{currentFeedback}</p>
+                <div style={{ fontSize: 13, fontWeight: 600, color: '#333333', marginBottom: 6 }}>🤖 AI 反馈</div>
+                <p style={{ fontSize: 14, lineHeight: 1.7, color: '#333333' }}>{currentFeedback}</p>
                 <div style={{ marginTop: 12, display: 'flex', alignItems: 'center', gap: 8 }}>
                   <span style={{ fontSize: 30 }}>🦢</span>
-                  <span style={{ fontSize: 13, color: 'var(--text-muted)' }}>🐧 e职伴一直在这里陪你拿到心仪Offer 💪</span>
+                  <span style={{ fontSize: 13, color: '#777777' }}>🐧 e职伴一直在这里陪你拿到心仪Offer 💪</span>
                 </div>
               </div>
             )}
 
             {!showFeedback && (
-              <div style={{ textAlign: 'center', padding: '20px 0', color: 'var(--text-muted)' }}>
+              <div style={{ textAlign: 'center', padding: '20px 0', color: '#777777' }}>
                 <div style={{ fontSize: 36, marginBottom: 8 }}>📝</div>
                 <p>阅读任务要求，完成后可提交作业并点击"完成任务"获取AI反馈</p>
               </div>

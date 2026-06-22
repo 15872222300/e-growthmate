@@ -145,10 +145,10 @@ export default function Layout({ children }) {
                         top: '100%',
                         left: 0,
                         marginTop: 6,
-                        background: '#fff',
-                        borderRadius: 12,
-                        boxShadow: '0 8px 32px rgba(0,0,0,.12)',
-                        border: '1px solid var(--border)',
+                        background: 'var(--bg-card)',
+                        borderRadius: 'var(--radius)',
+                        border: '2px solid var(--border-color)',
+                        boxShadow: '4px 4px 0 rgba(139, 105, 20, 0.1)',
                         padding: 6,
                         minWidth: 160,
                         zIndex: 200,
@@ -170,17 +170,17 @@ export default function Layout({ children }) {
                                 gap: 8,
                                 width: '100%',
                                 padding: '9px 14px',
-                                border: 'none',
-                                borderRadius: 8,
+                                border: childActive ? '2px solid var(--border-color)' : '2px solid transparent',
+                                borderRadius: 'var(--radius-sm)',
                                 cursor: 'pointer',
                                 fontSize: 13,
                                 fontWeight: childActive ? 700 : 500,
-                                color: childActive ? 'var(--primary)' : 'var(--text)',
-                                background: childActive ? 'var(--primary-light)' : 'transparent',
+                                color: 'var(--text-primary)',
+                                background: childActive ? 'var(--brand-yellow-light)' : 'transparent',
                                 transition: 'all var(--transition)',
                                 textAlign: 'left',
                               }}
-                              onMouseEnter={e => { if (!childActive) e.currentTarget.style.background = 'var(--bg)'; }}
+                              onMouseEnter={e => { if (!childActive) e.currentTarget.style.background = 'var(--bg-hover)'; }}
                               onMouseLeave={e => { if (!childActive) e.currentTarget.style.background = 'transparent'; }}
                             >
                               <span>{child.icon}</span>

@@ -36,18 +36,18 @@ export default function JobPrep() {
 
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(400px, 1fr))', gap: 24 }}>
         {/* Resume Optimizer */}
-        <Card bordered style={{ borderRadius: 'var(--radius-lg)' }}>
+        <Card bordered style={{ borderRadius: 8, border: '1px solid #E0E0E0' }}>
           <div style={{ padding: 8 }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 16 }}>
               <span style={{ fontSize: 24 }}>📝</span>
-              <h3 style={{ fontSize: 17, fontWeight: 700 }}>简历项目经历优化</h3>
+              <h3 style={{ fontSize: 17, fontWeight: 700, color: '#333333' }}>简历项目经历优化</h3>
             </div>
-            <p style={{ fontSize: 13, color: 'var(--text-muted)', marginBottom: 14 }}>
+            <p style={{ fontSize: 13, color: '#777777', marginBottom: 14 }}>
               输入一段项目经历，AI帮你优化为专业、量化的简历表达
             </p>
 
             <div style={{ marginBottom: 12 }}>
-              <div style={{ fontSize: 13, fontWeight: 600, marginBottom: 6 }}>📥 输入原始经历</div>
+              <div style={{ fontSize: 13, fontWeight: 600, color: '#333333', marginBottom: 6 }}>📥 输入原始经历</div>
               <Textarea
                 value={resumeInput}
                 onChange={setResumeInput}
@@ -64,13 +64,13 @@ export default function JobPrep() {
             {resumeResult && (
               <div style={{
                 padding: 16,
-                background: '#eff6ff',
-                borderRadius: 10,
-                border: '1px solid #bfdbfe',
+                background: '#FAFAFA',
+                borderRadius: 8,
+                border: '1px solid #E0E0E0',
                 animation: 'fadeIn 0.4s ease-out',
               }}>
-                <div style={{ fontSize: 13, fontWeight: 600, color: 'var(--primary)', marginBottom: 8 }}>📤 优化结果</div>
-                <p style={{ fontSize: 14, lineHeight: 1.8, whiteSpace: 'pre-wrap' }}>{resumeResult}</p>
+                <div style={{ fontSize: 13, fontWeight: 600, color: '#4A86E8', marginBottom: 8 }}>📤 优化结果</div>
+                <p style={{ fontSize: 14, lineHeight: 1.8, whiteSpace: 'pre-wrap', color: '#333333' }}>{resumeResult}</p>
                 <Button
                   size="small"
                   variant="text"
@@ -83,16 +83,16 @@ export default function JobPrep() {
               </div>
             )}
 
-            <div style={{ marginTop: 16, padding: 12, background: '#f8fafc', borderRadius: 8 }}>
-              <div style={{ fontSize: 12, fontWeight: 600, color: 'var(--text-muted)', marginBottom: 6 }}>💡 优化示例</div>
+            <div style={{ marginTop: 16, padding: 12, background: '#FAFAFA', borderRadius: 8, border: '1px solid #E0E0E0' }}>
+              <div style={{ fontSize: 12, fontWeight: 600, color: '#777777', marginBottom: 6 }}>💡 优化示例</div>
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 8, fontSize: 12 }}>
                 <div>
-                  <div style={{ color: '#ef4444', fontWeight: 600, marginBottom: 4 }}>优化前 ❌</div>
-                  <div style={{ color: 'var(--text-secondary)', lineHeight: 1.6 }}>{resumeExamples.before}</div>
+                  <div style={{ color: '#333333', fontWeight: 600, marginBottom: 4 }}>优化前 ❌</div>
+                  <div style={{ color: '#777777', lineHeight: 1.6 }}>{resumeExamples.before}</div>
                 </div>
                 <div>
-                  <div style={{ color: '#10b981', fontWeight: 600, marginBottom: 4 }}>优化后 ✅</div>
-                  <div style={{ color: 'var(--text-secondary)', lineHeight: 1.6 }}>{resumeExamples.after}</div>
+                  <div style={{ color: '#333333', fontWeight: 600, marginBottom: 4 }}>优化后 ✅</div>
+                  <div style={{ color: '#777777', lineHeight: 1.6 }}>{resumeExamples.after}</div>
                 </div>
               </div>
             </div>
@@ -100,13 +100,13 @@ export default function JobPrep() {
         </Card>
 
         {/* Mock Interview */}
-        <Card bordered style={{ borderRadius: 'var(--radius-lg)' }}>
+        <Card bordered style={{ borderRadius: 8, border: '1px solid #E0E0E0' }}>
           <div style={{ padding: 8 }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 16 }}>
               <span style={{ fontSize: 24 }}>🎤</span>
-              <h3 style={{ fontSize: 17, fontWeight: 700 }}>模拟面试训练</h3>
+              <h3 style={{ fontSize: 17, fontWeight: 700, color: '#333333' }}>模拟面试训练</h3>
             </div>
-            <p style={{ fontSize: 13, color: 'var(--text-muted)', marginBottom: 14 }}>
+            <p style={{ fontSize: 13, color: '#777777', marginBottom: 14 }}>
               精选高频面试题，点击开始模拟练习，查看AI参考回答
             </p>
 
@@ -114,28 +114,37 @@ export default function JobPrep() {
               {interviewQuestions.map((item, i) => (
                 <div
                   key={i}
-                  className="glass-card"
                   style={{
                     padding: '14px 16px',
                     cursor: 'pointer',
-                    transition: 'all var(--transition)',
+                    transition: 'all 0.2s',
+                    background: '#FFFFFF',
+                    border: '1px solid #E0E0E0',
+                    borderRadius: 8,
                   }}
                   onClick={() => { setCurrentQ(item); setShowInterview(true); }}
-                  onMouseEnter={e => e.currentTarget.style.borderColor = 'var(--primary)'}
-                  onMouseLeave={e => e.currentTarget.style.borderColor = 'var(--border)'}
+                  onMouseEnter={e => {
+                    e.currentTarget.style.borderColor = '#222222';
+                    e.currentTarget.style.background = '#FAFAFA';
+                  }}
+                  onMouseLeave={e => {
+                    e.currentTarget.style.borderColor = '#E0E0E0';
+                    e.currentTarget.style.background = '#FFFFFF';
+                  }}
                 >
                   <div style={{ display: 'flex', alignItems: 'flex-start', gap: 10 }}>
                     <div style={{
                       width: 28, height: 28, borderRadius: '50%',
-                      background: 'var(--primary-light)',
+                      background: 'rgba(255,209,73,0.15)',
                       display: 'flex', alignItems: 'center', justifyContent: 'center',
-                      flexShrink: 0, fontSize: 13, fontWeight: 700, color: 'var(--primary)',
+                      flexShrink: 0, fontSize: 13, fontWeight: 700, color: '#333333',
+                      border: '1px solid #222222',
                     }}>{i + 1}</div>
                     <div style={{ flex: 1 }}>
-                      <div style={{ fontSize: 14, fontWeight: 600, marginBottom: 4 }}>{item.q}</div>
-                      <div style={{ fontSize: 12, color: 'var(--text-muted)' }}>💡 {item.hint}</div>
+                      <div style={{ fontSize: 14, fontWeight: 600, marginBottom: 4, color: '#333333' }}>{item.q}</div>
+                      <div style={{ fontSize: 12, color: '#777777' }}>💡 {item.hint}</div>
                     </div>
-                    <span style={{ color: 'var(--primary)', fontSize: 16 }}>→</span>
+                    <span style={{ color: '#333333', fontSize: 16 }}>→</span>
                   </div>
                 </div>
               ))}
@@ -144,12 +153,13 @@ export default function JobPrep() {
             <div style={{
               marginTop: 16,
               padding: 14,
-              background: '#f0f4ff',
-              borderRadius: 10,
+              background: '#FAFAFA',
+              borderRadius: 8,
+              border: '1px solid #E0E0E0',
               textAlign: 'center',
             }}>
-              <div style={{ fontSize: 13, fontWeight: 600, marginBottom: 4 }}>🎯 面试准备建议</div>
-              <p style={{ fontSize: 13, color: 'var(--text-secondary)', lineHeight: 1.6 }}>
+              <div style={{ fontSize: 13, fontWeight: 600, marginBottom: 4, color: '#333333' }}>🎯 面试准备建议</div>
+              <p style={{ fontSize: 13, color: '#777777', lineHeight: 1.6 }}>
                 建议每天练习2-3道面试题，录制自己的回答并回看，重点改进表达逻辑和案例数据。
               </p>
             </div>
@@ -169,45 +179,45 @@ export default function JobPrep() {
           <div style={{ padding: '8px 0' }}>
             <div style={{
               padding: 16,
-              background: '#f8fafc',
-              borderRadius: 10,
+              background: '#FAFAFA',
+              borderRadius: 8,
               marginBottom: 16,
-              border: '1px solid var(--border)',
+              border: '1px solid #E0E0E0',
             }}>
-              <div style={{ fontSize: 13, fontWeight: 600, color: 'var(--text-muted)', marginBottom: 6 }}>❓ 面试问题</div>
-              <div style={{ fontSize: 16, fontWeight: 700 }}>{currentQ.q}</div>
+              <div style={{ fontSize: 13, fontWeight: 600, color: '#777777', marginBottom: 6 }}>❓ 面试问题</div>
+              <div style={{ fontSize: 16, fontWeight: 700, color: '#333333' }}>{currentQ.q}</div>
             </div>
 
             <div style={{
               padding: 16,
-              background: '#fff7ed',
-              borderRadius: 10,
+              background: '#FAFAFA',
+              borderRadius: 8,
               marginBottom: 16,
-              border: '1px solid #fed7aa',
+              border: '1px solid #E0E0E0',
             }}>
-              <div style={{ fontSize: 13, fontWeight: 600, color: '#f59e0b', marginBottom: 6 }}>💡 回答提示</div>
-              <div style={{ fontSize: 14, lineHeight: 1.7 }}>{currentQ.hint}</div>
+              <div style={{ fontSize: 13, fontWeight: 600, color: '#333333', marginBottom: 6 }}>💡 回答提示</div>
+              <div style={{ fontSize: 14, lineHeight: 1.7, color: '#333333' }}>{currentQ.hint}</div>
             </div>
 
             <div style={{
               padding: 16,
-              background: '#eff6ff',
-              borderRadius: 10,
-              border: '1px solid #bfdbfe',
+              background: '#FAFAFA',
+              borderRadius: 8,
+              border: '1px solid #E0E0E0',
             }}>
-              <div style={{ fontSize: 13, fontWeight: 600, color: 'var(--primary)', marginBottom: 6 }}>🤖 AI参考回答</div>
-              <div style={{ fontSize: 14, lineHeight: 1.8 }}>{currentQ.example}</div>
+              <div style={{ fontSize: 13, fontWeight: 600, color: '#4A86E8', marginBottom: 6 }}>🤖 AI参考回答</div>
+              <div style={{ fontSize: 14, lineHeight: 1.8, color: '#333333' }}>{currentQ.example}</div>
             </div>
 
             <div style={{
               marginTop: 16,
               padding: 12,
-              background: '#f0fdf4',
-              borderRadius: 10,
-              border: '1px solid #bbf7d0',
+              background: '#FAFAFA',
+              borderRadius: 8,
+              border: '1px solid #E0E0E0',
               textAlign: 'center',
               fontSize: 13,
-              color: '#10b981',
+              color: '#333333',
             }}>
               🐧 e职伴提示：用自己的语言重新组织回答，结合真实经历更有说服力！
             </div>

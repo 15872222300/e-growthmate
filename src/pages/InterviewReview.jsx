@@ -196,18 +196,19 @@ export default function InterviewReview() {
 
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(420px, 1fr))', gap: 24 }}>
         {/* 左侧：输入区域 */}
-        <Card bordered style={{ borderRadius: 'var(--radius-lg)' }}>
+        <Card bordered style={{ borderRadius: 8, border: '1px solid #E0E0E0' }}>
           <div style={{ padding: 8 }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 16 }}>
               <span style={{ fontSize: 24 }}>🎙️</span>
-              <h3 style={{ fontSize: 17, fontWeight: 700 }}>新建复盘</h3>
+              <h3 style={{ fontSize: 17, fontWeight: 700, color: '#333333' }}>新建复盘</h3>
             </div>
 
             {/* 输入方式切换 */}
             <div style={{
               display: 'flex',
-              background: 'var(--bg)',
-              borderRadius: 10,
+              background: '#FAFAFA',
+              borderRadius: 8,
+              border: '1px solid #E0E0E0',
               padding: 4,
               marginBottom: 16,
             }}>
@@ -221,15 +222,14 @@ export default function InterviewReview() {
                   style={{
                     flex: 1,
                     padding: '10px 12px',
-                    border: 'none',
+                    border: activeTab === tab.key ? '1px solid #222222' : '1px solid transparent',
                     borderRadius: 8,
                     cursor: 'pointer',
                     fontSize: 13,
                     fontWeight: 600,
-                    transition: 'all var(--transition)',
-                    background: activeTab === tab.key ? '#fff' : 'transparent',
-                    color: activeTab === tab.key ? 'var(--primary)' : 'var(--text-muted)',
-                    boxShadow: activeTab === tab.key ? 'var(--shadow-sm)' : 'none',
+                    transition: 'all 0.2s',
+                    background: activeTab === tab.key ? '#FFFFFF' : 'transparent',
+                    color: activeTab === tab.key ? '#333333' : '#777777',
                   }}
                 >
                   {tab.icon} {tab.label}
@@ -243,14 +243,14 @@ export default function InterviewReview() {
                 <div
                   onClick={() => fileInputRef.current?.click()}
                   style={{
-                    border: '2px dashed var(--border)',
-                    borderRadius: 12,
+                    border: '2px dashed #E0E0E0',
+                    borderRadius: 8,
                     padding: '28px 20px',
                     textAlign: 'center',
                     cursor: 'pointer',
-                    transition: 'all var(--transition)',
-                    background: voiceFile ? '#f0fdf4' : '#fafafa',
-                    borderColor: voiceFile ? '#10b981' : 'var(--border)',
+                    transition: 'all 0.2s',
+                    background: voiceFile ? '#FAFAFA' : '#FFFFFF',
+                    borderColor: voiceFile ? '#222222' : '#E0E0E0',
                   }}
                 >
                   <input
@@ -263,23 +263,23 @@ export default function InterviewReview() {
                   {voiceFile ? (
                     <div>
                       <div style={{ fontSize: 36, marginBottom: 8 }}>🎵</div>
-                      <div style={{ fontSize: 14, fontWeight: 600, color: '#10b981' }}>{voiceFile.name}</div>
-                      <div style={{ fontSize: 12, color: 'var(--text-muted)', marginTop: 4 }}>
+                      <div style={{ fontSize: 14, fontWeight: 600, color: '#333333' }}>{voiceFile.name}</div>
+                      <div style={{ fontSize: 12, color: '#777777', marginTop: 4 }}>
                         {(voiceFile.size / 1024 / 1024).toFixed(1)} MB · 点击重新上传
                       </div>
                     </div>
                   ) : (
                     <div>
                       <div style={{ fontSize: 36, marginBottom: 8 }}>🎤</div>
-                      <div style={{ fontSize: 14, fontWeight: 600 }}>点击上传面试录音</div>
-                      <div style={{ fontSize: 12, color: 'var(--text-muted)', marginTop: 4 }}>
+                      <div style={{ fontSize: 14, fontWeight: 600, color: '#333333' }}>点击上传面试录音</div>
+                      <div style={{ fontSize: 12, color: '#777777', marginTop: 4 }}>
                         支持 mp3 / wav / m4a / ogg 格式，最大50MB
                       </div>
                     </div>
                   )}
                 </div>
                 {isAnalyzing && activeTab === 'voice' && (
-                  <div style={{ textAlign: 'center', marginTop: 12, fontSize: 13, color: 'var(--text-muted)' }}>
+                  <div style={{ textAlign: 'center', marginTop: 12, fontSize: 13, color: '#777777' }}>
                     <span className="animate-pulse">⏳ 正在模拟语音转文字...</span>
                   </div>
                 )}
@@ -289,7 +289,7 @@ export default function InterviewReview() {
             {/* 公司和职位信息 */}
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10, marginBottom: 14 }}>
               <div>
-                <div style={{ fontSize: 13, fontWeight: 600, marginBottom: 4 }}>🏢 面试公司</div>
+                <div style={{ fontSize: 13, fontWeight: 600, marginBottom: 4, color: '#333333' }}>🏢 面试公司</div>
                 <Input
                   value={companyName}
                   onChange={setCompanyName}
@@ -298,7 +298,7 @@ export default function InterviewReview() {
                 />
               </div>
               <div>
-                <div style={{ fontSize: 13, fontWeight: 600, marginBottom: 4 }}>💼 面试岗位</div>
+                <div style={{ fontSize: 13, fontWeight: 600, marginBottom: 4, color: '#333333' }}>💼 面试岗位</div>
                 <Input
                   value={positionName}
                   onChange={setPositionName}
@@ -310,7 +310,7 @@ export default function InterviewReview() {
 
             {/* 复盘类型选择 */}
             <div style={{ marginBottom: 14 }}>
-              <div style={{ fontSize: 13, fontWeight: 600, marginBottom: 8 }}>📂 面试类型</div>
+              <div style={{ fontSize: 13, fontWeight: 600, marginBottom: 8, color: '#333333' }}>📂 面试类型</div>
               <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>
                 {Object.entries(REVIEW_TEMPLATES).map(([key, tpl]) => (
                   <button
@@ -318,14 +318,14 @@ export default function InterviewReview() {
                     onClick={() => setReviewType(key)}
                     style={{
                       padding: '6px 14px',
-                      border: `2px solid ${reviewType === key ? 'var(--primary)' : 'var(--border)'}`,
-                      borderRadius: 20,
+                      border: `1px solid ${reviewType === key ? '#222222' : '#E0E0E0'}`,
+                      borderRadius: 8,
                       cursor: 'pointer',
                       fontSize: 12,
                       fontWeight: 600,
-                      transition: 'all var(--transition)',
-                      background: reviewType === key ? 'var(--primary-light)' : '#fff',
-                      color: reviewType === key ? 'var(--primary)' : 'var(--text-secondary)',
+                      transition: 'all 0.2s',
+                      background: reviewType === key ? 'rgba(255,209,73,0.1)' : '#FFFFFF',
+                      color: reviewType === key ? '#333333' : '#777777',
                     }}
                   >
                     {tpl.title}
@@ -336,7 +336,7 @@ export default function InterviewReview() {
 
             {/* 内容输入 */}
             <div style={{ marginBottom: 14 }}>
-              <div style={{ fontSize: 13, fontWeight: 600, marginBottom: 6 }}>
+              <div style={{ fontSize: 13, fontWeight: 600, marginBottom: 6, color: '#333333' }}>
                 {activeTab === 'voice' ? '📝 转文字内容（可编辑）' : '✍️ 面试内容回忆'}
               </div>
               <Textarea
@@ -350,7 +350,7 @@ export default function InterviewReview() {
                 autosize={{ minRows: 8, maxRows: 16 }}
                 maxlength={5000}
               />
-              <div style={{ fontSize: 11, color: 'var(--text-muted)', marginTop: 4, textAlign: 'right' }}>
+              <div style={{ fontSize: 11, color: '#777777', marginTop: 4, textAlign: 'right' }}>
                 {inputContent.length}/5000
               </div>
             </div>
@@ -370,10 +370,11 @@ export default function InterviewReview() {
             <div style={{
               marginTop: 12,
               padding: 10,
-              background: '#f0f4ff',
+              background: '#FAFAFA',
               borderRadius: 8,
+              border: '1px solid #E0E0E0',
               fontSize: 12,
-              color: 'var(--text-secondary)',
+              color: '#777777',
               textAlign: 'center',
             }}>
               🐧 小贴士：越详细的回忆越有助于AI给出精准的复盘建议哦
@@ -382,18 +383,19 @@ export default function InterviewReview() {
         </Card>
 
         {/* 右侧：历史记录 */}
-        <Card bordered style={{ borderRadius: 'var(--radius-lg)' }}>
+        <Card bordered style={{ borderRadius: 8, border: '1px solid #E0E0E0' }}>
           <div style={{ padding: 8 }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 16 }}>
               <span style={{ fontSize: 24 }}>📋</span>
-              <h3 style={{ fontSize: 17, fontWeight: 700 }}>复盘历史</h3>
+              <h3 style={{ fontSize: 17, fontWeight: 700, color: '#333333' }}>复盘历史</h3>
               <span style={{
                 marginLeft: 'auto',
                 fontSize: 12,
-                color: 'var(--text-muted)',
-                background: 'var(--bg)',
+                color: '#777777',
+                background: '#FAFAFA',
                 padding: '2px 10px',
-                borderRadius: 10,
+                borderRadius: 8,
+                border: '1px solid #E0E0E0',
               }}>
                 {reviews.length} 条记录
               </span>
@@ -403,10 +405,10 @@ export default function InterviewReview() {
               <div style={{
                 textAlign: 'center',
                 padding: '48px 20px',
-                color: 'var(--text-muted)',
+                color: '#777777',
               }}>
                 <div style={{ fontSize: 48, marginBottom: 12 }}>📭</div>
-                <div style={{ fontSize: 14, fontWeight: 600, marginBottom: 4 }}>暂无复盘记录</div>
+                <div style={{ fontSize: 14, fontWeight: 600, marginBottom: 4, color: '#333333' }}>暂无复盘记录</div>
                 <div style={{ fontSize: 12 }}>输入面试内容开始第一次复盘吧</div>
               </div>
             ) : (
@@ -414,12 +416,23 @@ export default function InterviewReview() {
                 {reviews.map((review) => (
                   <div
                     key={review.id}
-                    className="glass-card"
                     style={{
                       padding: '14px 16px',
                       cursor: 'pointer',
+                      background: '#FFFFFF',
+                      border: '1px solid #E0E0E0',
+                      borderRadius: 8,
+                      transition: 'all 0.2s',
                     }}
                     onClick={() => handleViewDetail(review)}
+                    onMouseEnter={e => {
+                      e.currentTarget.style.borderColor = '#222222';
+                      e.currentTarget.style.background = '#FAFAFA';
+                    }}
+                    onMouseLeave={e => {
+                      e.currentTarget.style.borderColor = '#E0E0E0';
+                      e.currentTarget.style.background = '#FFFFFF';
+                    }}
                   >
                     <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between' }}>
                       <div style={{ flex: 1 }}>
@@ -431,16 +444,16 @@ export default function InterviewReview() {
                             {review.type === 'voice' ? '🎤 录音' : '🧠 记忆'}
                           </Tag>
                         </div>
-                        <div style={{ fontSize: 13, fontWeight: 600, marginBottom: 2 }}>
+                        <div style={{ fontSize: 13, fontWeight: 600, marginBottom: 2, color: '#333333' }}>
                           {review.companyName} · {review.positionName}
                         </div>
-                        <div style={{ fontSize: 12, color: 'var(--text-secondary)', marginBottom: 4 }}>
+                        <div style={{ fontSize: 12, color: '#777777', marginBottom: 4 }}>
                           {review.content.slice(0, 60)}{review.content.length > 60 ? '...' : ''}
                         </div>
-                        <div style={{ display: 'flex', alignItems: 'center', gap: 12, fontSize: 11, color: 'var(--text-muted)' }}>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: 12, fontSize: 11, color: '#777777' }}>
                           <span>📅 {formatTime(review.createdAt)}</span>
                           <span style={{
-                            color: review.result.avgScore >= 75 ? '#10b981' : review.result.avgScore >= 60 ? '#f59e0b' : '#ef4444',
+                            color: review.result.avgScore >= 75 ? '#333333' : review.result.avgScore >= 60 ? '#333333' : '#333333',
                             fontWeight: 700,
                           }}>
                             综合 {review.result.avgScore} 分
@@ -502,8 +515,9 @@ export default function InterviewReview() {
               alignItems: 'center',
               gap: 16,
               padding: 20,
-              background: 'linear-gradient(135deg, #eff6ff 0%, #ede9fe 100%)',
-              borderRadius: 14,
+              background: '#FAFAFA',
+              borderRadius: 8,
+              border: '1px solid #E0E0E0',
               marginBottom: 20,
             }}>
               <div style={{
@@ -511,14 +525,15 @@ export default function InterviewReview() {
                 height: 72,
                 borderRadius: '50%',
                 background: currentResult.avgScore >= 75
-                  ? 'linear-gradient(135deg, #10b981, #34d399)'
+                  ? '#FFD149'
                   : currentResult.avgScore >= 60
-                    ? 'linear-gradient(135deg, #f59e0b, #fbbf24)'
-                    : 'linear-gradient(135deg, #ef4444, #f87171)',
+                    ? '#FFD149'
+                    : '#F5F5F5',
+                border: '1px solid #222222',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                color: '#fff',
+                color: '#333333',
                 fontSize: 24,
                 fontWeight: 800,
                 flexShrink: 0,
@@ -526,15 +541,15 @@ export default function InterviewReview() {
                 {currentResult.avgScore}
               </div>
               <div>
-                <div style={{ fontSize: 15, fontWeight: 700, marginBottom: 2 }}>
+                <div style={{ fontSize: 15, fontWeight: 700, marginBottom: 2, color: '#333333' }}>
                   {currentResult.templateName} · 综合评分
                 </div>
-                <div style={{ fontSize: 13, color: 'var(--text-secondary)' }}>
+                <div style={{ fontSize: 13, color: '#777777' }}>
                   {currentResult.avgScore >= 80 ? '表现优秀！继续保持' :
                     currentResult.avgScore >= 65 ? '表现良好，有提升空间' :
                       '需要重点关注和改进'}
                 </div>
-                <div style={{ fontSize: 11, color: 'var(--text-muted)', marginTop: 2 }}>
+                <div style={{ fontSize: 11, color: '#777777', marginTop: 2 }}>
                   分析时间：{formatTime(currentResult.analyzedAt)}
                 </div>
               </div>
@@ -542,11 +557,11 @@ export default function InterviewReview() {
 
             {/* 各维度得分 */}
             <div style={{ marginBottom: 20 }}>
-              <div style={{ fontSize: 14, fontWeight: 700, marginBottom: 12 }}>📊 维度得分</div>
+              <div style={{ fontSize: 14, fontWeight: 700, marginBottom: 12, color: '#333333' }}>📊 维度得分</div>
               <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
                 {currentResult.dimScores.map((dim, i) => (
                   <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-                    <div style={{ width: 80, fontSize: 13, fontWeight: 600, flexShrink: 0 }}>{dim.name}</div>
+                    <div style={{ width: 80, fontSize: 13, fontWeight: 600, flexShrink: 0, color: '#333333' }}>{dim.name}</div>
                     <div style={{ flex: 1 }}>
                       <Progress
                         percentage={dim.score}
@@ -559,7 +574,7 @@ export default function InterviewReview() {
                       fontSize: 13,
                       fontWeight: 700,
                       textAlign: 'right',
-                      color: dim.score >= 75 ? '#10b981' : dim.score >= 60 ? '#f59e0b' : '#ef4444',
+                      color: dim.score >= 75 ? '#333333' : dim.score >= 60 ? '#333333' : '#333333',
                     }}>
                       {dim.score}
                     </div>
@@ -572,36 +587,36 @@ export default function InterviewReview() {
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16, marginBottom: 20 }}>
               <div style={{
                 padding: 16,
-                background: '#f0fdf4',
-                borderRadius: 10,
-                border: '1px solid #bbf7d0',
+                background: '#FAFAFA',
+                borderRadius: 8,
+                border: '1px solid #E0E0E0',
               }}>
-                <div style={{ fontSize: 14, fontWeight: 700, color: '#10b981', marginBottom: 8 }}>✅ 表现亮点</div>
+                <div style={{ fontSize: 14, fontWeight: 700, color: '#333333', marginBottom: 8 }}>✅ 表现亮点</div>
                 {currentResult.strengths.length > 0 ? (
-                  <ul style={{ margin: 0, paddingLeft: 18, fontSize: 13, lineHeight: 1.8, color: 'var(--text-secondary)' }}>
+                  <ul style={{ margin: 0, paddingLeft: 18, fontSize: 13, lineHeight: 1.8, color: '#777777' }}>
                     {currentResult.strengths.map((s, i) => (
                       <li key={i}>{s}方面表现较好</li>
                     ))}
                   </ul>
                 ) : (
-                  <div style={{ fontSize: 13, color: 'var(--text-muted)' }}>暂无突出亮点，继续加油！</div>
+                  <div style={{ fontSize: 13, color: '#777777' }}>暂无突出亮点，继续加油！</div>
                 )}
               </div>
               <div style={{
                 padding: 16,
-                background: '#fef2f2',
-                borderRadius: 10,
-                border: '1px solid #fecaca',
+                background: '#FAFAFA',
+                borderRadius: 8,
+                border: '1px solid #E0E0E0',
               }}>
-                <div style={{ fontSize: 14, fontWeight: 700, color: '#ef4444', marginBottom: 8 }}>⚠️ 需要改进</div>
+                <div style={{ fontSize: 14, fontWeight: 700, color: '#333333', marginBottom: 8 }}>⚠️ 需要改进</div>
                 {currentResult.improvements.length > 0 ? (
-                  <ul style={{ margin: 0, paddingLeft: 18, fontSize: 13, lineHeight: 1.8, color: 'var(--text-secondary)' }}>
+                  <ul style={{ margin: 0, paddingLeft: 18, fontSize: 13, lineHeight: 1.8, color: '#777777' }}>
                     {currentResult.improvements.map((s, i) => (
                       <li key={i}>{s}需要加强</li>
                     ))}
                   </ul>
                 ) : (
-                  <div style={{ fontSize: 13, color: 'var(--text-muted)' }}>各方面表现均衡，保持住！</div>
+                  <div style={{ fontSize: 13, color: '#777777' }}>各方面表现均衡，保持住！</div>
                 )}
               </div>
             </div>
@@ -609,13 +624,13 @@ export default function InterviewReview() {
             {/* 改进建议 */}
             <div style={{
               padding: 16,
-              background: '#fff7ed',
-              borderRadius: 10,
-              border: '1px solid #fed7aa',
+              background: '#FAFAFA',
+              borderRadius: 8,
+              border: '1px solid #E0E0E0',
               marginBottom: 16,
             }}>
-              <div style={{ fontSize: 14, fontWeight: 700, color: '#f59e0b', marginBottom: 8 }}>💡 改进建议</div>
-              <ul style={{ margin: 0, paddingLeft: 18, fontSize: 13, lineHeight: 2, color: 'var(--text-secondary)' }}>
+              <div style={{ fontSize: 14, fontWeight: 700, color: '#333333', marginBottom: 8 }}>💡 改进建议</div>
+              <ul style={{ margin: 0, paddingLeft: 18, fontSize: 13, lineHeight: 2, color: '#777777' }}>
                 {currentResult.suggestions.map((s, i) => (
                   <li key={i}>{s}</li>
                 ))}
@@ -627,11 +642,12 @@ export default function InterviewReview() {
               display: 'flex',
               gap: 16,
               fontSize: 12,
-              color: 'var(--text-muted)',
+              color: '#777777',
               justifyContent: 'center',
               padding: 10,
-              background: 'var(--bg)',
+              background: '#FAFAFA',
               borderRadius: 8,
+              border: '1px solid #E0E0E0',
             }}>
               <span>📝 内容字数：{currentResult.wordCount}</span>
               <span>📋 分析维度：{currentResult.dimScores.length}项</span>

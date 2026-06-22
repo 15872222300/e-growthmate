@@ -17,17 +17,19 @@ export default function ProjectWorkshop() {
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(340px, 1fr))', gap: 20 }}>
         {projectTemplates.map((proj, i) => (
           <Card key={proj.id} bordered style={{
-            borderRadius: 'var(--radius-lg)',
+            borderRadius: 8,
             animation: `fadeInUp 0.4s ease-out ${i * 0.1}s both`,
             cursor: 'pointer',
+            border: '1px solid #E0E0E0',
           }}
             onClick={() => setSelected(proj)}
           >
             <div style={{ padding: 8 }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 10 }}>
                 <div style={{
-                  width: 44, height: 44, borderRadius: 12,
-                  background: 'var(--primary-light)',
+                  width: 44, height: 44, borderRadius: 8,
+                  background: 'rgba(255,209,73,0.1)',
+                  border: '1px solid #222222',
                   display: 'flex', alignItems: 'center', justifyContent: 'center',
                   fontSize: 22,
                 }}>{proj.icon}</div>
@@ -35,16 +37,17 @@ export default function ProjectWorkshop() {
                   <Tag size="small" variant="light" theme="primary">{proj.direction}</Tag>
                 </div>
               </div>
-              <h3 style={{ fontSize: 17, fontWeight: 700, marginBottom: 8 }}>{proj.title}</h3>
-              <p style={{ fontSize: 14, color: 'var(--text-secondary)', lineHeight: 1.7, marginBottom: 12 }}>
+              <h3 style={{ fontSize: 17, fontWeight: 700, marginBottom: 8, color: '#333333' }}>{proj.title}</h3>
+              <p style={{ fontSize: 14, color: '#777777', lineHeight: 1.7, marginBottom: 12 }}>
                 🎯 {proj.goal}
               </p>
               <div style={{
                 padding: '8px 14px',
-                background: 'var(--bg)',
+                background: '#FAFAFA',
                 borderRadius: 8,
+                border: '1px solid #E0E0E0',
                 fontSize: 13,
-                color: 'var(--primary)',
+                color: '#333333',
                 fontWeight: 600,
                 textAlign: 'center',
               }}>
@@ -93,22 +96,22 @@ export default function ProjectWorkshop() {
 
             <div style={{
               padding: '14px 16px',
-              background: '#f0fdf4',
-              borderRadius: 10,
-              border: '1px solid #bbf7d0',
+              background: '#FAFAFA',
+              borderRadius: 8,
+              border: '1px solid #E0E0E0',
             }}>
-              <div style={{ fontSize: 13, fontWeight: 600, color: '#10b981', marginBottom: 4 }}>📦 产出物</div>
-              <div style={{ fontSize: 14, fontWeight: 600 }}>{selected.output}</div>
+              <div style={{ fontSize: 13, fontWeight: 600, color: '#333333', marginBottom: 4 }}>📦 产出物</div>
+              <div style={{ fontSize: 14, fontWeight: 600, color: '#333333' }}>{selected.output}</div>
             </div>
 
             <div style={{
               padding: '14px 16px',
-              background: '#eff6ff',
-              borderRadius: 10,
-              border: '1px solid #bfdbfe',
+              background: '#FAFAFA',
+              borderRadius: 8,
+              border: '1px solid #E0E0E0',
             }}>
-              <div style={{ fontSize: 13, fontWeight: 600, color: 'var(--primary)', marginBottom: 4 }}>💼 可写入简历的表达方式</div>
-              <p style={{ fontSize: 13, lineHeight: 1.7, color: 'var(--text)' }}>{selected.resume}</p>
+              <div style={{ fontSize: 13, fontWeight: 600, color: '#333333', marginBottom: 4 }}>💼 可写入简历的表达方式</div>
+              <p style={{ fontSize: 13, lineHeight: 1.7, color: '#333333' }}>{selected.resume}</p>
               <Button
                 size="small"
                 variant="text"

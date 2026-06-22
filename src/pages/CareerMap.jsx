@@ -6,9 +6,9 @@ import { careerCards } from '../data/mockData';
 const { StepItem } = Steps;
 
 const LEVEL_CONFIG = {
-  '入门': { color: '#10b981', bg: '#d1fae5' },
-  '进阶': { color: '#f59e0b', bg: '#fef3c7' },
-  '高阶': { color: '#ef4444', bg: '#fee2e2' },
+  '入门': { color: '#333333', bg: '#FAFAFA' },
+  '进阶': { color: '#333333', bg: '#FAFAFA' },
+  '高阶': { color: '#333333', bg: '#FAFAFA' },
 };
 
 export default function CareerMap() {
@@ -30,44 +30,50 @@ export default function CareerMap() {
         {careerCards.map((card, i) => (
           <div
             key={card.id}
-            className="glass-card animate-fade-in-up"
+            className="animate-fade-in-up"
             style={{
               padding: 0,
               cursor: 'pointer',
               overflow: 'hidden',
               animationDelay: `${i * 0.08}s`,
-              borderTop: `4px solid ${card.color}`,
+              borderTop: '3px solid #222222',
+              border: '1px solid #E0E0E0',
+              borderRadius: 8,
+              background: '#FFFFFF',
             }}
             onClick={() => setSelected(card)}
           >
             <div style={{ padding: '24px 24px 20px' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 12 }}>
                 <div style={{
-                  width: 48, height: 48, borderRadius: 14,
-                  background: card.bg,
+                  width: 48, height: 48, borderRadius: 8,
+                  background: 'rgba(255,209,73,0.1)',
+                  border: '1px solid #222222',
                   display: 'flex', alignItems: 'center', justifyContent: 'center',
                   fontSize: 24,
                 }}>{card.icon}</div>
-                <h3 style={{ fontSize: 18, fontWeight: 700 }}>{card.title}</h3>
+                <h3 style={{ fontSize: 18, fontWeight: 700, color: '#333333' }}>{card.title}</h3>
               </div>
-              <p style={{ fontSize: 14, color: 'var(--text-secondary)', lineHeight: 1.7, marginBottom: 12 }}>
+              <p style={{ fontSize: 14, color: '#777777', lineHeight: 1.7, marginBottom: 12 }}>
                 {card.intro}
               </p>
               <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>
                 {card.abilities.slice(0, 3).map(a => (
                   <span key={a} style={{
-                    fontSize: 12, padding: '3px 10px', borderRadius: 20,
-                    background: card.bg, color: card.color, fontWeight: 500,
+                    fontSize: 12, padding: '3px 10px', borderRadius: 8,
+                    background: '#FAFAFA', color: '#333333', fontWeight: 500,
+                    border: '1px solid #E0E0E0',
                   }}>{a}</span>
                 ))}
-                <span style={{ fontSize: 12, color: 'var(--text-muted)', padding: '3px 4px' }}>+{card.abilities.length - 3}更多</span>
+                <span style={{ fontSize: 12, color: '#777777', padding: '3px 4px' }}>+{card.abilities.length - 3}更多</span>
               </div>
             </div>
             <div style={{
               padding: '12px 24px',
-              background: card.bg,
-              fontSize: 13, color: card.color, fontWeight: 600,
+              background: '#FAFAFA',
+              fontSize: 13, color: '#333333', fontWeight: 600,
               textAlign: 'center',
+              borderTop: '1px solid #E0E0E0',
             }}>
               点击查看详情 →
             </div>
@@ -99,26 +105,27 @@ export default function CareerMap() {
         >
           <div style={{ padding: '8px 0', display: 'flex', flexDirection: 'column', gap: 16 }}>
             <div>
-              <h4 style={{ fontSize: 14, fontWeight: 700, color: selected.color, marginBottom: 6 }}>📖 岗位介绍</h4>
-              <p style={{ fontSize: 14, color: 'var(--text-secondary)', lineHeight: 1.7 }}>{selected.intro}</p>
+              <h4 style={{ fontSize: 14, fontWeight: 700, color: '#333333', marginBottom: 6 }}>📖 岗位介绍</h4>
+              <p style={{ fontSize: 14, color: '#777777', lineHeight: 1.7 }}>{selected.intro}</p>
             </div>
             <div>
-              <h4 style={{ fontSize: 14, fontWeight: 700, color: selected.color, marginBottom: 8 }}>🎯 核心能力要求</h4>
+              <h4 style={{ fontSize: 14, fontWeight: 700, color: '#333333', marginBottom: 8 }}>🎯 核心能力要求</h4>
               <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>
                 {selected.abilities.map((a, i) => (
                   <span key={i} style={{
-                    fontSize: 13, padding: '4px 14px', borderRadius: 20,
-                    background: selected.bg, color: selected.color, fontWeight: 500,
+                    fontSize: 13, padding: '4px 14px', borderRadius: 8,
+                    background: '#FAFAFA', color: '#333333', fontWeight: 500,
+                    border: '1px solid #E0E0E0',
                   }}>{a}</span>
                 ))}
               </div>
             </div>
             <div>
-              <h4 style={{ fontSize: 14, fontWeight: 700, color: selected.color, marginBottom: 6 }}>👤 适合人群</h4>
-              <p style={{ fontSize: 14, color: 'var(--text-secondary)', lineHeight: 1.7 }}>{selected.suitable}</p>
+              <h4 style={{ fontSize: 14, fontWeight: 700, color: '#333333', marginBottom: 6 }}>👤 适合人群</h4>
+              <p style={{ fontSize: 14, color: '#777777', lineHeight: 1.7 }}>{selected.suitable}</p>
             </div>
             <div>
-              <h4 style={{ fontSize: 14, fontWeight: 700, color: selected.color, marginBottom: 8 }}>📋 大学四年准备建议</h4>
+              <h4 style={{ fontSize: 14, fontWeight: 700, color: '#333333', marginBottom: 8 }}>📋 大学四年准备建议</h4>
               <Steps layout="vertical" current={-1}>
                 {selected.prep.map((p, i) => (
                   <StepItem key={i} title={p} />
@@ -126,11 +133,12 @@ export default function CareerMap() {
               </Steps>
             </div>
             <div>
-              <h4 style={{ fontSize: 14, fontWeight: 700, color: selected.color, marginBottom: 8 }}>🚀 推荐成长任务</h4>
+              <h4 style={{ fontSize: 14, fontWeight: 700, color: '#333333', marginBottom: 8 }}>🚀 推荐成长任务</h4>
               {selected.tasks.map((t, i) => (
                 <div key={i} style={{
-                  padding: '10px 14px', background: selected.bg, borderRadius: 10,
-                  marginBottom: 8, fontSize: 14, color: selected.color, fontWeight: 500,
+                  padding: '10px 14px', background: '#FAFAFA', borderRadius: 8,
+                  marginBottom: 8, fontSize: 14, color: '#333333', fontWeight: 500,
+                  border: '1px solid #E0E0E0',
                 }}>
                   📌 {t}
                 </div>
@@ -143,7 +151,7 @@ export default function CareerMap() {
                 <div style={{
                   display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 10,
                 }}>
-                  <h4 style={{ fontSize: 14, fontWeight: 700, color: selected.color, margin: 0 }}>
+                  <h4 style={{ fontSize: 14, fontWeight: 700, color: '#333333', margin: 0 }}>
                     📚 免费课程推荐
                   </h4>
                   {selectedCourses[selected.id]?.length > 0 && (
@@ -179,9 +187,9 @@ export default function CareerMap() {
                         key={idx}
                         style={{
                           padding: '14px 16px',
-                          background: isChecked ? selected.bg : '#f8fafc',
-                          borderRadius: 12,
-                          border: `1px solid ${isChecked ? selected.color : 'var(--border)'}`,
+                          background: isChecked ? 'rgba(255,209,73,0.08)' : '#FFFFFF',
+                          borderRadius: 8,
+                          border: `1px solid ${isChecked ? '#222222' : '#E0E0E0'}`,
                           cursor: 'pointer',
                           transition: 'all 0.2s',
                         }}
@@ -204,15 +212,15 @@ export default function CareerMap() {
                           />
                           <div style={{ flex: 1, minWidth: 0 }}>
                             <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 4, flexWrap: 'wrap' }}>
-                              <span style={{ fontSize: 14, fontWeight: 600, color: 'var(--text)' }}>
+                              <span style={{ fontSize: 14, fontWeight: 600, color: '#333333' }}>
                                 {course.title}
                               </span>
                               <Tag
                                 size="small"
                                 style={{
-                                  background: levelCfg.bg,
-                                  color: levelCfg.color,
-                                  border: 'none',
+                                  background: '#FAFAFA',
+                                  color: '#333333',
+                                  border: '1px solid #E0E0E0',
                                   fontSize: 11,
                                 }}
                               >
@@ -222,10 +230,10 @@ export default function CareerMap() {
                                 ⏱ {course.duration}
                               </Tag>
                             </div>
-                            <div style={{ fontSize: 12, color: 'var(--text-secondary)', lineHeight: 1.5, marginBottom: 4 }}>
+                            <div style={{ fontSize: 12, color: '#777777', lineHeight: 1.5, marginBottom: 4 }}>
                               {course.desc}
                             </div>
-                            <div style={{ fontSize: 11, color: 'var(--text-muted)' }}>
+                            <div style={{ fontSize: 11, color: '#777777' }}>
                               🏫 {course.platform}
                             </div>
                           </div>
@@ -238,11 +246,11 @@ export default function CareerMap() {
                   <div style={{
                     marginTop: 10,
                     padding: '10px 14px',
-                    background: '#f0fdf4',
-                    borderRadius: 10,
-                    border: '1px solid #bbf7d0',
+                    background: '#FAFAFA',
+                    borderRadius: 8,
+                    border: '1px solid #E0E0E0',
                     fontSize: 13,
-                    color: '#166534',
+                    color: '#333333',
                   }}>
                     ✅ 已选择 {selectedCourses[selected.id].length} 门课程
                     {coursePlanSaved && (
@@ -259,7 +267,7 @@ export default function CareerMap() {
                 <div style={{
                   display: 'flex', alignItems: 'center', gap: 8, marginBottom: 10,
                 }}>
-                  <h4 style={{ fontSize: 14, fontWeight: 700, color: '#7c3aed', margin: 0 }}>
+                  <h4 style={{ fontSize: 14, fontWeight: 700, color: '#333333', margin: 0 }}>
                     🚀 进阶付费课程
                   </h4>
                   <Tag size="small" theme="warning" variant="light">导师1v1指导</Tag>
@@ -270,9 +278,9 @@ export default function CareerMap() {
                       key={`adv-${idx}`}
                       style={{
                         padding: '16px',
-                        background: 'linear-gradient(135deg, #faf5ff 0%, #ede9fe 100%)',
-                        borderRadius: 14,
-                        border: '2px solid #c4b5fd',
+                        background: '#FAFAFA',
+                        borderRadius: 8,
+                        border: '1px solid #E0E0E0',
                         position: 'relative',
                         overflow: 'hidden',
                       }}
@@ -281,17 +289,19 @@ export default function CareerMap() {
                       {course.tag && (
                         <div style={{
                           position: 'absolute', top: 0, right: 0,
-                          background: course.tag === '热门' ? '#ef4444' : course.tag === '限时' ? '#f59e0b' : '#7c3aed',
-                          color: '#fff', fontSize: 11, fontWeight: 700,
-                          padding: '4px 12px', borderRadius: '0 12px 0 12px',
+                          background: '#FFD149',
+                          color: '#333333', fontSize: 11, fontWeight: 700,
+                          padding: '4px 12px', borderRadius: '0 8px 0 8px',
+                          border: '1px solid #222222',
                         }}>
                           🔥 {course.tag}
                         </div>
                       )}
                       <div style={{ display: 'flex', alignItems: 'flex-start', gap: 12 }}>
                         <div style={{
-                          width: 44, height: 44, borderRadius: 12,
-                          background: 'linear-gradient(135deg, #7c3aed, #a78bfa)',
+                          width: 44, height: 44, borderRadius: 8,
+                          background: '#FFD149',
+                          border: '1px solid #222222',
                           display: 'flex', alignItems: 'center', justifyContent: 'center',
                           fontSize: 20, flexShrink: 0,
                         }}>
@@ -299,27 +309,27 @@ export default function CareerMap() {
                         </div>
                         <div style={{ flex: 1, minWidth: 0 }}>
                           <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 4, flexWrap: 'wrap' }}>
-                            <span style={{ fontSize: 14, fontWeight: 700, color: '#5b21b6' }}>
+                            <span style={{ fontSize: 14, fontWeight: 700, color: '#333333' }}>
                               {course.title}
                             </span>
                             <Tag size="small" style={{
-                              background: '#fef3c7', color: '#92400e', border: 'none', fontSize: 11,
+                              background: '#FAFAFA', color: '#333333', border: '1px solid #E0E0E0', fontSize: 11,
                             }}>
                               {course.level}
                             </Tag>
                           </div>
-                          <div style={{ fontSize: 12, color: '#6d28d9', lineHeight: 1.6, marginBottom: 8 }}>
+                          <div style={{ fontSize: 12, color: '#777777', lineHeight: 1.6, marginBottom: 8 }}>
                             {course.desc}
                           </div>
                           <div style={{ display: 'flex', alignItems: 'center', gap: 12, flexWrap: 'wrap' }}>
-                            <span style={{ fontSize: 11, color: 'var(--text-muted)' }}>
+                            <span style={{ fontSize: 11, color: '#777777' }}>
                               🏫 {course.platform}
                             </span>
-                            <span style={{ fontSize: 11, color: 'var(--text-muted)' }}>
+                            <span style={{ fontSize: 11, color: '#777777' }}>
                               ⏱ {course.duration}
                             </span>
                             <span style={{
-                              fontSize: 18, fontWeight: 800, color: '#ef4444',
+                              fontSize: 18, fontWeight: 800, color: '#333333',
                               marginLeft: 'auto',
                             }}>
                               {course.price}
